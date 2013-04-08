@@ -115,7 +115,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             BitPack.WriteGuidMask(GuidMask);
             BitPack.Write(0);
             BitPack.Write(0);
-            BitPack.Write(chatMessage.Message.Length, 12);
+            BitPack.WriteStringLength(chatMessage.Message, 12);
             BitPack.Write(!chatMessage.HasRealmId);
             BitPack.WriteGuidMask(GuidMask3);
             BitPack.Write(1);

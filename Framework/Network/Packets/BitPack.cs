@@ -17,6 +17,7 @@
 
 using System;
 using System.Globalization;
+using System.Text;
 
 namespace Framework.Network.Packets
 {
@@ -70,6 +71,18 @@ namespace Framework.Network.Packets
             {
                 for (int i = count - 1; i >= 0; --i)
                     Write<T>((T)Convert.ChangeType(((Convert.ToInt32(bit, CultureInfo.InvariantCulture) >> i) & 1), typeof(T), CultureInfo.InvariantCulture));
+            }
+        }
+
+        public void WriteStringLength(string data, int count)
+        {
+            byte[] sBytes = UTF8Encoding.UTF8.GetBytes(data);
+            var length = sBytes.Length;
+
+            checked
+            {
+                for (int i = count - 1; i >= 0; --i)
+                    Write((length >> i) & 1);
             }
         }
 

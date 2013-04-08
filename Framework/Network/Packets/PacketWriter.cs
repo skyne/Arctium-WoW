@@ -139,10 +139,8 @@ namespace Framework.Network.Packets
         {
             byte[] sBytes = UTF8Encoding.UTF8.GetBytes(data);
 
-            if (sBytes.Length == 0)
-                sBytes = new byte[1];
-
-            WriteBytes(sBytes);
+            if (sBytes.Length != 0)
+                WriteBytes(sBytes);
         }
 
         public void WriteUnixTime()
