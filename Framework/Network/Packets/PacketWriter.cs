@@ -135,12 +135,14 @@ namespace Framework.Network.Packets
             WriteUInt8(0);
         }
 
-        public void WriteString(string data)
+        public void WriteString(string data, bool nullIfEmpty = true)
         {
             byte[] sBytes = UTF8Encoding.UTF8.GetBytes(data);
 
-            if (sBytes.Length != 0)
-                WriteBytes(sBytes);
+            if (sBytes.Length == 0 && nullIfEmpty)
+                sBytes = new byte[1];
+            
+            WriteBytes(sBytes);
         }
 
         public void WriteUnixTime()

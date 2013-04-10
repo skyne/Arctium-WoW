@@ -128,7 +128,7 @@ namespace WorldServer.Game.Packets.PacketHandler
 
             BitPack.WriteGuidBytes(GuidBytes);
 
-            chat.WriteString(chatMessage.Message);
+            chat.WriteString(chatMessage.Message, false);
 
             if (chatMessage.HasRealmId)
                 chat.WriteInt32(chatMessage.RealmId);
