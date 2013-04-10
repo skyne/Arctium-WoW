@@ -61,7 +61,7 @@ namespace RealmServer
 
                     while (true)
                     {
-                        Log.Message(LogType.NORMAL, "Updating Realm List...");
+                        Log.Message(LogType.DEBUG, "Updating Realm List...");
 
                         using (var result = DB.Realms.Select("SELECT * FROM realms"))
                         {

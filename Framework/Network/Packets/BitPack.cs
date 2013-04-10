@@ -70,7 +70,7 @@ namespace Framework.Network.Packets
             checked
             {
                 for (int i = count - 1; i >= 0; --i)
-                    Write<T>((T)Convert.ChangeType(((Convert.ToInt32(bit, CultureInfo.InvariantCulture) >> i) & 1), typeof(T), CultureInfo.InvariantCulture));
+                    Write<T>((T)Convert.ChangeType(((Convert.ToInt32(bit) >> i) & 1), typeof(T)));
             }
         }
 
@@ -79,11 +79,7 @@ namespace Framework.Network.Packets
             byte[] sBytes = UTF8Encoding.UTF8.GetBytes(data);
             var length = sBytes.Length;
 
-            checked
-            {
-                for (int i = count - 1; i >= 0; --i)
-                    Write((length >> i) & 1);
-            }
+            Write<int>(length, count);
         }
 
         public void WriteGuidMask(params byte[] order)
