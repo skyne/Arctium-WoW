@@ -86,7 +86,7 @@ namespace Framework.Cryptography
             random.GetBytes(randBytes);
 
             b = MakeBigInteger(randBytes);
-            B = ((k * v + BigInteger.ModPow(g, b, BN)) % BN).ToByteArray();
+            B = GetBytes(((k * v + BigInteger.ModPow(g, b, BN)) % BN).ToByteArray());
         }
 
         public void CalculateU(byte[] a)
@@ -135,6 +135,9 @@ namespace Framework.Cryptography
 
         public byte[] GetBytes(byte[] data, int count = 32)
         {
+            if (data.Length == count)
+                return data;
+
             var bytes = new byte[count];
 
             Buffer.BlockCopy(data, 0, bytes, 0, 32);

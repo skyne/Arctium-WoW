@@ -43,7 +43,7 @@ namespace Framework.Network.Packets
                     Size = size;
 
                 Storage = new byte[Size];
-                Array.Copy(data, 4, Storage, 0, Size);
+                Buffer.BlockCopy(data, 4, Storage, 0, Size);
             }
         }
 

@@ -86,13 +86,14 @@ namespace WorldServer.Network
                             var length = BitConverter.ToUInt16(DataBuffer, 0) + 4;
 
                             var packetData = new byte[length];
-                            Array.Copy(DataBuffer, packetData, length);
+                            Buffer.BlockCopy(DataBuffer, 0, packetData, 0, length);
 
                             PacketReader packet = new PacketReader(packetData);
                             PacketQueue.Enqueue(packet);
 
                             recievedBytes -= length;
-                            Array.Copy(DataBuffer, length, DataBuffer, 0, recievedBytes);
+                            Buffer.BlockCopy(DataBuffer, length, DataBuffer, 0, recievedBytes);
+
                             OnData();
                         }
                     else
