@@ -27,15 +27,15 @@ namespace WorldServer.Game.Packets.PacketHandler
 {
     public class MoveHandler : Globals
     {
-        [Opcode(ClientMessage.MoveStartForward, "16769")]
-        [Opcode(ClientMessage.MoveStartBackward, "16769")]
-        [Opcode(ClientMessage.MoveStop, "16769")]
-        [Opcode(ClientMessage.MoveJump, "16769")]
-        [Opcode(ClientMessage.MoveStartTurnLeft, "16769")]
-        [Opcode(ClientMessage.MoveStartTurnRight, "16769")]
-        [Opcode(ClientMessage.MoveStopTurn, "16769")]
-        [Opcode(ClientMessage.MoveFallLand, "16769")]
-        [Opcode(ClientMessage.MoveHeartbeat, "16769")]
+        [Opcode(ClientMessage.MoveStartForward, "16826")]
+        [Opcode(ClientMessage.MoveStartBackward, "16826")]
+        [Opcode(ClientMessage.MoveStop, "16826")]
+        [Opcode(ClientMessage.MoveJump, "16826")]
+        [Opcode(ClientMessage.MoveStartTurnLeft, "16826")]
+        [Opcode(ClientMessage.MoveStartTurnRight, "16826")]
+        [Opcode(ClientMessage.MoveStopTurn, "16826")]
+        [Opcode(ClientMessage.MoveFallLand, "16826")]
+        [Opcode(ClientMessage.MoveHeartbeat, "16826")]
         public static void HandleMove(ref PacketReader packet, ref WorldClass session)
         {
             ObjectMovementValues movementValues = new ObjectMovementValues();
