@@ -41,7 +41,7 @@ namespace Framework.ObjectDefines
 
         public static ulong GetGuid(ulong guid)
         {
-            return guid & 0xFFFFFFF;
+            return guid & 0xFFFFFFFF;
         }
     }
 }
