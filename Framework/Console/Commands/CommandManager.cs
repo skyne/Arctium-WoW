@@ -33,7 +33,7 @@ namespace Framework.Console
             while (true)
             {
                 Thread.Sleep(1);
-                Log.Message(LogType.CMD, "Arctium >> ");
+                Log.Message(LogType.Cmd, "Arctium >> ");
 
                 string[] line = System.Console.ReadLine().Split(new string[] { " " }, StringSplitOptions.None);
                 string[] args = new string[line.Length - 1];

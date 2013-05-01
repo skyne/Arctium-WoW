@@ -288,13 +288,13 @@ namespace WorldServer.Game.PacketHandler
 
             var unknown = packet.Read<float>();
             var guid = GuidUnpacker.GetPackedValue(guidMask, guidBytes);
-            Log.Message(LogType.DEBUG, "Character with Guid: {0}, AccountId: {1} tried to enter the world.", guid, session.Account.Id);
+            Log.Message(LogType.Debug, "Character with Guid: {0}, AccountId: {1} tried to enter the world.", guid, session.Account.Id);
 
             session.Character = new Character(guid);
 
             if (!WorldMgr.AddSession(guid, ref session))
             {
-                Log.Message(LogType.ERROR, "A Character with Guid: {0} is already logged in", guid);
+                Log.Message(LogType.Error, "A Character with Guid: {0} is already logged in", guid);
                 return;
             }
 

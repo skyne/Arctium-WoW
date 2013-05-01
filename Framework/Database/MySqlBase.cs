@@ -42,14 +42,14 @@ namespace Framework.Database
                 try
                 {
                     Connection.Open();
-                    Log.Message(LogType.NORMAL, "Successfully tested connection to {0}:{1}:{2}", host, port, database);
+                    Log.Message(LogType.Normal, "Successfully tested connection to {0}:{1}:{2}", host, port, database);
                 }
                 catch (MySqlException ex)
                 {
-                    Log.Message(LogType.ERROR, "{0}", ex.Message);
+                    Log.Message(LogType.Error, "{0}", ex.Message);
 
                     // Try auto reconnect on error (every 5 seconds)
-                    Log.Message(LogType.ERROR, "Try reconnect in 5 seconds...");
+                    Log.Message(LogType.DB, "Try reconnect in 5 seconds...");
                     Thread.Sleep(5000);
 
                     Init(host, user, password, database, port);
@@ -65,13 +65,13 @@ namespace Framework.Database
 
             using (var Connection = new MySqlConnection(ConnectionString))
             {
-                Connection.Open();
-
-                using (MySqlCommand sqlCommand = new MySqlCommand(sqlString.ToString(), Connection))
+                try
                 {
-                    try
+                    Connection.Open();
+
+                    using (MySqlCommand sqlCommand = new MySqlCommand(sqlString.ToString(), Connection))
                     {
-                        List<MySqlParameter> mParams = new List<MySqlParameter>(args.Length);
+                        var mParams = new List<MySqlParameter>(args.Length);
 
                         foreach (var a in args)
                             mParams.Add(new MySqlParameter("", a));
@@ -81,11 +81,11 @@ namespace Framework.Database
 
                         return true;
                     }
-                    catch (MySqlException ex)
-                    {
-                        Log.Message(LogType.ERROR, "{0}", ex.Message);
-                        return false;
-                    }
+                }
+                catch (MySqlException ex)
+                {
+                    Log.Message(LogType.Error, "{0}", ex.Message);
+                    return false;
                 }
             }
         }
@@ -98,33 +98,34 @@ namespace Framework.Database
 
             using (var Connection = new MySqlConnection(ConnectionString))
             {
-                Connection.Open();
-
-                MySqlCommand sqlCommand = new MySqlCommand(sqlString.ToString(), Connection);
-
                 try
                 {
-                    List<MySqlParameter> mParams = new List<MySqlParameter>(args.Length);
+                    Connection.Open();
 
-                    foreach (var a in args)
-                        mParams.Add(new MySqlParameter("", a));
-
-                    sqlCommand.Parameters.AddRange(mParams.ToArray());
-
-                    using (var SqlData = sqlCommand.ExecuteReader(CommandBehavior.Default))
+                    using (var sqlCommand = new MySqlCommand(sqlString.ToString(), Connection))
                     {
-                        using (var retData = new SQLResult())
-                        {
-                            retData.Load(SqlData);
-                            retData.Count = retData.Rows.Count;
+                        var mParams = new List<MySqlParameter>(args.Length);
 
-                            return retData;
+                        foreach (var a in args)
+                            mParams.Add(new MySqlParameter("", a));
+
+                        sqlCommand.Parameters.AddRange(mParams.ToArray());
+
+                        using (var SqlData = sqlCommand.ExecuteReader(CommandBehavior.Default))
+                        {
+                            using (var retData = new SQLResult())
+                            {
+                                retData.Load(SqlData);
+                                retData.Count = retData.Rows.Count;
+
+                                return retData;
+                            }
                         }
                     }
                 }
                 catch (MySqlException ex)
                 {
-                    Log.Message(LogType.ERROR, "{0}", ex.Message);
+                    Log.Message(LogType.Error, "{0}", ex.Message);
                 }
             }
 

@@ -114,7 +114,7 @@ namespace WorldServer.Game.Managers
                 Creature data = Globals.DataMgr.FindCreature(id);
                 if (data == null)
                 {
-                    Log.Message(LogType.ERROR, "Loading a creature spawn (Guid: {0}) with non-existing stats (Id: {1}) skipped.", guid, id);
+                    Log.Message(LogType.Error, "Loading a creature spawn (Guid: {0}) with non-existing stats (Id: {1}) skipped.", guid, id);
                     return;
                 }
 
@@ -170,7 +170,7 @@ namespace WorldServer.Game.Managers
                 GameObject data = Globals.DataMgr.FindGameObject(id);
                 if (data == null)
                 {
-                    Log.Message(LogType.ERROR, "Loading a gameobject spawn (Guid: {0}) with non-existing stats (Id: {1}) skipped.", guid, id);
+                    Log.Message(LogType.Error, "Loading a gameobject spawn (Guid: {0}) with non-existing stats (Id: {1}) skipped.", guid, id);
                     return;
                 }
 

@@ -66,7 +66,7 @@ namespace Framework.Network.Realm
                         HandleRealmList(reader);
                         break;
                     default:
-                        Log.Message(LogType.NORMAL, "Received unknown ClientLink: {0}", cmd);
+                        Log.Message(LogType.Normal, "Received unknown ClientLink: {0}", cmd);
                         break;
                 }
             }
@@ -74,7 +74,7 @@ namespace Framework.Network.Realm
 
         public void HandleAuthLogonChallenge(PacketReader data)
         {
-            Log.Message(LogType.NORMAL, "AuthLogonChallenge");
+            Log.Message(LogType.Normal, "AuthLogonChallenge");
 
             data.Skip(10);
             ushort ClientBuild = data.Read<ushort>();
@@ -146,12 +146,12 @@ namespace Framework.Network.Realm
 
         public void HandleAuthAuthenticator(PacketReader data)
         {
-            Log.Message(LogType.NORMAL, "AuthAuthenticator");
+            Log.Message(LogType.Normal, "AuthAuthenticator");
         }
 
         public void HandleAuthLogonProof(PacketReader data)
         {
-            Log.Message(LogType.NORMAL, "AuthLogonProof");
+            Log.Message(LogType.Normal, "AuthLogonProof");
 
             using (var logonProof = new PacketWriter())
             {
@@ -185,7 +185,7 @@ namespace Framework.Network.Realm
 
         public void HandleRealmList(PacketReader data)
         {
-            Log.Message(LogType.NORMAL, "RealmList");
+            Log.Message(LogType.Normal, "RealmList");
 
             using (var realmData = new PacketWriter())
             {
@@ -224,9 +224,8 @@ namespace Framework.Network.Realm
 
         public void Receive()
         {
-            while (realm.listenSocket)
+            while (clientSocket.Connected)
             {
-                Thread.Sleep(1);
                 if (clientSocket.Available > 0)
                 {
                     DataBuffer = new byte[clientSocket.Available];
@@ -234,6 +233,8 @@ namespace Framework.Network.Realm
 
                     HandleRealmData(DataBuffer);
                 }
+
+                Thread.Sleep(1);
             }
 
             clientSocket.Close();
@@ -253,7 +254,7 @@ namespace Framework.Network.Realm
             }
             catch (SocketException ex)
             {
-                Log.Message(LogType.ERROR, "{0}", ex.Message);
+                Log.Message(LogType.Error, "{0}", ex.Message);
                 Log.Message();
 
                 clientSocket.Close();

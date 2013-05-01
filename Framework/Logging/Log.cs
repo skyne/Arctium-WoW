@@ -29,7 +29,7 @@ namespace Framework.Logging
 
         static public void Message()
         {
-            SetLogger(LogType.DEFAULT, "");
+            SetLogger(LogType.Default, "");
         }
 
         static public void Message(LogType type, string text, params object[] args)
@@ -43,27 +43,27 @@ namespace Framework.Logging
 
             switch (type)
             {
-                case LogType.NORMAL:
+                case LogType.Normal:
                     DefaultConsole.ForegroundColor = ConsoleColor.Green;
                     text = text.Insert(0, "System: ");
                     break;
-                case LogType.ERROR:
+                case LogType.Error:
                     DefaultConsole.ForegroundColor = ConsoleColor.Red;
                     text = text.Insert(0, "Error: ");
                     break;
-                case LogType.DUMP:
+                case LogType.Dump:
                     DefaultConsole.ForegroundColor = ConsoleColor.Yellow;
                     break;
-                case LogType.INIT:
+                case LogType.Init:
                     DefaultConsole.ForegroundColor = ConsoleColor.Cyan;
                     break;
                 case LogType.DB:
                     DefaultConsole.ForegroundColor = ConsoleColor.DarkMagenta;
                     break;
-                case LogType.CMD:
+                case LogType.Cmd:
                     DefaultConsole.ForegroundColor = ConsoleColor.Green;
                     break;
-                case LogType.DEBUG:
+                case LogType.Debug:
                     DefaultConsole.ForegroundColor = ConsoleColor.DarkRed;
                     break;
                 default:
@@ -73,9 +73,9 @@ namespace Framework.Logging
 
             if (((Log.ServerType == "World" ? WorldConfig.LogLevel : RealmConfig.LogLevel) & type) == type)
             {
-                if (type.Equals(LogType.INIT) | type.Equals(LogType.DEFAULT))
+                if (type.Equals(LogType.Init) | type.Equals(LogType.Default))
                     DefaultConsole.WriteLine(text, args);
-                else if (type.Equals(LogType.DUMP) || type.Equals(LogType.CMD))
+                else if (type.Equals(LogType.Dump) || type.Equals(LogType.Cmd))
                     DefaultConsole.WriteLine(text, args);
                 else
                     DefaultConsole.WriteLine("[" + DateTime.Now.ToLongTimeString() + "] " + text, args);

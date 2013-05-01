@@ -31,7 +31,7 @@ namespace Framework.Console
             }
             catch
             {
-                Log.Message(LogType.ERROR, "Wrong arguments for the current command!!!");
+                Log.Message(LogType.Error, "Wrong arguments for the current command!!!");
             }
 
             return default(T);

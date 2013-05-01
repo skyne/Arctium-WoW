@@ -34,7 +34,7 @@ namespace Framework.Configuration
 
             if (!File.Exists(config))
             {
-                Log.Message(LogType.ERROR, "{0} doesn't exist!", config);
+                Log.Message(LogType.Error, "{0} doesn't exist!", config);
                 Environment.Exit(0);
             }
             else
@@ -60,8 +60,8 @@ namespace Framework.Configuration
 
                     if (typeof(T) == typeof(bool) && (nameValue != "0" && nameValue != "1"))
                     {
-                        Log.Message(LogType.ERROR, "Error in {0} in line {1}", ConfigFile, lineCounter.ToString(CultureInfo.GetCultureInfo("en-US")));
-                        Log.Message(LogType.ERROR, "Use default value for boolean config option: {0}. Default: {1}", name, value);
+                        Log.Message(LogType.Error, "Error in {0} in line {1}", ConfigFile, lineCounter.ToString(CultureInfo.GetCultureInfo("en-US")));
+                        Log.Message(LogType.Error, "Use default value for boolean config option: {0}. Default: {1}", name, value);
                     }
 
                     lineCounter++;
@@ -69,7 +69,7 @@ namespace Framework.Configuration
             }
             catch
             {
-                Log.Message(LogType.ERROR, "Error in {0} in line {1}", ConfigFile, lineCounter.ToString(CultureInfo.GetCultureInfo("en-US")));
+                Log.Message(LogType.Error, "Error in {0} in line {1}", ConfigFile, lineCounter.ToString(CultureInfo.GetCultureInfo("en-US")));
             }
 
             if (hex)

@@ -60,7 +60,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             pChar.SetUpdateField<Int32>((int)PlayerFields.CurrentSpecID, (int)pChar.GetActiveSpecId());
             ObjectHandler.HandleUpdateObjectValues(ref session);
 
-            Log.Message(LogType.DEBUG, "Character (Guid: {0}) choosed spectialization {1} for spec group {2}.", pChar.Guid, pChar.GetActiveSpecId(), pChar.ActiveSpecGroup);
+            Log.Message(LogType.Debug, "Character (Guid: {0}) choosed spectialization {1} for spec group {2}.", pChar.Guid, pChar.GetActiveSpecId(), pChar.ActiveSpecGroup);
         }
 
         [Opcode(ClientMessage.CliLearnTalents, "16826")]
@@ -90,7 +90,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             foreach (var talentSpell in talentSpells)
                 SpellHandler.HandleLearnedSpells(ref session, new List<uint>(1) { talentSpell });
 
-            Log.Message(LogType.DEBUG, "Character (Guid: {0}) learned {1} talents.", pChar.Guid, talentCount);
+            Log.Message(LogType.Debug, "Character (Guid: {0}) learned {1} talents.", pChar.Guid, talentCount);
         }
 
         public static void HandleUpdateTalentData(ref WorldClass session)

@@ -104,7 +104,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             else
             {
                 BitPack.Write(hasData);
-                Log.Message(LogType.DEBUG, "Creature (Id: {0}) not found.", id);
+                Log.Message(LogType.Debug, "Creature (Id: {0}) not found.", id);
             }
         }
 
@@ -164,7 +164,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             else
             {
                 BitPack.Write(hasData);
-                Log.Message(LogType.DEBUG, "Gameobject (Id: {0}) not found.", id);
+                Log.Message(LogType.Debug, "Gameobject (Id: {0}) not found.", id);
             }
         }
 

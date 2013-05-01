@@ -76,7 +76,7 @@ namespace WorldServer.Game.Packets.PacketHandler
 
             DB.Realms.Execute("UPDATE accounts SET online = 0 WHERE id = ?", session.Account.Id);
 
-            Log.Message(LogType.DEBUG, "Account with Id {0} disconnected. Reason: {1}", session.Account.Id, disconnectReason);
+            Log.Message(LogType.Debug, "Account with Id {0} disconnected. Reason: {1}", session.Account.Id, disconnectReason);
         }
 
         public static void HandleCacheVersion(ref WorldClass session)
@@ -96,7 +96,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             uint mapId = packet.Read<uint>();
             bool loadingScreenState = BitUnpack.GetBit();
 
-            Log.Message(LogType.DEBUG, "Loading screen for map '{0}' is {1}.", mapId, loadingScreenState ? "enabled" : "disabled");
+            Log.Message(LogType.Debug, "Loading screen for map '{0}' is {1}.", mapId, loadingScreenState ? "enabled" : "disabled");
         }
 
         [Opcode(ClientMessage.ViolenceLevel, "16826")]
@@ -104,7 +104,7 @@ namespace WorldServer.Game.Packets.PacketHandler
         {
             byte violenceLevel = packet.Read<byte>();
 
-            Log.Message(LogType.DEBUG, "Violence level from account '{0} (Id: {1})' is {2}.", session.Account.Name, session.Account.Id, (ViolenceLevel)violenceLevel);
+            Log.Message(LogType.Debug, "Violence level from account '{0} (Id: {1})' is {2}.", session.Account.Name, session.Account.Id, (ViolenceLevel)violenceLevel);
         }
 
         [Opcode(ClientMessage.ActivePlayer, "16826")]
@@ -112,7 +112,7 @@ namespace WorldServer.Game.Packets.PacketHandler
         {
             byte active = packet.Read<byte>();    // Always 0
 
-            Log.Message(LogType.DEBUG, "Player {0} (Guid: {1}) is active.", session.Character.Name, session.Character.Guid);
+            Log.Message(LogType.Debug, "Player {0} (Guid: {1}) is active.", session.Character.Name, session.Character.Guid);
         }
 
         [Opcode(ClientMessage.ZoneUpdate, "16826")]
@@ -144,9 +144,9 @@ namespace WorldServer.Game.Packets.PacketHandler
                     sess.Character.TargetGuid = fullGuid;
 
                 if (guid == 0)
-                    Log.Message(LogType.DEBUG, "Character (Guid: {0}) removed current selection.", session.Character.Guid);
+                    Log.Message(LogType.Debug, "Character (Guid: {0}) removed current selection.", session.Character.Guid);
                 else
-                    Log.Message(LogType.DEBUG, "Character (Guid: {0}) selected a {1} (Guid: {2}, Id: {3}).", session.Character.Guid, SmartGuid.GetGuidType(fullGuid), guid, SmartGuid.GetId(fullGuid));
+                    Log.Message(LogType.Debug, "Character (Guid: {0}) selected a {1} (Guid: {2}, Id: {3}).", session.Character.Guid, SmartGuid.GetGuidType(fullGuid), guid, SmartGuid.GetId(fullGuid));
             }
         }
 
@@ -168,7 +168,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             {
                 var action = pChar.ActionButtons.Where(button => button.SlotId == slotId && button.SpecGroup == pChar.ActiveSpecGroup).Select(button => button).First();
                 ActionMgr.RemoveActionButton(pChar, action, true);
-                Log.Message(LogType.DEBUG, "Character (Guid: {0}) removed action button {1} from slot {2}.", pChar.Guid, actionId, slotId);
+                Log.Message(LogType.Debug, "Character (Guid: {0}) removed action button {1} from slot {2}.", pChar.Guid, actionId, slotId);
                 return;
             }
 
@@ -180,7 +180,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             };
 
             ActionMgr.AddActionButton(pChar, newAction, true);
-            Log.Message(LogType.DEBUG, "Character (Guid: {0}) added action button {1} to slot {2}.", pChar.Guid, actionId, slotId);
+            Log.Message(LogType.Debug, "Character (Guid: {0}) added action button {1} to slot {2}.", pChar.Guid, actionId, slotId);
         }
 
         public static void HandleUpdateActionButtons(ref WorldClass session)

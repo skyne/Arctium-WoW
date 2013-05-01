@@ -37,7 +37,7 @@ namespace Framework.ClientDB
         
         public static void Initialize()
         {
-            Log.Message(LogType.NORMAL, "Loading CliDBs...");
+            Log.Message(LogType.Normal, "Loading CliDBs...");
 
             ChrClasses           = DBReader.Read<ChrClasses>("ChrClasses.dbc");
             ChrRaces             = DBReader.Read<ChrRaces>("ChrRaces.dbc");
@@ -48,7 +48,7 @@ namespace Framework.ClientDB
             SpellLevels          = DBReader.Read<SpellLevels>("SpellLevels.dbc");
             Talent               = DBReader.Read<Talent>("Talent.dbc");
 
-            Log.Message(LogType.NORMAL, "Loaded {0} CliDBs.", Count);
+            Log.Message(LogType.Normal, "Loaded {0} CliDBs.", Count);
             Log.Message();
         }
     }

@@ -25,7 +25,6 @@ namespace Framework.Network.Realm
 {
     public class RealmNetwork
     {
-        public volatile bool listenSocket = true;
         TcpListener listener;
 
         public bool Start(string host, int port)
@@ -39,7 +38,7 @@ namespace Framework.Network.Realm
             }
             catch (SocketException e)
             {
-                Log.Message(LogType.ERROR, "{0}", e.Message);
+                Log.Message(LogType.Error, "{0}", e.Message);
                 Log.Message();
 
                 return false;
@@ -53,9 +52,10 @@ namespace Framework.Network.Realm
 
         void AcceptConnection()
         {
-            while (listenSocket)
+            while (true)
             {
                 Thread.Sleep(1);
+
                 if (listener.Pending())
                 {
                     RealmClass realmClient = new RealmClass();

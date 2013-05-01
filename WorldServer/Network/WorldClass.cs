@@ -79,6 +79,7 @@ namespace WorldServer.Network
                 if (recievedBytes != 0)
                 {
                     if (Crypt.IsInitialized)
+                    {
                         while (recievedBytes > 0)
                         {
                             Decode(ref DataBuffer);
@@ -96,6 +97,7 @@ namespace WorldServer.Network
 
                             OnData();
                         }
+                    }
                     else
                         OnData();
 
@@ -104,7 +106,7 @@ namespace WorldServer.Network
             }
             catch (Exception ex)
             {
-                Log.Message(LogType.ERROR, "{0}", ex.Message);
+                Log.Message(LogType.Error, "{0}", ex.Message);
                 Log.Message();
             }
         }
@@ -157,7 +159,7 @@ namespace WorldServer.Network
             }
             catch (Exception ex)
             {
-                Log.Message(LogType.ERROR, "{0}", ex.Message);
+                Log.Message(LogType.Error, "{0}", ex.Message);
                 Log.Message();
 
                 clientSocket.Close();

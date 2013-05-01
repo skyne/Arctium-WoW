@@ -40,10 +40,10 @@ namespace Framework.Console.Commands
             if (result.Count == 0)
             {
                 if (DB.Realms.Execute("INSERT INTO accounts (name, password, language) VALUES (?, ?, '')", name, password))
-                    Log.Message(LogType.NORMAL, "Account {0} successfully created", name);
+                    Log.Message(LogType.Normal, "Account {0} successfully created", name);
             }
             else
-                Log.Message(LogType.ERROR, "Account {0} already in database", name);
+                Log.Message(LogType.Error, "Account {0} already in database", name);
         }
     }
 }

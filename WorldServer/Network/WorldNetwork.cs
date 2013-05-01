@@ -39,7 +39,7 @@ namespace WorldServer.Network
             }
             catch (Exception e)
             {
-                Log.Message(LogType.ERROR, "{0}", e.Message);
+                Log.Message(LogType.Error, "{0}", e.Message);
                 Log.Message();
 
                 return false;
@@ -56,6 +56,7 @@ namespace WorldServer.Network
             while (listenSocket)
             {
                 Thread.Sleep(1);
+
                 if (listener.Pending())
                 {
                     WorldClass worldClient = new WorldClass();

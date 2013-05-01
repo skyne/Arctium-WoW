@@ -19,13 +19,13 @@ namespace Framework.Logging
 {
     public enum LogType
     {
-        NORMAL  = 0x1,
-        ERROR   = 0x2,
-        DUMP    = 0x4,
-        INIT    = 0x8,
+        Normal  = 0x1,
+        Error   = 0x2,
+        Dump    = 0x4,
+        Init    = 0x8,
         DB      = 0x10,
-        CMD     = 0x20,
-        DEBUG   = 0x40,
-        DEFAULT = 0x80
+        Cmd     = 0x20,
+        Debug   = 0x40,
+        Default = 0x80
     };
 }

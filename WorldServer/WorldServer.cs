@@ -34,16 +34,16 @@ namespace WorldServer
         {
             Log.ServerType = "World";
 
-            Log.Message(LogType.INIT, "___________________________________________");
-            Log.Message(LogType.INIT, "    __                                     ");
-            Log.Message(LogType.INIT, "    / |                     ,              ");
-            Log.Message(LogType.INIT, "---/__|---)__----__--_/_--------------_--_-");
-            Log.Message(LogType.INIT, "  /   |  /   ) /   ' /    /   /   /  / /  )");
-            Log.Message(LogType.INIT, "_/____|_/_____(___ _(_ __/___(___(__/_/__/_");
-            Log.Message(LogType.INIT, "___________________________________________");
+            Log.Message(LogType.Init, "___________________________________________");
+            Log.Message(LogType.Init, "    __                                     ");
+            Log.Message(LogType.Init, "    / |                     ,              ");
+            Log.Message(LogType.Init, "---/__|---)__----__--_/_--------------_--_-");
+            Log.Message(LogType.Init, "  /   |  /   ) /   ' /    /   /   /  / /  )");
+            Log.Message(LogType.Init, "_/____|_/_____(___ _(_ __/___(___(__/_/__/_");
+            Log.Message(LogType.Init, "___________________________________________");
             Log.Message();
 
-            Log.Message(LogType.NORMAL, "Starting Arctium WorldServer...");
+            Log.Message(LogType.Normal, "Starting Arctium WorldServer...");
 
             DB.Characters.Init(WorldConfig.CharDBHost, WorldConfig.CharDBUser, WorldConfig.CharDBPassword, WorldConfig.CharDBDataBase, WorldConfig.CharDBPort);
             DB.Realms.Init(RealmConfig.RealmDBHost, RealmConfig.RealmDBUser, RealmConfig.RealmDBPassword, RealmConfig.RealmDBDataBase, RealmConfig.RealmDBPort);
@@ -60,19 +60,19 @@ namespace WorldServer
             if (WorldClass.world.Start(WorldConfig.BindIP, (int)WorldConfig.BindPort))
             {
                 WorldClass.world.AcceptConnectionThread();
-                Log.Message(LogType.NORMAL, "WorldServer listening on {0} port {1}.", WorldConfig.BindIP, WorldConfig.BindPort);
-                Log.Message(LogType.NORMAL, "WorldServer successfully started!");
+                Log.Message(LogType.Normal, "WorldServer listening on {0} port {1}.", WorldConfig.BindIP, WorldConfig.BindPort);
+                Log.Message(LogType.Normal, "WorldServer successfully started!");
 
                 PacketManager.DefineOpcodeHandler();
                 ChatCommandParser.DefineChatCommands();
             }
             else
             {
-                Log.Message(LogType.ERROR, "Server couldn't be started: ");
+                Log.Message(LogType.Error, "Server couldn't be started: ");
             }
 
             GC.Collect();
-            Log.Message(LogType.NORMAL, "Total Memory: {0} Kilobytes", GC.GetTotalMemory(false) / 1024);
+            Log.Message(LogType.Normal, "Total Memory: {0} Kilobytes", GC.GetTotalMemory(false) / 1024);
 
             // Init Command handlers...
             CommandDefinitions.Initialize();

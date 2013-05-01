@@ -87,7 +87,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             BitUnpack GuidUnpacker = new BitUnpack(packet);
 
             ulong guid = GuidUnpacker.GetPackedValue(guidMask, guidBytes);
-            Log.Message(LogType.DEBUG, "ObjectUpdate failed for object with Guid {0}", guid);
+            Log.Message(LogType.Debug, "ObjectUpdate failed for object with Guid {0}", guid);
         }
     }
 }

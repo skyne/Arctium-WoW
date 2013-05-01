@@ -57,7 +57,7 @@ namespace WorldServer.Game.Packets
             if (OpcodeHandlers.ContainsKey(reader.Opcode))
                 OpcodeHandlers[reader.Opcode].Invoke(ref reader, ref session);
             else
-                Log.Message(LogType.DUMP, "UNKNOWN OPCODE: {0} (0x{1:X}), LENGTH: {2}", reader.Opcode, reader.Opcode, reader.Size);
+                Log.Message(LogType.Dump, "Unknown Opcode: {0} (0x{1:X}), Length: {2}", reader.Opcode, reader.Opcode, reader.Size);
         }
     }
 }

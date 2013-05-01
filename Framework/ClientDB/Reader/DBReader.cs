@@ -156,7 +156,7 @@ namespace Framework.ClientDB.Reader
             }
             catch (Exception ex)
             {
-                Log.Message(LogType.ERROR, "Error while loading {0}: {1}", dbcFile, ex.Message);
+                Log.Message(LogType.Error, "Error while loading {0}: {1}", dbcFile, ex.Message);
             }
 
             return tempList;
