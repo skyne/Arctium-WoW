@@ -25,6 +25,7 @@ using System;
 using System.Collections;
 using System.Net;
 using System.Net.Sockets;
+using WorldServer.Game;
 using WorldServer.Game.Packets;
 using WorldServer.Game.WorldEntities;
 
@@ -108,6 +109,9 @@ namespace WorldServer.Network
             {
                 Log.Message(LogType.Error, "{0}", ex.Message);
                 Log.Message();
+
+                if (Character != null)
+                    Globals.WorldMgr.DeleteSession(Character.Guid);
             }
         }
 
