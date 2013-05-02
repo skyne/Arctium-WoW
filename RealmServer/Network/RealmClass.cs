@@ -233,25 +233,11 @@ namespace Framework.Network.Realm
 
                     HandleRealmData(DataBuffer);
                 }
-                else
-                {
-                    try
-                    {
-                        clientSocket.Send(new byte[0]);
-                    }
-                    catch
-                    {
-                        break;
-                    }
-                }
 
                 Thread.Sleep(1);
             }
 
-
             clientSocket.Close();
-
-            DB.Realms.Execute("UPDATE accounts SET online = 0 WHERE id = ?", account.Id);
         }
 
         public void Send(PacketWriter packet)

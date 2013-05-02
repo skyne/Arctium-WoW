@@ -17,6 +17,7 @@
 
 using Framework.Constants.NetMessage;
 using Framework.Cryptography;
+using Framework.Database;
 using Framework.Logging;
 using Framework.Logging.PacketLogging;
 using Framework.Network.Packets;
@@ -108,10 +109,11 @@ namespace WorldServer.Network
             catch (Exception ex)
             {
                 Log.Message(LogType.Error, "{0}", ex.Message);
-                Log.Message();
 
                 if (Character != null)
                     Globals.WorldMgr.DeleteSession(Character.Guid);
+
+                DB.Realms.Execute("UPDATE accounts SET online = 0 WHERE id = ?", Account.Id);
             }
         }
 
