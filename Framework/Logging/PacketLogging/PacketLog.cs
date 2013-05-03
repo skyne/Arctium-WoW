@@ -65,10 +65,7 @@ namespace Framework.Logging.PacketLogging
                             byte count = 0;
                             data.ForEach(b =>
                             {
-                                if (b <= 0xF)
-                                    sb.Append(String.Format(CultureInfo.InvariantCulture, " 0{0:X} ", b));
-                                else
-                                    sb.Append(String.Format(CultureInfo.InvariantCulture, " {0:X} ", b));
+                                sb.Append(String.Format(CultureInfo.InvariantCulture, " {0:X2} ", b));
 
                                 if (count == 15)
                                 {
@@ -115,11 +112,7 @@ namespace Framework.Logging.PacketLogging
                             byte count = 0;
                             data.ForEach(b =>
                             {
-
-                                if (b <= 0xF)
-                                    sb.Append(String.Format(CultureInfo.InvariantCulture, " 0{0:X} ", b));
-                                else
-                                    sb.Append(String.Format(CultureInfo.InvariantCulture, " {0:X} ", b));
+                                sb.Append(String.Format(CultureInfo.InvariantCulture, " {0:X2} ", b));
 
                                 if (count == 15)
                                 {
