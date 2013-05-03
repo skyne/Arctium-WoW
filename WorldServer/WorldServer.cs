@@ -15,16 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-﻿using Framework.Configuration;
+using Framework.Configuration;
 using Framework.Console;
 using Framework.Console.Commands;
 using Framework.Database;
 using Framework.Logging;
-﻿using System;
-﻿using WorldServer.Game;
-﻿using WorldServer.Game.Chat;
-﻿using WorldServer.Game.Packets;
-﻿using WorldServer.Network;
+using System;
+using WorldServer.Game;
+using WorldServer.Game.Chat;
+using WorldServer.Game.Packets;
+using WorldServer.Network;
 
 namespace WorldServer
 {
