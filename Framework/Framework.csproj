@@ -80,6 +80,7 @@
     <Compile Include="Constants\CharacterFlags.cs" />
     <Compile Include="Constants\Class.cs" />
     <Compile Include="Constants\DBTypes.cs" />
+    <Compile Include="Constants\GameObject\GameObjectType.cs" />
     <Compile Include="Constants\Guids\HighGuidMask.cs" />
     <Compile Include="Constants\Guids\HighGuidType.cs" />
     <Compile Include="Constants\MessageTypes.cs" />

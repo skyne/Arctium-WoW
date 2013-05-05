@@ -47,7 +47,7 @@ namespace Framework.Constants.Movement
         Descension         = 0x400000,
         CanFly             = 0x800000,
         Flight             = 0x1000000,
-        Jump               = 0x2000000,
+        IsSteppingUp       = 0x2000000,
         WalkOnWater        = 0x4000000,
         FeatherFall        = 0x8000000,
         HoverMove          = 0x10000000,
