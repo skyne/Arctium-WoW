@@ -133,7 +133,7 @@ namespace WorldServer.Game.Packets.PacketHandler
 
                 queryGameObjectResponse.WriteInt32(stats.Id);
                 queryGameObjectResponse.WriteInt32(0);
-                queryGameObjectResponse.WriteInt32(stats.Type);
+                queryGameObjectResponse.WriteInt32((int)stats.Type);
                 queryGameObjectResponse.WriteInt32(stats.DisplayInfoId);
 
                 queryGameObjectResponse.WriteCString(stats.Name);

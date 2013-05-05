@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Framework.Constants.GameObject;
 using Framework.Database;
 using Framework.Logging;
 using Framework.Singleton;
@@ -79,7 +80,7 @@ namespace WorldServer.Game.Managers
                 Log.Message(LogType.DB, "Added {0} default data definition for creatures.", missingIds.Length);
             }
 
-            result = DB.World.Select("SELECT * FROM creature_stats cs RIGHT JOIN creature_data cd ON cs.Id = cd.Id WHERE cs.id IS NOT NULL");
+            result = DB.World.Select("SELECT * FROM creature_stats cs RIGHT JOIN creature_data cd ON cs.Id = cd.Id WHERE cs.Id IS NOT NULL");
 
             Parallel.For(0, result.Count, r =>
             {
@@ -175,7 +176,7 @@ namespace WorldServer.Game.Managers
                 GameObjectStats Stats = new GameObjectStats
                 {
                     Id                = result.Read<Int32>(r, "Id"),
-                    Type              = result.Read<Int32>(r, "Type"),
+                    Type              = result.Read<GameObjectType>(r, "Type"),
                     DisplayInfoId     = result.Read<Int32>(r, "DisplayInfoId"),
                     Name              = result.Read<String>(r, "Name"),
                     IconName          = result.Read<String>(r, "IconName"),

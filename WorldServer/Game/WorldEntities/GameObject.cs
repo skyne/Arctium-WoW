@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Framework.Constants.GameObject;
 using Framework.Database;
 using System;
 using WorldServer.Game.ObjectDefines;
@@ -35,7 +36,7 @@ namespace WorldServer.Game.WorldEntities
                 Stats = new GameObjectStats();
 
                 Stats.Id             = result.Read<Int32>(0, "Id");
-                Stats.Type           = result.Read<Int32>(0, "Type");
+                Stats.Type           = result.Read<GameObjectType>(0, "Type");
                 Stats.Flags          = result.Read<Int32>(0, "Flags");
 
                 Stats.DisplayInfoId  = result.Read<Int32>(0, "DisplayInfoId");

@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Framework.Constants.GameObject;
 using System;
 using System.Collections.Generic;
 
@@ -23,7 +24,7 @@ namespace WorldServer.Game.ObjectDefines
     public class GameObjectStats
     {
         public Int32 Id;
-        public Int32 Type;
+        public GameObjectType Type;
         public Int32 Flags;
         public Int32 DisplayInfoId;
         public String Name;

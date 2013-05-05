@@ -29,7 +29,12 @@ namespace Framework.Database
         {
             checked
             {
-                return (T)Convert.ChangeType(Rows[row][columnName + (number != 0 ? (1 + number).ToString(CultureInfo.GetCultureInfo("en-US")) : "")], typeof(T), CultureInfo.GetCultureInfo("en-US"));
+                var val = Rows[row][columnName + (number != 0 ? (1 + number).ToString(CultureInfo.GetCultureInfo("en-US")) : "")];
+
+                if (typeof(T).IsEnum)
+                    return (T)Enum.ToObject(typeof(T), val);
+
+                return (T)Convert.ChangeType(val, typeof(T), CultureInfo.GetCultureInfo("en-US"));
             }
         }
 
