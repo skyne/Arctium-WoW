@@ -72,8 +72,8 @@
     <Compile Include="Configuration\RealmConfig.cs" />
     <Compile Include="Configuration\WorldConfig.cs" />
     <Compile Include="Console\Commands\CommandDefinitions.cs" />
-    <Compile Include="Console\Commands\CommandManager.cs" />
-    <Compile Include="Console\Commands\CommandParser.cs" />
+    <Compile Include="Console\CommandManager.cs" />
+    <Compile Include="Console\CommandParser.cs" />
     <Compile Include="Console\Commands\AccountCommands.cs" />
     <Compile Include="Constants\AccountDataTypes.cs" />
     <Compile Include="Constants\Authentication\AuthResults.cs" />
