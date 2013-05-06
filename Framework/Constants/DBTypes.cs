@@ -51,6 +51,7 @@ namespace Framework.Constants
         PathProperty               = 0x08E54F60,
         QuestPackageItem           = 0xCC2F84F0,
         RulesetItemUpgrade         = 0x6DB7086C,
+        RulesetRaidLootUpgrade     = 0xED1FBB4D,
         SceneScript                = 0xD4B163CC,
         SceneScriptPackage         = 0xE8CB5E09,
         SceneScriptPackageMember   = 0xE44DB71C,
