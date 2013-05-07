@@ -58,12 +58,6 @@ namespace Framework.Configuration
                         else
                             nameValue = configOption[1].Replace("\"", "").Trim();
 
-                    if (typeof(T) == typeof(bool) && (nameValue != "0" && nameValue != "1"))
-                    {
-                        Log.Message(LogType.Error, "Error in {0} in line {1}", ConfigFile, lineCounter.ToString(CultureInfo.GetCultureInfo("en-US")));
-                        Log.Message(LogType.Error, "Use default value for boolean config option: {0}. Default: {1}", name, value);
-                    }
-
                     lineCounter++;
                 }
             }
@@ -74,6 +68,19 @@ namespace Framework.Configuration
 
             if (hex)
                 return (T)Convert.ChangeType(Convert.ToInt32(nameValue, 16), typeof(T), CultureInfo.GetCultureInfo("en-US"));
+
+            if (typeof(T) == typeof(bool))
+            {
+                if (nameValue == "0")
+                    return (T)Convert.ChangeType(false, typeof(T));
+                else if (nameValue == "1")
+                    return (T)Convert.ChangeType(true, typeof(T));
+                else
+                {
+                    Log.Message(LogType.Error, "Error in {0} in line {1}", ConfigFile, lineCounter.ToString(CultureInfo.GetCultureInfo("en-US")));
+                    Log.Message(LogType.Error, "Use default value for boolean config option: {0}. Default: {1}", name, value);
+                }
+            }
 
             return (T)Convert.ChangeType(nameValue, typeof(T), CultureInfo.GetCultureInfo("en-US"));
         }
