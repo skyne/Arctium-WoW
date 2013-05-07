@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50519
 File Encoding         : 65001
 
-Date: 2012-12-07 17:19:58
+Date: 2013-05-07 20:56:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,7 +24,7 @@ CREATE TABLE `accounts` (
   `name` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `sessionkey` varchar(255) DEFAULT NULL,
-  `securityFlags` smallint(6) NOT NULL,
+  `securityFlags` smallint(6) NOT NULL DEFAULT '0',
   `expansion` int(11) NOT NULL DEFAULT '4',
   `gmlevel` tinyint(4) NOT NULL DEFAULT '0',
   `ip` varchar(255) DEFAULT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE `realms` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `ip` varchar(15) DEFAULT NULL,
-  `port` int(11) NOT NULL,
+  `port` int(11) NOT NULL DEFAULT '8100',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
