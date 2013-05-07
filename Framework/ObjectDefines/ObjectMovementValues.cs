@@ -45,13 +45,20 @@ namespace Framework.ObjectDefines
         public bool IsTransport               = false;
         public bool HasMovementFlags          = false;
         public bool HasMovementFlags2         = false;
-        public bool IsInterpolated            = false;
-        public bool IsInterpolated2           = false;
+        public bool IsFallingOrJumping        = false;
+        public bool HasJumpData               = false;
 
         // Data
         public MovementFlag MovementFlags     = 0;
         public MovementFlag2 MovementFlags2   = 0;
         public uint Time                      = 0;
+
+        // Jumping & Falling
+        public float JumpVelocity             = 0;
+        public float Cos                      = 0;
+        public float Sin                      = 0;
+        public float CurrentSpeed             = 0;
+        public uint FallTime                  = 0;
 
         public ObjectMovementValues() { }
         public ObjectMovementValues(UpdateFlag updateflags)

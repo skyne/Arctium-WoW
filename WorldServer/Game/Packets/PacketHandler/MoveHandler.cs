@@ -81,13 +81,13 @@ namespace WorldServer.Game.Packets.PacketHandler
 
             guidMask[4] = BitUnpack.GetBit();
 
-            movementValues.IsInterpolated = BitUnpack.GetBit();
+            movementValues.IsFallingOrJumping = BitUnpack.GetBit();
             bool HasTime = !BitUnpack.GetBit();
 
             uint counter = BitUnpack.GetBits<uint>(22);
 
-            if (movementValues.IsInterpolated)
-                movementValues.IsInterpolated2 = BitUnpack.GetBit();
+            if (movementValues.IsFallingOrJumping)
+                movementValues.HasJumpData = BitUnpack.GetBit();
 
             if (movementValues.HasMovementFlags)
                 movementValues.MovementFlags = (MovementFlag)BitUnpack.GetBits<uint>(30);
@@ -116,17 +116,18 @@ namespace WorldServer.Game.Packets.PacketHandler
 
             }*/
 
-            if (movementValues.IsInterpolated)
+            if (movementValues.IsFallingOrJumping)
             {
-                if (movementValues.IsInterpolated2)
+                movementValues.JumpVelocity = packet.Read<float>();
+
+                if (movementValues.HasJumpData)
                 {
-                    packet.Read<float>();
-                    packet.Read<float>();
-                    packet.Read<float>();
+                    movementValues.Sin = packet.Read<float>();
+                    movementValues.Cos = packet.Read<float>();
+                    movementValues.CurrentSpeed = packet.Read<float>();
                 }
 
-                packet.Read<uint>();
-                packet.Read<float>();
+                movementValues.FallTime = packet.Read<uint>();
             }
 
             if (HasPitch)
@@ -166,7 +167,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                 BitPack.Write((uint)movementValues.MovementFlags2, 13);
 
             BitPack.WriteGuidMask(4, 7);
-            BitPack.Write(movementValues.IsInterpolated);
+            BitPack.Write(movementValues.IsFallingOrJumping);
             BitPack.Write(0);
 
             if (movementValues.HasMovementFlags)
@@ -176,8 +177,8 @@ namespace WorldServer.Game.Packets.PacketHandler
             BitPack.Write(movementValues.IsTransport);
             BitPack.WriteGuidMask(5);
 
-            if (movementValues.IsInterpolated)
-                BitPack.Write(movementValues.IsInterpolated2);
+            if (movementValues.IsFallingOrJumping)
+                BitPack.Write(movementValues.HasJumpData);
 
             BitPack.Write(true);
             BitPack.Write(0);
@@ -197,18 +198,18 @@ namespace WorldServer.Game.Packets.PacketHandler
 
             BitPack.WriteGuidBytes(5);
 
-            if (movementValues.IsInterpolated)
+            if (movementValues.IsFallingOrJumping)
             {
-                moveUpdate.WriteFloat(0);
+                moveUpdate.WriteFloat(movementValues.JumpVelocity);
 
-                if (movementValues.IsInterpolated2)
+                if (movementValues.HasJumpData)
                 {
-                    moveUpdate.WriteFloat(0);
-                    moveUpdate.WriteFloat(0);
-                    moveUpdate.WriteFloat(0);
+                    moveUpdate.WriteFloat(movementValues.Cos);
+                    moveUpdate.WriteFloat(movementValues.CurrentSpeed);
+                    moveUpdate.WriteFloat(movementValues.Sin);
                 }
 
-                moveUpdate.WriteUInt32(0);
+                moveUpdate.WriteUInt32(movementValues.FallTime);
             }
 
             BitPack.WriteGuidBytes(6, 2);
