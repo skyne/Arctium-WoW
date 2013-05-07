@@ -42,8 +42,13 @@ namespace RealmServer
 
             Log.Message(LogType.Normal, "Starting Arctium RealmServer...");
 
-            DB.Realms.Init(RealmConfig.RealmDBHost, RealmConfig.RealmDBUser, RealmConfig.RealmDBPassword, RealmConfig.RealmDBDataBase, RealmConfig.RealmDBPort);
-            DB.Characters.Init(WorldConfig.CharDBHost, WorldConfig.CharDBUser, WorldConfig.CharDBPassword, WorldConfig.CharDBDataBase, WorldConfig.CharDBPort);
+            DB.Realms.Init(RealmConfig.RealmDBHost, RealmConfig.RealmDBUser, RealmConfig.RealmDBPassword, 
+                           RealmConfig.RealmDBDataBase, RealmConfig.RealmDBPort, RealmConfig.MySqlPooling,
+                           RealmConfig.MySqlMinPoolSize, RealmConfig.MySqlMaxPoolSize);
+
+            DB.Characters.Init(WorldConfig.CharDBHost, WorldConfig.CharDBUser, WorldConfig.CharDBPassword,
+                               WorldConfig.CharDBDataBase, WorldConfig.CharDBPort, RealmConfig.MySqlPooling,
+                               RealmConfig.MySqlMinPoolSize, RealmConfig.MySqlMaxPoolSize);
 
             RealmClass.realm = new RealmNetwork();
 

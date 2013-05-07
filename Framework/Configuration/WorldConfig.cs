@@ -44,6 +44,10 @@ namespace Framework.Configuration
 
         public static string GMCommandStart = config.Read("GM.Command.Start", "!");
 
+        public static bool MySqlPooling = config.Read("MySql.Pooling", false);
+        public static int MySqlMinPoolSize = config.Read("MySql.MinPoolSize", 5);
+        public static int MySqlMaxPoolSize = config.Read("MySql.MaxPoolSize", 150);
+
         public static LogType LogLevel = (LogType)config.Read<uint>("LogLevel", 0, true);
     }
 }

@@ -32,6 +32,10 @@ namespace Framework.Configuration
         public static string BindIP = config.Read("Bind.IP", "0.0.0.0");
         public static uint BindPort = config.Read<uint>("Bind.Port", 3724);
 
+        public static bool MySqlPooling = config.Read("MySql.Pooling", false);
+        public static int MySqlMinPoolSize = config.Read("MySql.MinPoolSize", 1);
+        public static int MySqlMaxPoolSize = config.Read("MySql.MaxPoolSize", 30);
+
         public static float RealmListUpdateTime = config.Read<float>("RealmList.UpdateTime", 5) * 60000;
 
         public static LogType LogLevel = (LogType)config.Read<uint>("LogLevel", 0, true);

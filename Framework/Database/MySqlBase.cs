@@ -31,11 +31,22 @@ namespace Framework.Database
         string ConnectionString;
         public int RowCount { get; set; }
 
-        public void Init(string host, string user, string password, string database, int port)
+        public void Init(string host, string user, string password, string database, int port, bool pooling, int minPoolSize, int maxPoolSize)
         {
-            ConnectionString = "Server=" + host + ";User Id=" + user + ";Port=" + port + ";" + 
-                               "Password=" + password + ";Database=" + database + ";Allow Zero Datetime=True;" +
-                               "Min Pool Size = 25;Max Pool Size=150;CharSet=utf8";
+            if (pooling)
+            {
+                var pools = String.Format("Min Pool Size={0};Max Pool Size={1};", minPoolSize, maxPoolSize);
+
+                ConnectionString = "Server=" + host + ";User Id=" + user + ";Port=" + port + ";" +
+                                   "Password=" + password + ";Database=" + database + ";Allow Zero Datetime=True;" +
+                                   pools + "CharSet=utf8";
+            }
+            else
+            {
+                ConnectionString = "Server=" + host + ";User Id=" + user + ";Port=" + port + ";" +
+                                   "Password=" + password + ";Database=" + database + ";Allow Zero Datetime=True;" +
+                                   "Pooling=False;CharSet=utf8";
+            }
 
             using (var Connection = new MySqlConnection(ConnectionString))
             {
@@ -43,6 +54,8 @@ namespace Framework.Database
                 {
                     Connection.Open();
                     Log.Message(LogType.Normal, "Successfully tested connection to {0}:{1}:{2}", host, port, database);
+
+                    Connection.Close();
                 }
                 catch (MySqlException ex)
                 {
@@ -52,7 +65,7 @@ namespace Framework.Database
                     Log.Message(LogType.DB, "Try reconnect in 5 seconds...");
                     Thread.Sleep(5000);
 
-                    Init(host, user, password, database, port);
+                    Init(host, user, password, database, port, pooling, minPoolSize, maxPoolSize);
                 }
             }
         }
@@ -78,9 +91,11 @@ namespace Framework.Database
 
                         sqlCommand.Parameters.AddRange(mParams.ToArray());
                         sqlCommand.ExecuteNonQuery();
-
-                        return true;
                     }
+
+                    Connection.Close();
+
+                    return true;
                 }
                 catch (MySqlException ex)
                 {
@@ -118,6 +133,8 @@ namespace Framework.Database
                                 retData.Load(SqlData);
                                 retData.Count = retData.Rows.Count;
 
+                                Connection.Close();
+
                                 return retData;
                             }
                         }
@@ -127,6 +144,8 @@ namespace Framework.Database
                 {
                     Log.Message(LogType.Error, "{0}", ex.Message);
                 }
+
+                Connection.Close();
             }
 
             return null;
@@ -166,6 +185,8 @@ namespace Framework.Database
 
                     MySqlCommand sqlCommand = new MySqlCommand(sqlString.ToString(), Connection);
                     sqlCommand.ExecuteNonQuery();
+
+                    Connection.Close();
                 }
             }
         }

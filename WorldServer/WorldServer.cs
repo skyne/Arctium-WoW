@@ -45,9 +45,18 @@ namespace WorldServer
 
             Log.Message(LogType.Normal, "Starting Arctium WorldServer...");
 
-            DB.Characters.Init(WorldConfig.CharDBHost, WorldConfig.CharDBUser, WorldConfig.CharDBPassword, WorldConfig.CharDBDataBase, WorldConfig.CharDBPort);
-            DB.Realms.Init(RealmConfig.RealmDBHost, RealmConfig.RealmDBUser, RealmConfig.RealmDBPassword, RealmConfig.RealmDBDataBase, RealmConfig.RealmDBPort);
-            DB.World.Init(WorldConfig.WorldDBHost, WorldConfig.WorldDBUser, WorldConfig.WorldDBPassword, WorldConfig.WorldDBDataBase, WorldConfig.WorldDBPort);
+            DB.Characters.Init(WorldConfig.CharDBHost, WorldConfig.CharDBUser, WorldConfig.CharDBPassword,
+                               WorldConfig.CharDBDataBase, WorldConfig.CharDBPort, WorldConfig.MySqlPooling,
+                               WorldConfig.MySqlMinPoolSize, WorldConfig.MySqlMaxPoolSize);
+
+            DB.Realms.Init(RealmConfig.RealmDBHost, RealmConfig.RealmDBUser, RealmConfig.RealmDBPassword,
+                           RealmConfig.RealmDBDataBase, RealmConfig.RealmDBPort, WorldConfig.MySqlPooling,
+                           WorldConfig.MySqlMinPoolSize, WorldConfig.MySqlMaxPoolSize);
+
+            DB.World.Init(WorldConfig.WorldDBHost, WorldConfig.WorldDBUser, WorldConfig.WorldDBPassword,
+                          WorldConfig.WorldDBDataBase, WorldConfig.WorldDBPort, WorldConfig.MySqlPooling,
+                          WorldConfig.MySqlMinPoolSize, WorldConfig.MySqlMaxPoolSize);
+
             Log.Message();
 
             Globals.Initialize();
