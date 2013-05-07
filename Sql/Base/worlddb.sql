@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50519
 File Encoding         : 65001
 
-Date: 2013-02-20 18:52:18
+Date: 2013-05-07 04:22:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -167,7 +167,7 @@ CREATE TABLE `gameobject_spawns` (
   `o` float NOT NULL,
   `factionTemplate` int(10) unsigned NOT NULL,
   `animProgress` smallint(6) NOT NULL,
-  `activated` bit(1) NOT NULL DEFAULT b'1',
+  `state` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`guid`),
   KEY `creatureId` (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

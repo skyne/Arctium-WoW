@@ -190,7 +190,7 @@ namespace WorldServer.Game.Managers
 
                     FactionTemplate = result.Read<UInt32>(i, "FactionTemplate"),
                     AnimProgress    = result.Read<Byte>(i, "AnimProgress"),
-                    Activated       = result.Read<bool>(i, "Activated"),
+                    State           = result.Read<Byte>(i, "State"),
                 };
 
                 spawn.CreateFullGuid();
