@@ -125,6 +125,8 @@ namespace WorldServer.Game.WorldEntities
             SetUpdateField<UInt32>((int)UnitFields.DisplayID, displayId);
             SetUpdateField<UInt32>((int)UnitFields.NativeDisplayID, displayId);
 
+            SetUpdateField<UInt32>((int)UnitFields.Flags, 0x8);
+
             SetUpdateField<Single>((int)UnitFields.BoundingRadius, 0.389F);
             SetUpdateField<Single>((int)UnitFields.CombatReach, 1.5F);
             SetUpdateField<Single>((int)UnitFields.ModCastingSpeed, 1);

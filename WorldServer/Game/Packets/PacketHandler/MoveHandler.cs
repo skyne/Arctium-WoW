@@ -29,6 +29,8 @@ namespace WorldServer.Game.Packets.PacketHandler
     {
         [Opcode(ClientMessage.MoveStartForward, "16826")]
         [Opcode(ClientMessage.MoveStartBackward, "16826")]
+        [Opcode(ClientMessage.MoveStartSwim, "16826")]
+        [Opcode(ClientMessage.MoveStopSwim, "16826")]
         [Opcode(ClientMessage.MoveStop, "16826")]
         [Opcode(ClientMessage.MoveJump, "16826")]
         [Opcode(ClientMessage.MoveStartTurnLeft, "16826")]
