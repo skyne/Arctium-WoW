@@ -29,7 +29,6 @@ using WorldServer.Game.Spawns;
 using WorldServer.Game.WorldEntities;
 using WorldServer.Network;
 using System.Threading.Tasks;
-using Framework.Constants.Movement;
 
 namespace WorldServer.Game.Managers
 {
@@ -265,16 +264,7 @@ namespace WorldServer.Game.Managers
                 BitPack.Write(0);                   // Unknown_Alive_1
                 BitPack.WriteGuidMask(0);
                 BitPack.Write(1);                   // splineElevation, not implanted
-
-                // Set true if it is a character
-                values.HasMovementFlags = (wObject is Character);
-                BitPack.Write(!values.HasMovementFlags);
-
-                // Allow swimming by default for all characters.
-                // Should be replaced by a better fix later!
-                if (values.HasMovementFlags)
-                    BitPack.Write((uint)MovementFlag.Swim, 30);
-
+                BitPack.Write(true);                // Movementflags are not implanted
                 BitPack.Write(0);                   // HasSplineData, don't write simple basic splineData
                 BitPack.WriteGuidMask(1);
                 BitPack.Write(true);                // MovementFlags2 are not implanted
