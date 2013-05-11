@@ -26,10 +26,12 @@ using System.Threading;
 
 namespace Framework.Database
 {
-    public class MySqlBase
+    public class MySqlBase : IDisposable
     {
-        string ConnectionString;
         public int RowCount { get; set; }
+
+        MySqlConnection Connection;
+        string ConnectionString;
 
         public void Init(string host, string user, string password, string database, int port, bool pooling, int minPoolSize, int maxPoolSize)
         {
@@ -48,25 +50,22 @@ namespace Framework.Database
                                    "Pooling=False;CharSet=utf8";
             }
 
-            using (var Connection = new MySqlConnection(ConnectionString))
+            try
             {
-                try
-                {
-                    Connection.Open();
-                    Log.Message(LogType.Normal, "Successfully tested connection to {0}:{1}:{2}", host, port, database);
+                Connection = new MySqlConnection(ConnectionString);
 
-                    Connection.Close();
-                }
-                catch (MySqlException ex)
-                {
-                    Log.Message(LogType.Error, "{0}", ex.Message);
+                Connection.Open();
+                Log.Message(LogType.Normal, "Successfully tested connection to {0}:{1}:{2}", host, port, database);
+            }
+            catch (MySqlException ex)
+            {
+                Log.Message(LogType.Error, "{0}", ex.Message);
 
-                    // Try auto reconnect on error (every 5 seconds)
-                    Log.Message(LogType.DB, "Try reconnect in 5 seconds...");
-                    Thread.Sleep(5000);
+                // Try auto reconnect on error (every 5 seconds)
+                Log.Message(LogType.DB, "Try reconnect in 5 seconds...");
+                Thread.Sleep(5000);
 
-                    Init(host, user, password, database, port, pooling, minPoolSize, maxPoolSize);
-                }
+                Init(host, user, password, database, port, pooling, minPoolSize, maxPoolSize);
             }
         }
 
@@ -76,32 +75,25 @@ namespace Framework.Database
             // Fix for floating point problems on some languages
             sqlString.AppendFormat(CultureInfo.GetCultureInfo("en-US").NumberFormat, sql);
 
-            using (var Connection = new MySqlConnection(ConnectionString))
+            try
             {
-                try
+                using (MySqlCommand sqlCommand = new MySqlCommand(sqlString.ToString(), Connection))
                 {
-                    Connection.Open();
+                    var mParams = new List<MySqlParameter>(args.Length);
 
-                    using (MySqlCommand sqlCommand = new MySqlCommand(sqlString.ToString(), Connection))
-                    {
-                        var mParams = new List<MySqlParameter>(args.Length);
+                    foreach (var a in args)
+                        mParams.Add(new MySqlParameter("", a));
 
-                        foreach (var a in args)
-                            mParams.Add(new MySqlParameter("", a));
-
-                        sqlCommand.Parameters.AddRange(mParams.ToArray());
-                        sqlCommand.ExecuteNonQuery();
-                    }
-
-                    Connection.Close();
-
-                    return true;
+                    sqlCommand.Parameters.AddRange(mParams.ToArray());
+                    sqlCommand.ExecuteNonQuery();
                 }
-                catch (MySqlException ex)
-                {
-                    Log.Message(LogType.Error, "{0}", ex.Message);
-                    return false;
-                }
+
+                return true;
+            }
+            catch (MySqlException ex)
+            {
+                Log.Message(LogType.Error, "{0}", ex.Message);
+                return false;
             }
         }
 
@@ -111,41 +103,32 @@ namespace Framework.Database
             // Fix for floating point problems on some languages
             sqlString.AppendFormat(CultureInfo.GetCultureInfo("en-US").NumberFormat, sql);
 
-            using (var Connection = new MySqlConnection(ConnectionString))
+            try
             {
-                try
+                using (var sqlCommand = new MySqlCommand(sqlString.ToString(), Connection))
                 {
-                    Connection.Open();
+                    var mParams = new List<MySqlParameter>(args.Length);
 
-                    using (var sqlCommand = new MySqlCommand(sqlString.ToString(), Connection))
+                    foreach (var a in args)
+                        mParams.Add(new MySqlParameter("", a));
+
+                    sqlCommand.Parameters.AddRange(mParams.ToArray());
+
+                    using (var SqlData = sqlCommand.ExecuteReader(CommandBehavior.Default))
                     {
-                        var mParams = new List<MySqlParameter>(args.Length);
-
-                        foreach (var a in args)
-                            mParams.Add(new MySqlParameter("", a));
-
-                        sqlCommand.Parameters.AddRange(mParams.ToArray());
-
-                        using (var SqlData = sqlCommand.ExecuteReader(CommandBehavior.Default))
+                        using (var retData = new SQLResult())
                         {
-                            using (var retData = new SQLResult())
-                            {
-                                retData.Load(SqlData);
-                                retData.Count = retData.Rows.Count;
+                            retData.Load(SqlData);
+                            retData.Count = retData.Rows.Count;
 
-                                Connection.Close();
-
-                                return retData;
-                            }
+                            return retData;
                         }
                     }
                 }
-                catch (MySqlException ex)
-                {
-                    Log.Message(LogType.Error, "{0}", ex.Message);
-                }
-
-                Connection.Close();
+            }
+            catch (MySqlException ex)
+            {
+                Log.Message(LogType.Error, "{0}", ex.Message);
             }
 
             return null;
@@ -179,16 +162,15 @@ namespace Framework.Database
                         sqlString.AppendFormat("),", CultureInfo.InvariantCulture);
                 }
 
-                using (var Connection = new MySqlConnection(ConnectionString))
-                {
-                    Connection.Open();
-
-                    MySqlCommand sqlCommand = new MySqlCommand(sqlString.ToString(), Connection);
-                    sqlCommand.ExecuteNonQuery();
-
-                    Connection.Close();
-                }
+                MySqlCommand sqlCommand = new MySqlCommand(sqlString.ToString(), Connection);
+                sqlCommand.ExecuteNonQuery();
             }
+        }
+
+        public void Dispose()
+        {
+            Connection.Close();
+            ConnectionString = null;
         }
     }
 }
