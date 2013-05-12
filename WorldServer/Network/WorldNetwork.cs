@@ -62,7 +62,7 @@ namespace WorldServer.Network
                     WorldClass worldClient = new WorldClass();
                     worldClient.clientSocket = await listener.AcceptSocketAsync();
 
-                    new Thread(worldClient.OnConnect).Start();
+                    worldClient.OnConnect();
                 }
             }
         }
