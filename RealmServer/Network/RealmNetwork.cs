@@ -25,6 +25,7 @@ namespace Framework.Network.Realm
 {
     public class RealmNetwork
     {
+        public ManualResetEvent threadManager = new ManualResetEvent(false);
         TcpListener listener;
 
         public bool Start(string host, int port)
@@ -58,12 +59,14 @@ namespace Framework.Network.Realm
 
                 if (listener.Pending())
                 {
-                    RealmClass realmClient = new RealmClass();
-                    realmClient.clientSocket = listener.AcceptSocket();
+                    threadManager.Reset();
 
-                    new Thread(realmClient.Receive).Start();
+                    listener.BeginAcceptSocket(new AsyncCallback(new RealmClass().Accept), listener);
+
+                    threadManager.WaitOne();
                 }
             }
+                    
         }
     }
 }

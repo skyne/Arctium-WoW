@@ -30,6 +30,7 @@ namespace WorldServer
 {
     class WorldServer
     {
+        [MTAThreadAttribute]
         static void Main()
         {
             Log.ServerType = "World";

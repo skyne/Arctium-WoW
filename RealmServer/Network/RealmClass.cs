@@ -38,7 +38,7 @@ namespace Framework.Network.Realm
         public static RealmNetwork realm;
         public SRP6 SecureRemotePassword { get; set; }
         public Socket clientSocket;
-        byte[] DataBuffer;
+        byte[] DataBuffer = new byte[0x400];
 
         public RealmClass()
         {
@@ -222,22 +222,27 @@ namespace Framework.Network.Realm
             }
         }
 
-        public void Receive()
+        public void Accept(IAsyncResult ar)
         {
-            while (clientSocket.Connected)
+            clientSocket = (ar.AsyncState as TcpListener).EndAcceptSocket(ar);
+            realm.threadManager.Set();
+
+            clientSocket.BeginReceive(DataBuffer, 0, DataBuffer.Length, SocketFlags.None, Receive, clientSocket);
+        }
+
+        public void Receive(IAsyncResult ar)
+        {
+            var handler = ar.AsyncState as Socket;
+            var recievedBytes = clientSocket.EndReceive(ar);
+            
+            if (recievedBytes != 0)
             {
-                if (clientSocket.Available > 0)
-                {
-                    DataBuffer = new byte[clientSocket.Available];
-                    clientSocket.Receive(DataBuffer, DataBuffer.Length, SocketFlags.None);
+                HandleRealmData(DataBuffer);
 
-                    HandleRealmData(DataBuffer);
-                }
-
-                Thread.Sleep(1);
+                clientSocket.BeginReceive(DataBuffer, 0, DataBuffer.Length, SocketFlags.None, Receive, handler);
             }
-
-            clientSocket.Close();
+            else
+                clientSocket.Close();
         }
 
         public void Send(PacketWriter packet)
