@@ -232,17 +232,24 @@ namespace Framework.Network.Realm
 
         public void Receive(IAsyncResult ar)
         {
-            var handler = ar.AsyncState as Socket;
-            var recievedBytes = clientSocket.EndReceive(ar);
-            
-            if (recievedBytes != 0)
+            try
             {
-                HandleRealmData(DataBuffer);
+                var handler = ar.AsyncState as Socket;
+                var recievedBytes = clientSocket.EndReceive(ar);
 
-                clientSocket.BeginReceive(DataBuffer, 0, DataBuffer.Length, SocketFlags.None, Receive, handler);
+                if (recievedBytes != 0)
+                {
+                    HandleRealmData(DataBuffer);
+
+                    clientSocket.BeginReceive(DataBuffer, 0, DataBuffer.Length, SocketFlags.None, Receive, handler);
+                }
+                else
+                    clientSocket.Close();
             }
-            else
-                clientSocket.Close();
+            catch (Exception ex)
+            {
+                Log.Message(LogType.Error, "{0}", ex.Message);
+            }
         }
 
         public void Send(PacketWriter packet)

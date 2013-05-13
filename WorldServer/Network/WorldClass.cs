@@ -113,7 +113,8 @@ namespace WorldServer.Network
                 if (Character != null)
                     Globals.WorldMgr.DeleteSession(Character.Guid);
 
-                DB.Realms.Execute("UPDATE accounts SET online = 0 WHERE id = ?", Account.Id);
+                if (Account != null)
+                    DB.Realms.Execute("UPDATE accounts SET online = 0 WHERE id = ?", Account.Id);
             }
         }
 
