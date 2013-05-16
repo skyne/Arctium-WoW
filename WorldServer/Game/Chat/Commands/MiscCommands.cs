@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Framework.Configuration;
 using Framework.ObjectDefines;
 using System;
 using System.Text;
@@ -36,9 +37,9 @@ namespace WorldServer.Game.Chat.Commands
                 foreach (var desc in helpAttribute)
                 {
                     if (String.IsNullOrEmpty(desc.Description))
-                        commandList.AppendLine("!" + command.Key + " [" + desc.Description + "]");
+                        commandList.AppendLine(WorldConfig.GMCommandStart + command.Key + " [" + desc.Description + "]");
                     else
-                        commandList.AppendLine("!" + command.Key);
+                        commandList.AppendLine(WorldConfig.GMCommandStart + command.Key);
                 }
             }
 
