@@ -106,6 +106,7 @@ namespace WorldServer.Game.WorldEntities
             SetUpdateField<UInt64>((int)ObjectFields.Guid, Guid);
             SetUpdateField<UInt64>((int)ObjectFields.Data, 0);
             SetUpdateField<Int32>((int)ObjectFields.Type, 0x19);
+            SetUpdateField<Int32>((int)ObjectFields.DynamicFlags, 0);
             SetUpdateField<Single>((int)ObjectFields.Scale, 1.0f);
 
             SetUpdateField<Int32>((int)UnitFields.Health, 123);
@@ -158,7 +159,7 @@ namespace WorldServer.Game.WorldEntities
                 if (i < Skills.Count)
                     SetUpdateField<UInt32>((int)PlayerFields.Skill + i, Skills[i].Id);
 
-            SetUpdateField<UInt32>((int)PlayerFields.HomePlayerRealm, WorldConfig.RealmId);
+            SetUpdateField<UInt32>((int)PlayerFields.VirtualPlayerRealm, WorldConfig.RealmId);
         }
 
         public static string NormalizeName(string name)

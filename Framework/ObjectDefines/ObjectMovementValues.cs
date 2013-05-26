@@ -72,10 +72,6 @@ namespace Framework.ObjectDefines
             HasGoTransportPosition = (updateflags & UpdateFlag.GoTransportPosition) != 0;
             HasAnimKits            = (updateflags & UpdateFlag.AnimKits)            != 0;
             IsVehicle              = (updateflags & UpdateFlag.Vehicle)             != 0;
-            HasUnknown             = (updateflags & UpdateFlag.Unknown)             != 0;
-            HasUnknown2            = (updateflags & UpdateFlag.Unknown2)            != 0;
-            HasUnknown3            = (updateflags & UpdateFlag.Unknown3)            != 0;
-            HasUnknown4            = (updateflags & UpdateFlag.Unknown4)            != 0;
         }
     }
 }

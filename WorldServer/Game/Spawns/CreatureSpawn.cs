@@ -145,7 +145,6 @@ namespace WorldServer.Game.Spawns
             SetUpdateField<Int32>((int)UnitFields.DisplayID, Creature.Stats.DisplayInfoId[0]);
             SetUpdateField<Int32>((int)UnitFields.NativeDisplayID, Creature.Stats.DisplayInfoId[2]);
             SetUpdateField<Int32>((int)UnitFields.MountDisplayID, 0);
-            SetUpdateField<Int32>((int)UnitFields.DynamicFlags, 0);
 
             SetUpdateField<Single>((int)UnitFields.BoundingRadius, 0.389F);
             SetUpdateField<Single>((int)UnitFields.CombatReach, 1.5F);

@@ -31,9 +31,5 @@ namespace Framework.Constants
         GoTransportPosition = 0x0040,
         AnimKits            = 0x0080,
         Vehicle             = 0x0100,
-        Unknown             = 0x0200,
-        Unknown2            = 0x0400,
-        Unknown3            = 0x0800,
-        Unknown4            = 0x1000,
     }
 }
