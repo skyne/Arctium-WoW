@@ -40,8 +40,9 @@ namespace WorldServer.Game.Packets.PacketHandler
             PacketWriter writer = new PacketWriter(ServerMessage.SendKnownSpells);
             BitPack BitPack = new BitPack(writer);
 
-            BitPack.Write(1);
             BitPack.Write(count, 22);
+            BitPack.Write(1);
+
             BitPack.Flush();
 
             pChar.SpellList.ForEach(spell =>
@@ -61,8 +62,9 @@ namespace WorldServer.Game.Packets.PacketHandler
             PacketWriter writer = new PacketWriter(ServerMessage.LearnedSpells);
             BitPack BitPack = new BitPack(writer);
 
-            BitPack.Write<int>(newSpells.Count, 22);
             BitPack.Write(0);
+            BitPack.Write<int>(newSpells.Count, 22);
+
             BitPack.Flush();
 
             for (int i = 0; i < newSpells.Count; i++)

@@ -29,7 +29,7 @@ namespace WorldServer.Game.Packets.PacketHandler
 {
     public class SpecializationHandler : Globals
     {
-        [Opcode(ClientMessage.CliSetSpecialization, "16826")]
+        [Opcode(ClientMessage.CliSetSpecialization, "16992")]
         public static void HandleCliSetSpecialization(ref PacketReader packet, ref WorldClass session)
         {
             var pChar = session.Character;
@@ -54,13 +54,12 @@ namespace WorldServer.Game.Packets.PacketHandler
             SpecializationMgr.SaveSpecInfo(pChar);
 
             SendSpecializationSpells(ref session);
-
             HandleUpdateTalentData(ref session);
 
             pChar.SetUpdateField<Int32>((int)PlayerFields.CurrentSpecID, (int)pChar.GetActiveSpecId());
             ObjectHandler.HandleUpdateObjectValues(ref session);
 
-            Log.Message(LogType.Debug, "Character (Guid: {0}) choosed spectialization {1} for spec group {2}.", pChar.Guid, pChar.GetActiveSpecId(), pChar.ActiveSpecGroup);
+            Log.Message(LogType.Debug, "Character (Guid: {0}) choosed specialization {1} for spec group {2}.", pChar.Guid, pChar.GetActiveSpecId(), pChar.ActiveSpecGroup);
         }
 
         [Opcode(ClientMessage.CliLearnTalents, "16826")]
@@ -102,8 +101,6 @@ namespace WorldServer.Game.Packets.PacketHandler
             PacketWriter updateTalentData = new PacketWriter(ServerMessage.UpdateTalentData);
             BitPack BitPack = new BitPack(updateTalentData);
 
-            updateTalentData.WriteUInt8((byte)pChar.ActiveSpecGroup);     // Active Spec (0 or 1)
-
             BitPack.Write(pChar.SpecGroupCount, 19);
 
             for (int i = 0; i < pChar.SpecGroupCount; i++)
@@ -120,15 +117,16 @@ namespace WorldServer.Game.Packets.PacketHandler
                 var talents = SpecializationMgr.GetTalentsBySpecGroup(pChar, (byte)i);
                 var specId = (i == 0) ? pChar.PrimarySpec : pChar.SecondarySpec;
 
-                for (int j = 0; j < talents.Count; j++)
-                    updateTalentData.WriteUInt16(talents[j].Id);          // Talent Id
-
-                updateTalentData.WriteUInt32(specId);                     // Spec Id
-
-                updateTalentData.WriteUInt8(glyphCount);                  // Glyph Count - NYI
                 for (int j = 0; j < glyphCount; j++)
-                    updateTalentData.WriteInt16(0);                       // Glyph Id - NYI
+                    updateTalentData.WriteInt16(0);                 // Glyph Id
+
+                for (int j = 0; j < talents.Count; j++)
+                    updateTalentData.WriteUInt16(talents[j].Id);    // Talent Id
+
+                updateTalentData.WriteUInt32(specId);               // Spec Id
             }
+
+            updateTalentData.WriteUInt8(pChar.ActiveSpecGroup);     // Active Spec (0 or 1)
 
             session.Send(ref updateTalentData);
         }

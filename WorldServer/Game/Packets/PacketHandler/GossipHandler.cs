@@ -26,13 +26,13 @@ namespace WorldServer.Game.Packets.PacketHandler
 {
     public class GossipHandler : Globals
     {
-        [Opcode(ClientMessage.CliTalkToGossip, "16826")]
+        [Opcode(ClientMessage.CliTalkToGossip, "16992")]
         public static void HandleTalkToGossip(ref PacketReader packet, ref WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
 
-            byte[] guidMask = { 2, 1, 7, 3, 6, 0, 4, 5 };
-            byte[] guidBytes = { 5, 3, 6, 2, 7, 0, 4, 1 };
+            byte[] guidMask = { 3, 1, 7, 4, 6, 0, 2, 5 };
+            byte[] guidBytes = { 0, 1, 7, 6, 5, 2, 4, 3 };
 
             var guid = BitUnpack.GetPackedValue(guidMask, guidBytes);
             var gossipData = GossipMgr.GetGossip<Creature>(SmartGuid.GetGuid(guid));
@@ -42,48 +42,41 @@ namespace WorldServer.Game.Packets.PacketHandler
                 PacketWriter gossipMessage = new PacketWriter(ServerMessage.GossipMessage);
                 BitPack BitPack = new BitPack(gossipMessage, guid);
 
-                BitPack.WriteGuidMask(0, 5);
-                BitPack.Write(gossipData.OptionsCount, 20);
-                BitPack.WriteGuidMask(6, 1);
-
-                for (int i = 0; i < gossipData.OptionsCount; i++)
-                {
-                    // OptionsCount not supported.
-                }
-
+                BitPack.WriteGuidMask(0, 1);
+                BitPack.Write(0, 19);           // gossipData.QuestsCount
                 BitPack.WriteGuidMask(2);
-                BitPack.Write(gossipData.QuestsCount, 19);
-                BitPack.WriteGuidMask(4);
+                BitPack.Write(0, 20);           // gossipData.OptionsCount
 
-                for (int i = 0; i < gossipData.QuestsCount; i++)
-                {
-                    // QuestsCount not supported.
-                }
+                // QuestsCount not supported.
+                // for (int i = 0; i < gossipData.QuestsCount; i++)
 
-                BitPack.WriteGuidMask(3, 7);
+                BitPack.WriteGuidMask(3);
+
+                // OptionsCount not supported.
+                // for (int i = 0; i < gossipData.OptionsCount; i++)
+
+                BitPack.WriteGuidMask(5, 4, 6, 7);
+
                 BitPack.Flush();
 
-                for (int i = 0; i < gossipData.OptionsCount; i++)
-                {
-                    // OptionsCount not supported.
-                }
+                BitPack.WriteGuidBytes(6);
 
-                for (int i = 0; i < gossipData.QuestsCount; i++)
-                {
-                    // QuestsCount not supported.
-                }
+                // OptionsCount not supported.
+                // for (int i = 0; i < gossipData.OptionsCount; i++)
 
-                BitPack.WriteGuidBytes(5, 2, 6, 0);
+                BitPack.WriteGuidBytes(0);
+
+                // QuestsCount not supported.
+                // for (int i = 0; i < gossipData.QuestsCount; i++)
 
                 gossipMessage.WriteInt32(gossipData.Id);
 
-                BitPack.WriteGuidBytes(4, 7);
-
-                gossipMessage.WriteInt32(gossipData.TextID);
-
-                BitPack.WriteGuidBytes(3, 1);
+                BitPack.WriteGuidBytes(4, 3);
 
                 gossipMessage.WriteInt32(gossipData.FriendshipFactionID);
+                gossipMessage.WriteInt32(gossipData.TextID);
+
+                BitPack.WriteGuidBytes(7, 1, 5, 1);
 
                 session.Send(ref gossipMessage);
             }

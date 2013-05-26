@@ -63,17 +63,18 @@ namespace WorldServer.Game.Packets.PacketHandler
             session.Send(ref updateObject);
         }
 
-        public static PacketWriter HandleDestroyObject(ref WorldClass session, ulong guid)
+        public static PacketWriter HandleDestroyObject(ref WorldClass session, ulong guid, bool animation = false)
         {
             PacketWriter destroyObject = new PacketWriter(ServerMessage.DestroyObject);
             BitPack BitPack = new BitPack(destroyObject, guid);
 
-            BitPack.WriteGuidMask(1, 6, 5, 7, 4, 2, 0, 3);
-            BitPack.Write(0);
+            BitPack.WriteGuidMask(4);
+            BitPack.Write(animation);
+            BitPack.WriteGuidMask(0, 1, 6, 2, 5, 7, 3);
 
             BitPack.Flush();
 
-            BitPack.WriteGuidBytes(7, 2, 6, 1, 3, 7, 5, 0);
+            BitPack.WriteGuidBytes(7, 1, 2, 5, 0, 3, 6, 4);
 
             return destroyObject;
         }

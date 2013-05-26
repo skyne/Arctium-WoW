@@ -26,14 +26,14 @@ namespace WorldServer.Game.Packets.PacketHandler
 {
     public class ChatHandler : Globals
     {
-        [Opcode(ClientMessage.ChatMessageSay, "16826")]
+        [Opcode(ClientMessage.ChatMessageSay, "16992")]
         public static void HandleChatMessageSay(ref PacketReader packet, ref WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
 
             var language = packet.Read<int>();
 
-            var messageLength = packet.ReadByte();
+            var messageLength = BitUnpack.GetBits<byte>(8);
             var message = packet.ReadString(messageLength);
 
             ChatMessageValues chatMessage = new ChatMessageValues(MessageType.ChatMessageSay, message, true, true);
@@ -45,7 +45,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                 SendMessage(ref session, chatMessage);
         }
 
-        [Opcode(ClientMessage.ChatMessageYell, "16826")]
+        [Opcode(ClientMessage.ChatMessageYell, "16992")]
         public static void HandleChatMessageYell(ref PacketReader packet, ref WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
@@ -61,7 +61,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             SendMessage(ref session, chatMessage);
         }
 
-        [Opcode(ClientMessage.ChatMessageWhisper, "16826")]
+        [Opcode(ClientMessage.ChatMessageWhisper, "16992")]
         public static void HandleChatMessageWhisper(ref PacketReader packet, ref WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
@@ -88,10 +88,10 @@ namespace WorldServer.Game.Packets.PacketHandler
 
         public static void SendMessage(ref WorldClass session, ChatMessageValues chatMessage, WorldClass pSession = null)
         {
-            byte[] GuidMask = { 4, 7, 6, 3, 0, 5, 1, 2 };
-            byte[] GuidMask3 = { 4, 0, 7, 2, 1, 5, 3, 6 };
-            byte[] GuidBytes = { 3, 5, 1, 4, 2, 6, 0, 7 };
-            byte[] GuidBytes3 = { 7, 6, 0, 3, 4, 1, 5, 2 };
+            byte[] GuidMask = { 5, 4, 1, 0, 6, 2, 7, 3};
+            byte[] GuidMask3 = { 1, 5, 7, 4, 2, 0, 6, 3 };
+            byte[] GuidBytes = { 5, 0, 7, 4, 3, 2, 1, 6 };
+            byte[] GuidBytes3 = { 7, 4, 2, 3, 1, 5, 6, 0 };
 
             var pChar = session.Character;
             var guid = pChar.Guid;
@@ -103,42 +103,41 @@ namespace WorldServer.Game.Packets.PacketHandler
             BitPack BitPack = new BitPack(chat, guid);
 
             BitPack.Write(1);
-            BitPack.Write(!chatMessage.HasLanguage);
-            BitPack.Write(1);
             BitPack.Write(0);
             BitPack.Write(1);
-            BitPack.Write(0);
+            BitPack.Write(1);
+            BitPack.Write(0, 8);
             BitPack.Write(0);
             BitPack.Write(1);
+            BitPack.WriteGuidMask(GuidMask3);
+            BitPack.Write(0);
+            BitPack.Write(1);
+            BitPack.Write(1);
+            BitPack.Write(0, 8);
+            BitPack.Write(0);
+            BitPack.Write(1);
+            BitPack.WriteStringLength(chatMessage.Message, 12);
+            BitPack.Write(!chatMessage.HasRealmId);
             BitPack.Write(1);
             BitPack.Write(0);
             BitPack.WriteGuidMask(GuidMask);
             BitPack.Write(0);
-            BitPack.Write(0);
-            BitPack.WriteStringLength(chatMessage.Message, 12);
-            BitPack.Write(!chatMessage.HasRealmId);
-            BitPack.WriteGuidMask(GuidMask3);
-            BitPack.Write(1);
-            BitPack.Write(0, 8);
             BitPack.Write(8, 9);
-            BitPack.Write(1);
-            BitPack.Write(1);
-            BitPack.Write(0, 8);
+            BitPack.Write(!chatMessage.HasLanguage);
+
             BitPack.Flush();
 
+            BitPack.WriteGuidBytes(GuidBytes3);
             BitPack.WriteGuidBytes(GuidBytes);
 
+            chat.WriteUInt8((byte)chatMessage.ChatType);
             chat.WriteString(chatMessage.Message, false);
 
             if (chatMessage.HasRealmId)
                 chat.WriteInt32(chatMessage.RealmId);
 
-            BitPack.WriteGuidBytes(GuidBytes3);
-
             if (chatMessage.HasLanguage)
                 chat.WriteUInt8(chatMessage.Language);
-
-            chat.WriteUInt8((byte)chatMessage.ChatType);
 
             switch (chatMessage.ChatType)
             {
