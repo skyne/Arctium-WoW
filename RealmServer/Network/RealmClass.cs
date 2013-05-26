@@ -110,8 +110,8 @@ namespace Framework.Network.Realm
                     var username = result.Read<String>(0, "name").ToUpperInvariant();
                     var password = result.Read<String>(0, "password").ToUpperInvariant();
 
-                    // WoW 5.2.0.16826
-                    if (ClientBuild == 16826)
+                    // WoW 5.3.0.16992
+                    if (ClientBuild == 16992)
                     {
                         SecureRemotePassword.CalculateX(username, password);
 
