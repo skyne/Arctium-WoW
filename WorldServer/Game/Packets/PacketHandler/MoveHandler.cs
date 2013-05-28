@@ -27,18 +27,36 @@ namespace WorldServer.Game.Packets.PacketHandler
 {
     public class MoveHandler : Globals
     {
-        [Opcode(ClientMessage.MoveStartForward, "16826")]
-        [Opcode(ClientMessage.MoveStartBackward, "16826")]
-        [Opcode(ClientMessage.MoveStartSwim, "16826")]
-        [Opcode(ClientMessage.MoveStopSwim, "16826")]
-        [Opcode(ClientMessage.MoveStop, "16826")]
-        [Opcode(ClientMessage.MoveJump, "16826")]
-        [Opcode(ClientMessage.MoveStartTurnLeft, "16826")]
-        [Opcode(ClientMessage.MoveStartTurnRight, "16826")]
-        [Opcode(ClientMessage.MoveStopTurn, "16826")]
-        [Opcode(ClientMessage.MoveFallLand, "16826")]
-        [Opcode(ClientMessage.MoveHeartbeat, "16826")]
-        public static void HandleMove(ref PacketReader packet, ref WorldClass session)
+        [Opcode(ClientMessage.MoveStartForward,         "16992")]
+        [Opcode(ClientMessage.MoveStartBackward,        "16992")]
+        [Opcode(ClientMessage.MoveStop,                 "16992")]
+        [Opcode(ClientMessage.MoveStartStrafeLeft,      "16992")]
+        [Opcode(ClientMessage.MoveStartStrafeRight,     "16992")]
+        [Opcode(ClientMessage.MoveStopStrafe,           "16992")]
+        [Opcode(ClientMessage.MoveJump,                 "16992")]
+        [Opcode(ClientMessage.MoveStartTurnLeft,        "16992")]
+        [Opcode(ClientMessage.MoveStartTurnRight,       "16992")]
+        [Opcode(ClientMessage.MoveStopTurn,             "16992")]
+        [Opcode(ClientMessage.MoveStartPitchUp,         "16992")]
+        [Opcode(ClientMessage.MoveStartPitchDown,       "16992")]
+        [Opcode(ClientMessage.MoveStopPitch,            "16992")]
+        [Opcode(ClientMessage.MoveSetRunMode,           "16992")]
+        [Opcode(ClientMessage.MoveSetWalkMode,          "16992")]
+        [Opcode(ClientMessage.MoveFallLand,             "16992")]
+        [Opcode(ClientMessage.MoveStartSwim,            "16992")]
+        [Opcode(ClientMessage.MoveStopSwim,             "16992")]
+        [Opcode(ClientMessage.MoveToggleCollisionCheat, "16992")]
+        [Opcode(ClientMessage.MoveSetFacing,            "16992")]
+        [Opcode(ClientMessage.MoveSetPitch,             "16992")]
+        [Opcode(ClientMessage.MoveHeartbeat,            "16992")]
+        [Opcode(ClientMessage.MoveFallReset,            "16992")]
+        [Opcode(ClientMessage.MoveSetFly,               "16992")]
+        [Opcode(ClientMessage.MoveStartAscend,          "16992")]
+        [Opcode(ClientMessage.MoveStopAscend,           "16992")]
+        [Opcode(ClientMessage.MoveChangeTransport,      "16992")]
+        [Opcode(ClientMessage.MoveStartDescend,         "16992")]
+        [Opcode(ClientMessage.MoveDismissVehicle,       "16992")]
+        public static void HandlePlayerMove(ref PacketReader packet, ref WorldClass session)
         {
             ObjectMovementValues movementValues = new ObjectMovementValues();
             BitUnpack BitUnpack = new BitUnpack(packet);
