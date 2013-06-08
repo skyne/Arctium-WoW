@@ -14,14 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
+using System;
+
 namespace Framework.Console.Commands
 {
-    public class CommandDefinitions
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+    public sealed class CommandAttribute : Attribute
     {
-        public static void Initialize()
+        public string Command { get; set; }
+        public string Description { get; set; }
+
+        public CommandAttribute(string command, string description)
         {
-            CommandManager.DefineCommand("caccount", AccountCommands.CreateAccount);
+            Command = command;
+            Description = description;
         }
     }
 }

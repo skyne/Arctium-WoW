@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Collections.Generic;
 using Framework.ClientDB.Reader;
 using Framework.ClientDB.Structures.Dbc;
 using Framework.Logging;
-using System.Collections.Generic;
 
 namespace Framework.ClientDB
 {

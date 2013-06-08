@@ -15,10 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Framework.Console;
+using Framework.Console.Commands;
 using Framework.Database;
 using Framework.ObjectDefines;
-using System;
 using WorldServer.Game.Packets.PacketHandler;
 using WorldServer.Network;
 
@@ -274,7 +273,7 @@ namespace WorldServer.Game.Chat.Commands
         {
             var pChar = session.Character;
 
-            var message = String.Format("Your position is X: {0}, Y: {1}, Z: {2}, W(O): {3}, Map: {4}, Zone: {5}", pChar.Position.X, pChar.Position.Y, pChar.Position.Z, pChar.Position.O, pChar.Map, pChar.Zone);
+            var message = string.Format("Your position is X: {0}, Y: {1}, Z: {2}, W(O): {3}, Map: {4}, Zone: {5}", pChar.Position.X, pChar.Position.Y, pChar.Position.Z, pChar.Position.O, pChar.Map, pChar.Zone);
             ChatMessageValues chatMessage = new ChatMessageValues(0, message);
 
             ChatHandler.SendMessage(ref session, chatMessage);
@@ -295,14 +294,14 @@ namespace WorldServer.Game.Chat.Commands
                 if (DB.World.Execute("INSERT INTO teleport_locations (location, x, y, z, o, map) " +
                     "VALUES (?, ?, ?, ?, ?, ?)", location, pChar.Position.X, pChar.Position.Y, pChar.Position.Z, pChar.Position.O, pChar.Map))
                 {
-                    chatMessage.Message = String.Format("Teleport location '{0}' successfully added.", location);
+                    chatMessage.Message = string.Format("Teleport location '{0}' successfully added.", location);
 
                     ChatHandler.SendMessage(ref session, chatMessage);
                 }
             }
             else
             {
-                chatMessage.Message = String.Format("Teleport location '{0}' already exist.", location);
+                chatMessage.Message = string.Format("Teleport location '{0}' already exist.", location);
 
                 ChatHandler.SendMessage(ref session, chatMessage);
             }
@@ -315,7 +314,7 @@ namespace WorldServer.Game.Chat.Commands
 
             string location = CommandParser.Read<string>(args, 1);
 
-            ChatMessageValues chatMessage = new ChatMessageValues(0, String.Format("Teleport location '{0}' successfully deleted.", location));
+            ChatMessageValues chatMessage = new ChatMessageValues(0, string.Format("Teleport location '{0}' successfully deleted.", location));
 
             if (DB.World.Execute("DELETE FROM teleport_locations WHERE location = ?", location))
                 ChatHandler.SendMessage(ref session, chatMessage);

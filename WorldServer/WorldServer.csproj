@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Console\Commands\AccountCommands.cs" />
     <Compile Include="Game\Chat\ChatCommandAttribute.cs" />
     <Compile Include="Game\Chat\ChatCommandParser.cs" />
     <Compile Include="Game\Chat\Commands\CreatureCommands.cs" />

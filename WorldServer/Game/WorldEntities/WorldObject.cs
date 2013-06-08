@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Framework.Network.Packets;
-using Framework.ObjectDefines;
 using System;
 using System.Collections;
+using Framework.Network.Packets;
+using Framework.ObjectDefines;
 using WorldServer.Game.Spawns;
 
 namespace WorldServer.Game.WorldEntities
@@ -26,12 +26,12 @@ namespace WorldServer.Game.WorldEntities
     public class WorldObject : Globals
     {
         // General object data
-        public UInt64 Guid;
+        public ulong Guid;
         public Vector4 Position;
-        public UInt32 Map;
+        public uint Map;
 
         // Some data
-        public UInt64 TargetGuid;
+        public ulong TargetGuid;
 
         public int MaskSize;
         public BitArray Mask;
@@ -73,9 +73,9 @@ namespace WorldServer.Game.WorldEntities
                     Mask.Set(index, true);
 
                     if (UpdateData.ContainsKey(index))
-                        UpdateData[index] = (int)((int)UpdateData[index] | (int)((int)Convert.ChangeType(value, typeof(int)) << (offset * (value.GetType().Name == "Byte" ? 8 : 16))));
+                        UpdateData[index] = (int)((int)UpdateData[index] | (int)((int)Convert.ChangeType(value, typeof(int)) << (offset * (value.GetType().Name == "byte" ? 8 : 16))));
                     else
-                        UpdateData[index] = (int)((int)Convert.ChangeType(value, typeof(int)) << (offset * (value.GetType().Name == "Byte" ? 8 : 16)));
+                        UpdateData[index] = (int)((int)Convert.ChangeType(value, typeof(int)) << (offset * (value.GetType().Name == "byte" ? 8 : 16)));
 
                     break;
                 }
@@ -85,9 +85,9 @@ namespace WorldServer.Game.WorldEntities
                     Mask.Set(index, true);
 
                     if (UpdateData.ContainsKey(index))
-                        UpdateData[index] = (uint)((uint)UpdateData[index] | (uint)((uint)Convert.ChangeType(value, typeof(uint)) << (offset * (value.GetType().Name == "Byte" ? 8 : 16))));
+                        UpdateData[index] = (uint)((uint)UpdateData[index] | (uint)((uint)Convert.ChangeType(value, typeof(uint)) << (offset * (value.GetType().Name == "byte" ? 8 : 16))));
                     else
-                        UpdateData[index] = (uint)((uint)Convert.ChangeType(value, typeof(uint)) << (offset * (value.GetType().Name == "Byte" ? 8 : 16)));
+                        UpdateData[index] = (uint)((uint)Convert.ChangeType(value, typeof(uint)) << (offset * (value.GetType().Name == "byte" ? 8 : 16)));
 
                     break;
                 }
@@ -98,8 +98,8 @@ namespace WorldServer.Game.WorldEntities
 
                     long tmpValue = (long)Convert.ChangeType(value, typeof(long));
 
-                    UpdateData[index] = (uint)(tmpValue & Int32.MaxValue);
-                    UpdateData[index + 1] = (uint)((tmpValue >> 32) & Int32.MaxValue);
+                    UpdateData[index] = (uint)(tmpValue & int.MaxValue);
+                    UpdateData[index + 1] = (uint)((tmpValue >> 32) & int.MaxValue);
 
                     break;
                 }
@@ -110,8 +110,8 @@ namespace WorldServer.Game.WorldEntities
 
                     ulong tmpValue = (ulong)Convert.ChangeType(value, typeof(ulong));
 
-                    UpdateData[index] = (uint)(tmpValue & UInt32.MaxValue);
-                    UpdateData[index + 1] = (uint)((tmpValue >> 32) & UInt32.MaxValue);
+                    UpdateData[index] = (uint)(tmpValue & uint.MaxValue);
+                    UpdateData[index + 1] = (uint)((tmpValue >> 32) & uint.MaxValue);
                     
                     break;
                 }
@@ -128,7 +128,7 @@ namespace WorldServer.Game.WorldEntities
         public void WriteUpdateFields(ref PacketWriter packet)
         {
             packet.WriteUInt8((byte)MaskSize);
-            packet.WriteBitArray(Mask, MaskSize * 4);    // Int32 = 4 Bytes
+            packet.WriteBitArray(Mask, MaskSize * 4);    // int = 4 Bytes
 
             for (int i = 0; i < Mask.Count; i++)
             {
@@ -138,7 +138,7 @@ namespace WorldServer.Game.WorldEntities
                     {
                         switch (UpdateData[i].GetType().Name)
                         {
-                            case "UInt32":
+                            case "uint":
                                 packet.WriteUInt32((uint)UpdateData[i]);
                                 break;
                             case "Single":

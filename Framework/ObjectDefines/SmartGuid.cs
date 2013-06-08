@@ -22,7 +22,7 @@ namespace Framework.ObjectDefines
 {
     public class SmartGuid
     {
-        public UInt64 Guid { get; set; }
+        public ulong Guid { get; set; }
 
         public SmartGuid(ulong low, int id, HighGuidType highType)
         {

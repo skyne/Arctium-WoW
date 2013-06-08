@@ -40,17 +40,17 @@ namespace Framework.Logging.PacketLogging
 
                     if (serverPacket != null)
                     {
-                        sb.AppendLine(String.Format(CultureInfo.InvariantCulture, "Client: {0}", clientInfo));
-                        sb.AppendLine(String.Format(CultureInfo.InvariantCulture, "Time: {0}", DateTime.Now.ToString()));
+                        sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "Client: {0}", clientInfo));
+                        sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "Time: {0}", DateTime.Now.ToString()));
 
                         if (Enum.IsDefined(typeof(ServerMessage), serverPacket.Opcode))
                         {
                             sb.AppendLine("Type: ServerMessage");
-                            sb.AppendLine(String.Format(CultureInfo.InvariantCulture, "Name: {0}", Enum.GetName(typeof(ServerMessage), serverPacket.Opcode)));
+                            sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "Name: {0}", Enum.GetName(typeof(ServerMessage), serverPacket.Opcode)));
                         }
 
-                        sb.AppendLine(String.Format(CultureInfo.InvariantCulture, "Value: 0x{0:X} ({1})", serverPacket.Opcode, serverPacket.Opcode));
-                        sb.AppendLine(String.Format(CultureInfo.InvariantCulture, "Length: {0}", serverPacket.Size - 2));
+                        sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "Value: 0x{0:X} ({1})", serverPacket.Opcode, serverPacket.Opcode));
+                        sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "Length: {0}", serverPacket.Size - 2));
 
                         sb.AppendLine("|----------------------------------------------------------------|");
                         sb.AppendLine("| 00  01  02  03  04  05  06  07  08  09  0A  0B  0C  0D  0E  0F |");
@@ -65,7 +65,7 @@ namespace Framework.Logging.PacketLogging
                             byte count = 0;
                             data.ForEach(b =>
                             {
-                                sb.Append(String.Format(CultureInfo.InvariantCulture, " {0:X2} ", b));
+                                sb.Append(string.Format(CultureInfo.InvariantCulture, " {0:X2} ", b));
 
                                 if (count == 15)
                                 {
@@ -87,18 +87,18 @@ namespace Framework.Logging.PacketLogging
 
                     if (clientPacket != null)
                     {
-                        sb.AppendLine(String.Format(CultureInfo.InvariantCulture, "Client: {0}", clientInfo));
-                        sb.AppendLine(String.Format(CultureInfo.InvariantCulture, "Time: {0}", DateTime.Now.ToString()));
+                        sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "Client: {0}", clientInfo));
+                        sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "Time: {0}", DateTime.Now.ToString()));
 
                         sb.AppendLine("Type: ClientMessage");
 
                         if (Enum.IsDefined(typeof(ClientMessage), clientPacket.Opcode))
-                            sb.AppendLine(String.Format(CultureInfo.InvariantCulture, "Name: {0}", clientPacket.Opcode));
+                            sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "Name: {0}", clientPacket.Opcode));
                         else
-                            sb.AppendLine(String.Format(CultureInfo.InvariantCulture, "Name: {0}", "Unknown"));
+                            sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "Name: {0}", "Unknown"));
 
-                        sb.AppendLine(String.Format(CultureInfo.InvariantCulture, "Value: 0x{0:X} ({1})", (ushort)clientPacket.Opcode, (ushort)clientPacket.Opcode));
-                        sb.AppendLine(String.Format(CultureInfo.InvariantCulture, "Length: {0}", clientPacket.Size));
+                        sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "Value: 0x{0:X} ({1})", (ushort)clientPacket.Opcode, (ushort)clientPacket.Opcode));
+                        sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "Length: {0}", clientPacket.Size));
 
                         sb.AppendLine("|----------------------------------------------------------------|");
                         sb.AppendLine("| 00  01  02  03  04  05  06  07  08  09  0A  0B  0C  0D  0E  0F |");
@@ -112,7 +112,7 @@ namespace Framework.Logging.PacketLogging
                             byte count = 0;
                             data.ForEach(b =>
                             {
-                                sb.Append(String.Format(CultureInfo.InvariantCulture, " {0:X2} ", b));
+                                sb.Append(string.Format(CultureInfo.InvariantCulture, " {0:X2} ", b));
 
                                 if (count == 15)
                                 {

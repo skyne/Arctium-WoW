@@ -15,11 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using Framework.Constants.Movement;
 using Framework.Constants.NetMessage;
 using Framework.Network.Packets;
 using Framework.ObjectDefines;
-using System;
 using WorldServer.Game.WorldEntities;
 using WorldServer.Network;
 
@@ -375,7 +375,6 @@ namespace WorldServer.Game.Packets.PacketHandler
             BitPack.WriteGuidMask(0);
             BitPack.Write(IsTransport);
 
-            // Unknown bits
             if (Unknown)
             {
                 BitPack.Write(0);

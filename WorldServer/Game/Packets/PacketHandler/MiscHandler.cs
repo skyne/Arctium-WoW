@@ -15,15 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Framework.Constants;
 using Framework.Constants.NetMessage;
 using Framework.Database;
 using Framework.Logging;
 using Framework.Network.Packets;
 using Framework.ObjectDefines;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using WorldServer.Game.ObjectDefines;
 using WorldServer.Network;
 
@@ -36,7 +36,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             PacketWriter motd = new PacketWriter(ServerMessage.MOTD);
             BitPack BitPack = new BitPack(motd);
 
-            List<String> motds = new List<String>();
+            List<string> motds = new List<string>();
 
             motds.Add("Arctium MoP test");
             motds.Add("Welcome to our MoP server test.");
@@ -220,7 +220,6 @@ namespace WorldServer.Game.Packets.PacketHandler
                 }
             }
 
-            // Packet Type (NYI)
             // 0 - Initial packet on Login (no verification) / 1 - Verify spells on switch (Spec change) / 2 - Clear Action Buttons (Spec change)
             updateActionButtons.WriteInt8(0);
 
