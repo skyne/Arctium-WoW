@@ -47,7 +47,7 @@ namespace WorldServer.Game.WorldEntities
                 for (int i = 0; i < Stats.Data.Capacity; i++)
                     Stats.Data.Add(result.Read<int>(0, "Data", i));
 
-                Stats.Size = result.Read<Single>(0, "Size");
+                Stats.Size = result.Read<float>(0, "Size");
 
                 for (int i = 0; i < Stats.QuestItemId.Capacity; i++)
                 {

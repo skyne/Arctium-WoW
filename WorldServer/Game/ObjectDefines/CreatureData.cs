@@ -25,7 +25,7 @@ namespace WorldServer.Game.ObjectDefines
         public byte Level;
         public byte Class;
         public int Faction;
-        public Single Scale;
+        public float Scale;
         public int UnitFlags;
         public int UnitFlags2;
         public int NpcFlags;

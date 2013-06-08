@@ -126,10 +126,10 @@ namespace WorldServer.Game.Managers
 
                     Position = new Vector4()
                     {
-                        X = result.Read<Single>(i, "X"),
-                        Y = result.Read<Single>(i, "Y"),
-                        Z = result.Read<Single>(i, "Z"),
-                        O = result.Read<Single>(i, "O")
+                        X = result.Read<float>(i, "X"),
+                        Y = result.Read<float>(i, "Y"),
+                        Z = result.Read<float>(i, "Z"),
+                        O = result.Read<float>(i, "O")
                     }
                 };
 
@@ -182,10 +182,10 @@ namespace WorldServer.Game.Managers
 
                     Position = new Vector4()
                     {
-                        X = result.Read<Single>(i, "X"),
-                        Y = result.Read<Single>(i, "Y"),
-                        Z = result.Read<Single>(i, "Z"),
-                        O = result.Read<Single>(i, "O")
+                        X = result.Read<float>(i, "X"),
+                        Y = result.Read<float>(i, "Y"),
+                        Z = result.Read<float>(i, "Z"),
+                        O = result.Read<float>(i, "O")
                     },
 
                     FactionTemplate = result.Read<uint>(i, "FactionTemplate"),

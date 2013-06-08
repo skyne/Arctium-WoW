@@ -32,8 +32,8 @@ namespace WorldServer.Game.ObjectDefines
         public int Rank;
         public List<int> QuestKillNpcId = new List<int>(2);
         public List<int> DisplayInfoId = new List<int>(4);
-        public Single HealthModifier;
-        public Single PowerModifier;
+        public float HealthModifier;
+        public float PowerModifier;
         public byte RacialLeader;
         public List<int> QuestItemId = new List<int>(6);
         public int MovementInfoId;

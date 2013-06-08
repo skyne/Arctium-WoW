@@ -78,10 +78,10 @@ namespace WorldServer.Game.WorldEntities
             Level           = result.Read<byte>(0, "Level");
             Zone            = result.Read<uint>(0, "Zone");
             Map             = result.Read<uint>(0, "Map");
-            Position.X      = result.Read<Single>(0, "X");
-            Position.Y      = result.Read<Single>(0, "Y");
-            Position.Z      = result.Read<Single>(0, "Z");
-            Position.O      = result.Read<Single>(0, "O");
+            Position.X      = result.Read<float>(0, "X");
+            Position.Y      = result.Read<float>(0, "Y");
+            Position.Z      = result.Read<float>(0, "Z");
+            Position.O      = result.Read<float>(0, "O");
             GuildGuid       = result.Read<ulong>(0, "GuildGuid");
             PetDisplayInfo  = result.Read<uint>(0, "PetDisplayId");
             PetLevel        = result.Read<uint>(0, "PetLevel");
@@ -107,7 +107,7 @@ namespace WorldServer.Game.WorldEntities
             SetUpdateField<ulong>((int)ObjectFields.Data, 0);
             SetUpdateField<int>((int)ObjectFields.Type, 0x19);
             SetUpdateField<int>((int)ObjectFields.DynamicFlags, 0);
-            SetUpdateField<Single>((int)ObjectFields.Scale, 1.0f);
+            SetUpdateField<float>((int)ObjectFields.Scale, 1.0f);
 
             SetUpdateField<int>((int)UnitFields.Health, 123);
             SetUpdateField<int>((int)UnitFields.MaxHealth, 123);
@@ -128,10 +128,10 @@ namespace WorldServer.Game.WorldEntities
 
             SetUpdateField<uint>((int)UnitFields.Flags, 0x8);
 
-            SetUpdateField<Single>((int)UnitFields.BoundingRadius, 0.389F);
-            SetUpdateField<Single>((int)UnitFields.CombatReach, 1.5F);
-            SetUpdateField<Single>((int)UnitFields.ModCastingSpeed, 1);
-            SetUpdateField<Single>((int)UnitFields.MaxHealthModifier, 1);
+            SetUpdateField<float>((int)UnitFields.BoundingRadius, 0.389F);
+            SetUpdateField<float>((int)UnitFields.CombatReach, 1.5F);
+            SetUpdateField<float>((int)UnitFields.ModCastingSpeed, 1);
+            SetUpdateField<float>((int)UnitFields.MaxHealthModifier, 1);
             
             // PlayerFields
             SetUpdateField<byte>((int)PlayerFields.HairColorID, Skin, 0);

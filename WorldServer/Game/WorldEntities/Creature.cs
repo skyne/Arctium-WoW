@@ -53,8 +53,8 @@ namespace WorldServer.Game.WorldEntities
                 for (int i = 0; i < Stats.DisplayInfoId.Capacity; i++)
                     Stats.DisplayInfoId.Add(result.Read<int>(0, "DisplayInfoId", i));
 
-                Stats.HealthModifier = result.Read<Single>(0, "HealthModifier");
-                Stats.PowerModifier  = result.Read<Single>(0, "PowerModifier");
+                Stats.HealthModifier = result.Read<float>(0, "HealthModifier");
+                Stats.PowerModifier  = result.Read<float>(0, "PowerModifier");
                 Stats.RacialLeader   = result.Read<byte>(0, "RacialLeader");
 
                 for (int i = 0; i < Stats.QuestItemId.Capacity; i++)

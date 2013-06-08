@@ -93,8 +93,8 @@ namespace WorldServer.Game.Managers
                     Type              = result.Read<int>(r, "Type"),
                     Family            = result.Read<int>(r, "Family"),
                     Rank              = result.Read<int>(r, "Rank"),
-                    HealthModifier    = result.Read<Single>(r, "HealthModifier"),
-                    PowerModifier     = result.Read<Single>(r, "PowerModifier"),
+                    HealthModifier    = result.Read<float>(r, "HealthModifier"),
+                    PowerModifier     = result.Read<float>(r, "PowerModifier"),
                     RacialLeader      = result.Read<byte>(r, "RacialLeader"),
                     MovementInfoId    = result.Read<int>(r, "MovementInfoId"),
                     ExpansionRequired = result.Read<int>(r, "ExpansionRequired")
@@ -181,7 +181,7 @@ namespace WorldServer.Game.Managers
                     Name              = result.Read<string>(r, "Name"),
                     IconName          = result.Read<string>(r, "IconName"),
                     CastBarCaption    = result.Read<string>(r, "CastBarCaption"),
-                    Size              = result.Read<Single>(r, "Size"),
+                    Size              = result.Read<float>(r, "Size"),
                     ExpansionRequired = result.Read<int>(r, "ExpansionRequired")
                 };
 

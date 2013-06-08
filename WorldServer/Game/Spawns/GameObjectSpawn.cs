@@ -101,16 +101,16 @@ namespace WorldServer.Game.Spawns
             SetUpdateField<ulong>((int)ObjectFields.Data, 0);
             SetUpdateField<int>((int)ObjectFields.Type, 0x21);
             SetUpdateField<int>((int)ObjectFields.Entry, Id);
-            SetUpdateField<Single>((int)ObjectFields.Scale, GameObject.Stats.Size);
+            SetUpdateField<float>((int)ObjectFields.Scale, GameObject.Stats.Size);
 
             // GameObjectFields
             SetUpdateField<ulong>((int)GameObjectFields.CreatedBy, 0);
             SetUpdateField<int>((int)GameObjectFields.DisplayID, GameObject.Stats.DisplayInfoId);
             SetUpdateField<int>((int)GameObjectFields.Flags, GameObject.Stats.Flags);
-            SetUpdateField<Single>((int)GameObjectFields.ParentRotation, 0);
-            SetUpdateField<Single>((int)GameObjectFields.ParentRotation + 1, 0);
-            SetUpdateField<Single>((int)GameObjectFields.ParentRotation + 2, 0);
-            SetUpdateField<Single>((int)GameObjectFields.ParentRotation + 3, 1);
+            SetUpdateField<float>((int)GameObjectFields.ParentRotation, 0);
+            SetUpdateField<float>((int)GameObjectFields.ParentRotation + 1, 0);
+            SetUpdateField<float>((int)GameObjectFields.ParentRotation + 2, 0);
+            SetUpdateField<float>((int)GameObjectFields.ParentRotation + 3, 1);
             SetUpdateField<byte>((int)GameObjectFields.AnimProgress, AnimProgress);
             SetUpdateField<byte>((int)GameObjectFields.AnimProgress, 0, 1);
             SetUpdateField<byte>((int)GameObjectFields.AnimProgress, 255, 2);

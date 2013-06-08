@@ -138,7 +138,7 @@ namespace WorldServer.Game.WorldEntities
                     {
                         switch (UpdateData[i].GetType().Name)
                         {
-                            case "uint":
+                            case "UInt32":
                                 packet.WriteUInt32((uint)UpdateData[i]);
                                 break;
                             case "Single":

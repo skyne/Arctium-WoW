@@ -98,7 +98,7 @@ namespace WorldServer.Game.Spawns
             SetUpdateField<ulong>((int)ObjectFields.Data, 0);
             SetUpdateField<int>((int)ObjectFields.Entry, Id);
             SetUpdateField<int>((int)ObjectFields.Type, 0x9);
-            SetUpdateField<Single>((int)ObjectFields.Scale, Creature.Data.Scale);
+            SetUpdateField<float>((int)ObjectFields.Scale, Creature.Data.Scale);
 
             // UnitFields
             SetUpdateField<ulong>((int)UnitFields.Charm, 1);
@@ -146,11 +146,11 @@ namespace WorldServer.Game.Spawns
             SetUpdateField<int>((int)UnitFields.NativeDisplayID, Creature.Stats.DisplayInfoId[2]);
             SetUpdateField<int>((int)UnitFields.MountDisplayID, 0);
 
-            SetUpdateField<Single>((int)UnitFields.BoundingRadius, 0.389F);
-            SetUpdateField<Single>((int)UnitFields.CombatReach, 1.5F);
-            SetUpdateField<Single>((int)UnitFields.MinDamage, 0);
-            SetUpdateField<Single>((int)UnitFields.MaxDamage, 0);
-            SetUpdateField<Single>((int)UnitFields.ModCastingSpeed, 1);
+            SetUpdateField<float>((int)UnitFields.BoundingRadius, 0.389F);
+            SetUpdateField<float>((int)UnitFields.CombatReach, 1.5F);
+            SetUpdateField<float>((int)UnitFields.MinDamage, 0);
+            SetUpdateField<float>((int)UnitFields.MaxDamage, 0);
+            SetUpdateField<float>((int)UnitFields.ModCastingSpeed, 1);
             SetUpdateField<int>((int)UnitFields.AttackPower, 0);
             SetUpdateField<int>((int)UnitFields.RangedAttackPower, 0);
 
@@ -168,15 +168,15 @@ namespace WorldServer.Game.Spawns
 
             SetUpdateField<short>((int)UnitFields.RangedAttackRoundBaseTime, 0);
             SetUpdateField<short>((int)UnitFields.RangedAttackRoundBaseTime, 0, 1);
-            SetUpdateField<Single>((int)UnitFields.MinOffHandDamage, 0);
-            SetUpdateField<Single>((int)UnitFields.MaxOffHandDamage, 0);
+            SetUpdateField<float>((int)UnitFields.MinOffHandDamage, 0);
+            SetUpdateField<float>((int)UnitFields.MaxOffHandDamage, 0);
             SetUpdateField<int>((int)UnitFields.AttackPowerModPos, 0);
             SetUpdateField<int>((int)UnitFields.RangedAttackPowerModPos, 0);
-            SetUpdateField<Single>((int)UnitFields.MinRangedDamage, 0);
-            SetUpdateField<Single>((int)UnitFields.MaxRangedDamage, 0);
-            SetUpdateField<Single>((int)UnitFields.AttackPowerMultiplier, 0);
-            SetUpdateField<Single>((int)UnitFields.RangedAttackPowerMultiplier, 0);
-            SetUpdateField<Single>((int)UnitFields.MaxHealthModifier, 1);
+            SetUpdateField<float>((int)UnitFields.MinRangedDamage, 0);
+            SetUpdateField<float>((int)UnitFields.MaxRangedDamage, 0);
+            SetUpdateField<float>((int)UnitFields.AttackPowerMultiplier, 0);
+            SetUpdateField<float>((int)UnitFields.RangedAttackPowerMultiplier, 0);
+            SetUpdateField<float>((int)UnitFields.MaxHealthModifier, 1);
         }
     }
 }

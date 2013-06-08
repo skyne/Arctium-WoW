@@ -97,7 +97,7 @@ namespace WorldServer.Game.PacketHandler
                     BitPack.WriteGuildGuidBytes(6);
                     BitPack.WriteGuidBytes(3);
 
-                    enumCharacters.WriteFloat(result.Read<Single>(c, "X"));
+                    enumCharacters.WriteFloat(result.Read<float>(c, "X"));
                     enumCharacters.WriteUInt32(result.Read<uint>(c, "CharacterFlags"));
 
                     BitPack.WriteGuildGuidBytes(0);
@@ -112,7 +112,7 @@ namespace WorldServer.Game.PacketHandler
                     BitPack.WriteGuildGuidBytes(4);
                     BitPack.WriteGuidBytes(2, 5);
 
-                    enumCharacters.WriteFloat(result.Read<Single>(c, "Y"));
+                    enumCharacters.WriteFloat(result.Read<float>(c, "Y"));
                     enumCharacters.WriteUInt32(result.Read<uint>(c, "PetFamily"));
                     enumCharacters.WriteString(name);
                     enumCharacters.WriteUInt32(result.Read<uint>(c, "PetDisplayId"));
@@ -133,7 +133,7 @@ namespace WorldServer.Game.PacketHandler
                         enumCharacters.WriteUInt8(0);
                     }
 
-                    enumCharacters.WriteFloat(result.Read<Single>(c, "Z"));
+                    enumCharacters.WriteFloat(result.Read<float>(c, "Z"));
                     enumCharacters.WriteUInt32(result.Read<uint>(c, "Zone"));
                     enumCharacters.WriteUInt8(result.Read<byte>(c, "FacialHair"));
                     enumCharacters.WriteUInt8(result.Read<byte>(c, "Class"));

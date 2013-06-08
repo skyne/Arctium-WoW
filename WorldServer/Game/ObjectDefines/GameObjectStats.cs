@@ -31,7 +31,7 @@ namespace WorldServer.Game.ObjectDefines
         public string IconName;
         public string CastBarCaption;
         public List<int> Data = new List<int>(32);
-        public Single Size;
+        public float Size;
         public List<int> QuestItemId = new List<int>(6);
         public int ExpansionRequired;
     }
