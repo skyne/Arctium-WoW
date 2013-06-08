@@ -47,7 +47,7 @@ namespace WorldServer.Game.WorldEntities
         public uint PetFamily;
         public uint CharacterFlags;
         public uint CustomizeFlags;
-        public Boolean LoginCinematic;
+        public bool LoginCinematic;
         public byte SpecGroupCount;
         public byte ActiveSpecGroup;
         public uint PrimarySpec;
@@ -88,7 +88,7 @@ namespace WorldServer.Game.WorldEntities
             PetFamily       = result.Read<uint>(0, "PetFamily");
             CharacterFlags  = result.Read<uint>(0, "CharacterFlags");
             CustomizeFlags  = result.Read<uint>(0, "CustomizeFlags");
-            LoginCinematic  = result.Read<Boolean>(0, "LoginCinematic");
+            LoginCinematic  = result.Read<bool>(0, "LoginCinematic");
             SpecGroupCount  = result.Read<byte>(0, "SpecGroupCount");
             ActiveSpecGroup = result.Read<byte>(0, "ActiveSpecGroup");
             PrimarySpec     = result.Read<uint>(0, "PrimarySpecId");

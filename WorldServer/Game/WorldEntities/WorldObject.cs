@@ -65,7 +65,9 @@ namespace WorldServer.Game.WorldEntities
 
         public void SetUpdateField<T>(int index, T value, byte offset = 0)
         {
-            switch (value.GetType().Name)
+            var typeName = value.GetType().Name;
+
+            switch (typeName)
             {
                 case "SByte":
                 case "Int16":
@@ -73,9 +75,9 @@ namespace WorldServer.Game.WorldEntities
                     Mask.Set(index, true);
 
                     if (UpdateData.ContainsKey(index))
-                        UpdateData[index] = (int)((int)UpdateData[index] | (int)((int)Convert.ChangeType(value, typeof(int)) << (offset * (value.GetType().Name == "byte" ? 8 : 16))));
+                        UpdateData[index] = (int)((int)UpdateData[index] | (int)((int)Convert.ChangeType(value, typeof(int)) << (offset * (typeName == "Byte" ? 8 : 16))));
                     else
-                        UpdateData[index] = (int)((int)Convert.ChangeType(value, typeof(int)) << (offset * (value.GetType().Name == "byte" ? 8 : 16)));
+                        UpdateData[index] = (int)((int)Convert.ChangeType(value, typeof(int)) << (offset * (typeName == "Byte" ? 8 : 16)));
 
                     break;
                 }
@@ -85,9 +87,9 @@ namespace WorldServer.Game.WorldEntities
                     Mask.Set(index, true);
 
                     if (UpdateData.ContainsKey(index))
-                        UpdateData[index] = (uint)((uint)UpdateData[index] | (uint)((uint)Convert.ChangeType(value, typeof(uint)) << (offset * (value.GetType().Name == "byte" ? 8 : 16))));
+                        UpdateData[index] = (uint)((uint)UpdateData[index] | (uint)((uint)Convert.ChangeType(value, typeof(uint)) << (offset * (typeName == "Byte" ? 8 : 16))));
                     else
-                        UpdateData[index] = (uint)((uint)Convert.ChangeType(value, typeof(uint)) << (offset * (value.GetType().Name == "byte" ? 8 : 16)));
+                        UpdateData[index] = (uint)((uint)Convert.ChangeType(value, typeof(uint)) << (offset * (typeName == "Byte" ? 8 : 16)));
 
                     break;
                 }

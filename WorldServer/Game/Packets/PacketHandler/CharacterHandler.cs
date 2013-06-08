@@ -54,8 +54,8 @@ namespace WorldServer.Game.PacketHandler
             {
                 for (int c = 0; c < result.Count; c++)
                 {
-                    string name         = result.Read<string>(c, "Name");
-                    bool loginCinematic = result.Read<Boolean>(c, "LoginCinematic");
+                    var name           = result.Read<string>(c, "Name");
+                    var loginCinematic = result.Read<bool>(c, "LoginCinematic");
 
                     BitPack.Guid      = result.Read<ulong>(c, "Guid");
                     BitPack.GuildGuid = result.Read<ulong>(c, "GuildGuid");

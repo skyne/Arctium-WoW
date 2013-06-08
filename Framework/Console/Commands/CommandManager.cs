@@ -30,7 +30,7 @@ namespace Framework.Console.Commands
 
         public static void DefineCommands()
         {
-            var currentAsm = Assembly.GetExecutingAssembly();
+            var currentAsm = Assembly.GetEntryAssembly();
             foreach (var type in currentAsm.GetTypes())
             {
                 foreach (var methodInfo in type.GetMethods())
@@ -64,7 +64,7 @@ namespace Framework.Console.Commands
             if (CommandHandlers.ContainsKey(command))
                 CommandHandlers[command].Invoke(args);
             else
-                Log.Message(LogType.Error, "'{0}' isn't a valid console command.");
+                Log.Message(LogType.Error, "'{0}' isn't a valid console command.", command);
         }
     }
 }
