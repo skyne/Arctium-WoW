@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Framework.Network.Packets;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Framework.Network.Packets;
 
 namespace Framework.Helper
 {
