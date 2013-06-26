@@ -27,35 +27,35 @@ namespace WorldServer.Game.Packets.PacketHandler
 {
     public class MoveHandler : Globals
     {
-        [Opcode(ClientMessage.MoveStartForward,         "17055")]
-        [Opcode(ClientMessage.MoveStartBackward,        "17055")]
-        [Opcode(ClientMessage.MoveStop,                 "17055")]
-        [Opcode(ClientMessage.MoveStartStrafeLeft,      "17055")]
-        [Opcode(ClientMessage.MoveStartStrafeRight,     "17055")]
-        [Opcode(ClientMessage.MoveStopStrafe,           "17055")]
-        [Opcode(ClientMessage.MoveJump,                 "17055")]
-        [Opcode(ClientMessage.MoveStartTurnLeft,        "17055")]
-        [Opcode(ClientMessage.MoveStartTurnRight,       "17055")]
-        [Opcode(ClientMessage.MoveStopTurn,             "17055")]
-        [Opcode(ClientMessage.MoveStartPitchUp,         "17055")]
-        [Opcode(ClientMessage.MoveStartPitchDown,       "17055")]
-        [Opcode(ClientMessage.MoveStopPitch,            "17055")]
-        [Opcode(ClientMessage.MoveSetRunMode,           "17055")]
-        [Opcode(ClientMessage.MoveSetWalkMode,          "17055")]
-        [Opcode(ClientMessage.MoveFallLand,             "17055")]
-        [Opcode(ClientMessage.MoveStartSwim,            "17055")]
-        [Opcode(ClientMessage.MoveStopSwim,             "17055")]
-        [Opcode(ClientMessage.MoveToggleCollisionCheat, "17055")]
-        [Opcode(ClientMessage.MoveSetFacing,            "17055")]
-        [Opcode(ClientMessage.MoveSetPitch,             "17055")]
-        [Opcode(ClientMessage.MoveHeartbeat,            "17055")]
-        [Opcode(ClientMessage.MoveFallReset,            "17055")]
-        [Opcode(ClientMessage.MoveSetFly,               "17055")]
-        [Opcode(ClientMessage.MoveStartAscend,          "17055")]
-        [Opcode(ClientMessage.MoveStopAscend,           "17055")]
-        [Opcode(ClientMessage.MoveChangeTransport,      "17055")]
-        [Opcode(ClientMessage.MoveStartDescend,         "17055")]
-        [Opcode(ClientMessage.MoveDismissVehicle,       "17055")]
+        [Opcode(ClientMessage.MoveStartForward,         "17116")]
+        [Opcode(ClientMessage.MoveStartBackward,        "17116")]
+        [Opcode(ClientMessage.MoveStop,                 "17116")]
+        [Opcode(ClientMessage.MoveStartStrafeLeft,      "17116")]
+        [Opcode(ClientMessage.MoveStartStrafeRight,     "17116")]
+        [Opcode(ClientMessage.MoveStopStrafe,           "17116")]
+        [Opcode(ClientMessage.MoveJump,                 "17116")]
+        [Opcode(ClientMessage.MoveStartTurnLeft,        "17116")]
+        [Opcode(ClientMessage.MoveStartTurnRight,       "17116")]
+        [Opcode(ClientMessage.MoveStopTurn,             "17116")]
+        [Opcode(ClientMessage.MoveStartPitchUp,         "17116")]
+        [Opcode(ClientMessage.MoveStartPitchDown,       "17116")]
+        [Opcode(ClientMessage.MoveStopPitch,            "17116")]
+        [Opcode(ClientMessage.MoveSetRunMode,           "17116")]
+        [Opcode(ClientMessage.MoveSetWalkMode,          "17116")]
+        [Opcode(ClientMessage.MoveFallLand,             "17116")]
+        [Opcode(ClientMessage.MoveStartSwim,            "17116")]
+        [Opcode(ClientMessage.MoveStopSwim,             "17116")]
+        [Opcode(ClientMessage.MoveToggleCollisionCheat, "17116")]
+        [Opcode(ClientMessage.MoveSetFacing,            "17116")]
+        [Opcode(ClientMessage.MoveSetPitch,             "17116")]
+        [Opcode(ClientMessage.MoveHeartbeat,            "17116")]
+        [Opcode(ClientMessage.MoveFallReset,            "17116")]
+        [Opcode(ClientMessage.MoveSetFly,               "17116")]
+        [Opcode(ClientMessage.MoveStartAscend,          "17116")]
+        [Opcode(ClientMessage.MoveStopAscend,           "17116")]
+        [Opcode(ClientMessage.MoveChangeTransport,      "17116")]
+        [Opcode(ClientMessage.MoveStartDescend,         "17116")]
+        [Opcode(ClientMessage.MoveDismissVehicle,       "17116")]
         public static void HandlePlayerMove(ref PacketReader packet, ref WorldClass session)
         {
             ObjectMovementValues movementValues = new ObjectMovementValues();
@@ -109,7 +109,6 @@ namespace WorldServer.Game.Packets.PacketHandler
 
             if (movementValues.HasMovementFlags)
                 movementValues.MovementFlags = (MovementFlag)BitUnpack.GetBits<uint>(30);
-
 
             if (movementValues.IsFallingOrJumping)
                 movementValues.HasJumpData = BitUnpack.GetBit();
