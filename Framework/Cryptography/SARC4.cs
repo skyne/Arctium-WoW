@@ -64,10 +64,5 @@ namespace Framework.Cryptography
                 data[i] = (byte)(S[(S[tmp] + S[tmp2]) % 0x100] ^ data[i]);
             }
         }
-
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
-        }
     }
 }
