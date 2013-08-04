@@ -62,15 +62,14 @@ namespace WorldServer.Game.Packets.PacketHandler
             Log.Message(LogType.Debug, "Character (Guid: {0}) choosed specialization {1} for spec group {2}.", pChar.Guid, pChar.GetActiveSpecId(), pChar.ActiveSpecGroup);
         }
 
-        [Opcode(ClientMessage.CliLearnTalents, "16826")]
+        [Opcode(ClientMessage.CliLearnTalents, "17128")]
         public static void HandleLearnTalents(ref PacketReader packet, ref WorldClass session)
         {
             var pChar = session.Character;
             var talentSpells = new List<uint>();
 
-            BitUnpack BitUnpack = new BitUnpack(packet);
-
-            uint talentCount = BitUnpack.GetBits<uint>(23);
+            var BitUnpack = new BitUnpack(packet);
+            var talentCount = BitUnpack.GetBits<uint>(23);
 
             for (int i = 0; i < talentCount; i++)
             {
@@ -83,7 +82,7 @@ namespace WorldServer.Game.Packets.PacketHandler
 
             HandleUpdateTalentData(ref session);
 
-            pChar.SetUpdateField<int>((int)PlayerFields.SpellCritPercentage + 0, SpecializationMgr.GetUnspentTalentRowCount(pChar), 0);
+            pChar.SetUpdateField<int>((int)PlayerFields.CharacterPoints, SpecializationMgr.GetUnspentTalentRowCount(pChar), 0);
             ObjectHandler.HandleUpdateObjectValues(ref session);
 
             foreach (var talentSpell in talentSpells)

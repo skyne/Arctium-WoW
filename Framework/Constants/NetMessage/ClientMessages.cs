@@ -46,7 +46,7 @@ namespace Framework.Constants.NetMessage
         EnumCharacters                             = 0x0B1D,
         PlayerLogin                                = 0x0A19,
         LoadingScreenNotify                        = 0x0341,
-        SetActionButton                            = 0x0400,
+        SetActionButton                            = 0x0C08,
         CreateCharacter                            = 0x0404,
         QueryPlayerName                            = 0x0018,
         QueryRealmName                             = 0x0209,
@@ -54,7 +54,7 @@ namespace Framework.Constants.NetMessage
         UITimeRequest                              = 0x0405,
         CharDelete                                 = 0x010C,
         CliSetSpecialization                       = 0x005B,
-        CliLearnTalents                            = 0x2002, // Not updated
+        CliLearnTalents                            = 0x044B,
         CliQueryCreature                           = 0x050F,
         CliQueryGameObject                         = 0x058F,
         CliQueryNPCText                            = 0x009E,

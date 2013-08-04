@@ -152,8 +152,8 @@ namespace WorldServer.Game.WorldEntities
 
             SetUpdateField<int>((int)PlayerFields.CurrentSpecID, (int)GetActiveSpecId());
 
-            SetUpdateField<int>((int)PlayerFields.SpellCritPercentage + 0, SpecializationMgr.GetUnspentTalentRowCount(this), 0);
-            SetUpdateField<int>((int)PlayerFields.SpellCritPercentage + 1, SpecializationMgr.GetMaxTalentRowCount(this), 0);
+            SetUpdateField<int>((int)PlayerFields.CharacterPoints, SpecializationMgr.GetUnspentTalentRowCount(this));
+            SetUpdateField<int>((int)PlayerFields.MaxTalentTiers, SpecializationMgr.GetMaxTalentRowCount(this));
 
             for (int i = 0; i < 448; i++)
                 if (i < Skills.Count)

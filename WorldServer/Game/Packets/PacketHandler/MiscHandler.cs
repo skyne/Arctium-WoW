@@ -155,8 +155,8 @@ namespace WorldServer.Game.Packets.PacketHandler
         {
             var pChar = session.Character;
 
-            byte[] actionMask = { 2, 5, 0, 3, 6, 4, 1, 7 };
-            byte[] actionBytes = { 7, 3, 0, 2, 1, 5, 4, 6 };
+            byte[] actionMask = { 5, 0, 2, 3, 1, 6, 7, 4 };
+            byte[] actionBytes = { 2, 7, 5, 3, 1, 0, 4, 6 };
 
             var slotId = packet.ReadByte();
             
@@ -167,15 +167,17 @@ namespace WorldServer.Game.Packets.PacketHandler
             if (actionId == 0)
             {
                 var action = pChar.ActionButtons.Where(button => button.SlotId == slotId && button.SpecGroup == pChar.ActiveSpecGroup).Select(button => button).First();
+
                 ActionMgr.RemoveActionButton(pChar, action, true);
                 Log.Message(LogType.Debug, "Character (Guid: {0}) removed action button {1} from slot {2}.", pChar.Guid, actionId, slotId);
+
                 return;
             }
 
             var newAction = new ActionButton
             {
-                Action = actionId,
-                SlotId = slotId,
+                Action    = actionId,
+                SlotId    = slotId,
                 SpecGroup = pChar.ActiveSpecGroup
             };
 
