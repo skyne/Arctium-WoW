@@ -54,7 +54,7 @@ namespace WorldServer.Game.Packets.PacketHandler
         }
 
         [Opcode(ClientMessage.Ping, "17128")]
-        public static void HandlePong(ref PacketReader packet, ref WorldClass session)
+        public static void HandlePong(ref PacketReader packet, WorldClass session)
         {
             uint latency = packet.Read<uint>();
             uint sequence = packet.Read<uint>();
@@ -66,7 +66,7 @@ namespace WorldServer.Game.Packets.PacketHandler
         }
 
         [Opcode(ClientMessage.LogDisconnect, "17128")]
-        public static void HandleDisconnectReason(ref PacketReader packet, ref WorldClass session)
+        public static void HandleDisconnectReason(ref PacketReader packet, WorldClass session)
         {
             var pChar = session.Character;
             uint disconnectReason = packet.Read<uint>();
@@ -89,7 +89,7 @@ namespace WorldServer.Game.Packets.PacketHandler
         }
 
         [Opcode(ClientMessage.LoadingScreenNotify, "17128")]
-        public static void HandleLoadingScreenNotify(ref PacketReader packet, ref WorldClass session)
+        public static void HandleLoadingScreenNotify(ref PacketReader packet, WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
 
@@ -100,7 +100,7 @@ namespace WorldServer.Game.Packets.PacketHandler
         }
 
         [Opcode(ClientMessage.ViolenceLevel, "17128")]
-        public static void HandleViolenceLevel(ref PacketReader packet, ref WorldClass session)
+        public static void HandleViolenceLevel(ref PacketReader packet, WorldClass session)
         {
             byte violenceLevel = packet.Read<byte>();
 
@@ -108,25 +108,15 @@ namespace WorldServer.Game.Packets.PacketHandler
         }
 
         [Opcode(ClientMessage.ActivePlayer, "17128")]
-        public static void HandleActivePlayer(ref PacketReader packet, ref WorldClass session)
+        public static void HandleActivePlayer(ref PacketReader packet, WorldClass session)
         {
             byte active = packet.Read<byte>();    // Always 0
 
             Log.Message(LogType.Debug, "Player {0} (Guid: {1}) is active.", session.Character.Name, session.Character.Guid);
         }
 
-        [Opcode(ClientMessage.ZoneUpdate, "16826")]
-        public static void HandleZoneUpdate(ref PacketReader packet, ref WorldClass session)
-        {
-            var pChar = session.Character;
-
-            uint zone = packet.Read<uint>();
-
-            ObjectMgr.SetZone(ref pChar, zone);
-        }
-
         [Opcode(ClientMessage.CliSetSelection, "17128")]
-        public static void HandleSetSelection(ref PacketReader packet, ref WorldClass session)
+        public static void HandleSetSelection(ref PacketReader packet, WorldClass session)
         {
             byte[] guidMask = { 5, 2, 3, 6, 0, 7, 4, 1 };
             byte[] guidBytes = { 7, 6, 4, 0, 3, 1, 2, 5 };
@@ -151,7 +141,7 @@ namespace WorldServer.Game.Packets.PacketHandler
         }
 
         [Opcode(ClientMessage.SetActionButton, "17128")]
-        public static void HandleSetActionButton(ref PacketReader packet, ref WorldClass session)
+        public static void HandleSetActionButton(ref PacketReader packet, WorldClass session)
         {
             var pChar = session.Character;
 

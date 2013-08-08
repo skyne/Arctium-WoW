@@ -35,7 +35,7 @@ namespace WorldServer.Game.PacketHandler
     public class CharacterHandler : Globals
     {
         [Opcode(ClientMessage.EnumCharacters, "17128")]
-        public static void HandleEnumCharactersResult(ref PacketReader packet, ref WorldClass session)
+        public static void HandleEnumCharactersResult(ref PacketReader packet, WorldClass session)
         {
             // Set existing character from last world session to null
             session.Character = null;
@@ -159,7 +159,7 @@ namespace WorldServer.Game.PacketHandler
         }
 
         [Opcode(ClientMessage.CreateCharacter, "17128")]
-        public static void HandleCreateCharacter(ref PacketReader packet, ref WorldClass session)
+        public static void HandleCreateCharacter(ref PacketReader packet, WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
 
@@ -215,7 +215,7 @@ namespace WorldServer.Game.PacketHandler
         }
 
         [Opcode(ClientMessage.CharDelete, "17128")]
-        public static void HandleCharDelete(ref PacketReader packet, ref WorldClass session)
+        public static void HandleCharDelete(ref PacketReader packet, WorldClass session)
         {
             bool[] guidMask = new bool[8];
             byte[] guidBytes = new byte[8];
@@ -257,7 +257,7 @@ namespace WorldServer.Game.PacketHandler
         }
 
         [Opcode(ClientMessage.GenerateRandomCharacterName, "17128")]
-        public static void HandleGenerateRandomCharacterName(ref PacketReader packet, ref WorldClass session)
+        public static void HandleGenerateRandomCharacterName(ref PacketReader packet, WorldClass session)
         {
             byte gender = packet.ReadByte();
             byte race = packet.ReadByte();
@@ -287,7 +287,7 @@ namespace WorldServer.Game.PacketHandler
         }
 
         [Opcode(ClientMessage.PlayerLogin, "17128")]
-        public static void HandlePlayerLogin(ref PacketReader packet, ref WorldClass session)
+        public static void HandlePlayerLogin(ref PacketReader packet, WorldClass session)
         {
             byte[] guidMask = { 2, 0, 4, 3, 5, 6, 1, 7 };
             byte[] guidBytes = { 0, 3, 7, 6, 1, 2, 4, 5 };

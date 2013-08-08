@@ -33,7 +33,6 @@ namespace Framework.Constants.NetMessage
 
         #region Legacy
         ActivePlayer                               = 0x0704,
-        ZoneUpdate                                 = 0x2000, // Not updated
         #endregion
 
         // Value > 0x1FFF are not known.

@@ -10,13 +10,13 @@ Target Server Type    : MYSQL
 Target Server Version : 50519
 File Encoding         : 65001
 
-Date: 2013-04-03 18:30:01
+Date: 2013-08-08 13:17:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `characters`
+-- Table structure for characters
 -- ----------------------------
 DROP TABLE IF EXISTS `characters`;
 CREATE TABLE `characters` (
@@ -58,7 +58,7 @@ CREATE TABLE `characters` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `character_actions`
+-- Table structure for character_actions
 -- ----------------------------
 DROP TABLE IF EXISTS `character_actions`;
 CREATE TABLE `character_actions` (
@@ -74,7 +74,7 @@ CREATE TABLE `character_actions` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `character_creation_actions`
+-- Table structure for character_creation_actions
 -- ----------------------------
 DROP TABLE IF EXISTS `character_creation_actions`;
 CREATE TABLE `character_creation_actions` (
@@ -116,7 +116,7 @@ INSERT INTO `character_creation_actions` VALUES ('24', '10', '107079', '81');
 INSERT INTO `character_creation_actions` VALUES ('24', '10', '77272', '83');
 
 -- ----------------------------
--- Table structure for `character_creation_data`
+-- Table structure for character_creation_data
 -- ----------------------------
 DROP TABLE IF EXISTS `character_creation_data`;
 CREATE TABLE `character_creation_data` (
@@ -211,15 +211,15 @@ INSERT INTO `character_creation_data` VALUES ('9', '6', '0', '609', '4298', '235
 INSERT INTO `character_creation_data` VALUES ('9', '7', '0', '648', '4737', '-8423.81', '1361.3', '104.671', '1.55428');
 INSERT INTO `character_creation_data` VALUES ('9', '8', '0', '648', '4737', '-8423.81', '1361.3', '104.671', '1.55428');
 INSERT INTO `character_creation_data` VALUES ('9', '9', '0', '648', '4737', '-8423.81', '1361.3', '104.671', '1.55428');
-INSERT INTO `character_creation_data` VALUES ('10', '1', '0', '530', '3430', '10349.6', '-6357.29', '33.4026', '5.31605');
-INSERT INTO `character_creation_data` VALUES ('10', '2', '0', '530', '3430', '10349.6', '-6357.29', '33.4026', '5.31605');
-INSERT INTO `character_creation_data` VALUES ('10', '3', '0', '530', '3430', '10349.6', '-6357.29', '33.4026', '5.31605');
-INSERT INTO `character_creation_data` VALUES ('10', '4', '0', '530', '3430', '10349.6', '-6357.29', '33.4026', '5.31605');
-INSERT INTO `character_creation_data` VALUES ('10', '5', '0', '530', '3430', '10349.6', '-6357.29', '33.4026', '5.31605');
+INSERT INTO `character_creation_data` VALUES ('10', '1', '0', '530', '6455', '10349.6', '-6357.29', '33.4026', '5.31605');
+INSERT INTO `character_creation_data` VALUES ('10', '2', '0', '530', '6455', '10349.6', '-6357.29', '33.4026', '5.31605');
+INSERT INTO `character_creation_data` VALUES ('10', '3', '0', '530', '6455', '10349.6', '-6357.29', '33.4026', '5.31605');
+INSERT INTO `character_creation_data` VALUES ('10', '4', '0', '530', '6455', '10349.6', '-6357.29', '33.4026', '5.31605');
+INSERT INTO `character_creation_data` VALUES ('10', '5', '0', '530', '6455', '10349.6', '-6357.29', '33.4026', '5.31605');
 INSERT INTO `character_creation_data` VALUES ('10', '6', '0', '609', '4298', '2356.21', '-5662.21', '426.026', '3.84849');
-INSERT INTO `character_creation_data` VALUES ('10', '8', '0', '530', '3430', '10349.6', '-6357.29', '33.4026', '5.31605');
-INSERT INTO `character_creation_data` VALUES ('10', '9', '0', '530', '3430', '10349.6', '-6357.29', '33.4026', '5.31605');
-INSERT INTO `character_creation_data` VALUES ('10', '10', '0', '530', '3430', '10349.6', '-6357.29', '33.4026', '5.31605');
+INSERT INTO `character_creation_data` VALUES ('10', '8', '0', '530', '6455', '10349.6', '-6357.29', '33.4026', '5.31605');
+INSERT INTO `character_creation_data` VALUES ('10', '9', '0', '530', '6455', '10349.6', '-6357.29', '33.4026', '5.31605');
+INSERT INTO `character_creation_data` VALUES ('10', '10', '0', '530', '6455', '10349.6', '-6357.29', '33.4026', '5.31605');
 INSERT INTO `character_creation_data` VALUES ('11', '1', '0', '530', '3524', '-3961.64', '-13931.2', '100.615', '2.08364');
 INSERT INTO `character_creation_data` VALUES ('11', '2', '0', '530', '3524', '-3961.64', '-13931.2', '100.615', '2.08364');
 INSERT INTO `character_creation_data` VALUES ('11', '3', '0', '530', '3524', '-3961.64', '-13931.2', '100.615', '2.08364');
@@ -245,7 +245,7 @@ INSERT INTO `character_creation_data` VALUES ('24', '8', '0', '860', '5736', '14
 INSERT INTO `character_creation_data` VALUES ('24', '10', '0', '860', '5736', '1471.67', '3466.25', '181.675', '2.77359');
 
 -- ----------------------------
--- Table structure for `character_creation_skills`
+-- Table structure for character_creation_skills
 -- ----------------------------
 DROP TABLE IF EXISTS `character_creation_skills`;
 CREATE TABLE `character_creation_skills` (
@@ -282,7 +282,7 @@ INSERT INTO `character_creation_skills` VALUES ('22', '791', 'Gilnean');
 INSERT INTO `character_creation_skills` VALUES ('24', '905', 'Pandaren Neutral');
 
 -- ----------------------------
--- Table structure for `character_creation_spells`
+-- Table structure for character_creation_spells
 -- ----------------------------
 DROP TABLE IF EXISTS `character_creation_spells`;
 CREATE TABLE `character_creation_spells` (
@@ -5008,7 +5008,7 @@ INSERT INTO `character_creation_spells` VALUES ('24', '10', '128678', '');
 INSERT INTO `character_creation_spells` VALUES ('24', '10', '131701', '');
 
 -- ----------------------------
--- Table structure for `character_skills`
+-- Table structure for character_skills
 -- ----------------------------
 DROP TABLE IF EXISTS `character_skills`;
 CREATE TABLE `character_skills` (
@@ -5023,7 +5023,7 @@ CREATE TABLE `character_skills` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `character_spells`
+-- Table structure for character_spells
 -- ----------------------------
 DROP TABLE IF EXISTS `character_spells`;
 CREATE TABLE `character_spells` (
@@ -5038,7 +5038,7 @@ CREATE TABLE `character_spells` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `character_talents`
+-- Table structure for character_talents
 -- ----------------------------
 DROP TABLE IF EXISTS `character_talents`;
 CREATE TABLE `character_talents` (

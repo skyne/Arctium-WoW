@@ -56,7 +56,7 @@ namespace WorldServer.Game.Packets.PacketHandler
         [Opcode(ClientMessage.MoveChangeTransport,      "17128")]
         [Opcode(ClientMessage.MoveStartDescend,         "17128")]
         [Opcode(ClientMessage.MoveDismissVehicle,       "17128")]
-        public static void HandlePlayerMove(ref PacketReader packet, ref WorldClass session)
+        public static void HandlePlayerMove(ref PacketReader packet, WorldClass session)
         {
             ObjectMovementValues movementValues = new ObjectMovementValues();
             BitUnpack BitUnpack = new BitUnpack(packet);
