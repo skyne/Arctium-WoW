@@ -34,7 +34,7 @@ namespace WorldServer.Game.PacketHandler
 {
     public class CharacterHandler : Globals
     {
-        [Opcode(ClientMessage.EnumCharacters, "17128")]
+        [Opcode(ClientMessage.EnumCharacters, "17359")]
         public static void HandleEnumCharactersResult(ref PacketReader packet, WorldClass session)
         {
             // Set existing character from last world session to null
@@ -48,132 +48,123 @@ namespace WorldServer.Game.PacketHandler
             BitPack BitPack = new BitPack(enumCharacters);
 
             BitPack.Write(1);
+            BitPack.Write(0, 21);
             BitPack.Write(result.Count, 16);
 
-            if (result.Count != 0)
+            for (int c = 0; c < result.Count; c++)
             {
-                for (int c = 0; c < result.Count; c++)
-                {
-                    var name           = result.Read<string>(c, "Name");
-                    var loginCinematic = result.Read<bool>(c, "LoginCinematic");
+                var name = result.Read<string>(c, "Name");
+                var loginCinematic = result.Read<bool>(c, "LoginCinematic");
 
-                    BitPack.Guid      = result.Read<ulong>(c, "Guid");
-                    BitPack.GuildGuid = result.Read<ulong>(c, "GuildGuid");
+                BitPack.Guid = result.Read<ulong>(c, "Guid");
+                BitPack.GuildGuid = result.Read<ulong>(c, "GuildGuid");
 
-                    BitPack.WriteGuidMask(1);
-                    BitPack.WriteGuildGuidMask(5, 7, 6);
-                    BitPack.WriteGuidMask(5);
-                    BitPack.WriteGuildGuidMask(3);
-                    BitPack.WriteGuidMask(2);
-                    BitPack.WriteGuildGuidMask(4);
-                    BitPack.WriteGuidMask(7);
-                    BitPack.Write((uint)UTF8Encoding.UTF8.GetBytes(name).Length, 6);
-                    BitPack.Write(loginCinematic);
-                    BitPack.WriteGuildGuidMask(1);
-                    BitPack.WriteGuidMask(4);
-                    BitPack.WriteGuildGuidMask(2, 0);
-                    BitPack.WriteGuidMask(6, 3, 0);
-                }
-
-                BitPack.Write(0, 21);
-                BitPack.Flush();
-
-                for (int c = 0; c < result.Count; c++)
-                {
-                    string name       = result.Read<string>(c, "Name");
-                    BitPack.Guid      = result.Read<ulong>(c, "Guid");
-                    BitPack.GuildGuid = result.Read<ulong>(c, "GuildGuid");
-
-                    BitPack.WriteGuidBytes(4);
-
-                    enumCharacters.WriteUInt8(result.Read<byte>(c, "Race"));
-
-                    BitPack.WriteGuidBytes(6);
-                    BitPack.WriteGuildGuidBytes(1);
-
-                    enumCharacters.WriteUInt8(0);
-                    enumCharacters.WriteUInt8(result.Read<byte>(c, "HairStyle"));
-
-                    BitPack.WriteGuildGuidBytes(6);
-                    BitPack.WriteGuidBytes(3);
-
-                    enumCharacters.WriteFloat(result.Read<float>(c, "X"));
-                    enumCharacters.WriteUInt32(result.Read<uint>(c, "CharacterFlags"));
-
-                    BitPack.WriteGuildGuidBytes(0);
-
-                    enumCharacters.WriteUInt32(result.Read<uint>(c, "PetLevel"));
-                    enumCharacters.WriteUInt32(result.Read<uint>(c, "Map"));
-
-                    BitPack.WriteGuildGuidBytes(7);
-
-                    enumCharacters.WriteUInt32(result.Read<uint>(c, "CustomizeFlags"));
-
-                    BitPack.WriteGuildGuidBytes(4);
-                    BitPack.WriteGuidBytes(2, 5);
-
-                    enumCharacters.WriteFloat(result.Read<float>(c, "Y"));
-                    enumCharacters.WriteUInt32(result.Read<uint>(c, "PetFamily"));
-                    enumCharacters.WriteString(name);
-                    enumCharacters.WriteUInt32(result.Read<uint>(c, "PetDisplayId"));
-
-                    BitPack.WriteGuildGuidBytes(3);
-                    BitPack.WriteGuidBytes(7);
-
-                    enumCharacters.WriteUInt8(result.Read<byte>(c, "Level"));
-
-                    BitPack.WriteGuidBytes(1);
-                    BitPack.WriteGuildGuidBytes(2);
-
-                    // Not implanted
-                    for (int j = 0; j < 23; j++)
-                    {
-                        enumCharacters.WriteUInt32(0);
-                        enumCharacters.WriteUInt32(0);
-                        enumCharacters.WriteUInt8(0);
-                    }
-
-                    enumCharacters.WriteFloat(result.Read<float>(c, "Z"));
-                    enumCharacters.WriteUInt32(result.Read<uint>(c, "Zone"));
-                    enumCharacters.WriteUInt8(result.Read<byte>(c, "FacialHair"));
-                    enumCharacters.WriteUInt8(result.Read<byte>(c, "Class"));
-
-                    BitPack.WriteGuildGuidBytes(5);
-
-                    enumCharacters.WriteUInt8(result.Read<byte>(c, "Skin"));
-                    enumCharacters.WriteUInt8(result.Read<byte>(c, "Gender"));
-                    enumCharacters.WriteUInt8(result.Read<byte>(c, "Face"));
-
-                    BitPack.WriteGuidBytes(0);
-
-                    enumCharacters.WriteUInt8(result.Read<byte>(c, "HairColor"));
-                }
+                BitPack.WriteGuidMask(3);
+                BitPack.WriteGuildGuidMask(6, 3);
+                BitPack.Write(loginCinematic);
+                BitPack.WriteGuidMask(7);
+                BitPack.Write((uint)UTF8Encoding.UTF8.GetBytes(name).Length, 6);
+                BitPack.WriteGuildGuidMask(1);
+                BitPack.WriteGuidMask(6, 1);
+                BitPack.WriteGuildGuidMask(4);
+                BitPack.WriteGuidMask(5);
+                BitPack.WriteGuildGuidMask(0);
+                BitPack.WriteGuidMask(7, 2, 0);
+                BitPack.WriteGuildGuidMask(2, 5);
+                BitPack.WriteGuidMask(1);
             }
-            else
+
+            BitPack.Flush();
+
+            for (int c = 0; c < result.Count; c++)
             {
-                BitPack.Write(0, 21);
-                BitPack.Flush();
-            };
+                string name = result.Read<string>(c, "Name");
+                BitPack.Guid = result.Read<ulong>(c, "Guid");
+                BitPack.GuildGuid = result.Read<ulong>(c, "GuildGuid");
+
+                enumCharacters.WriteUInt32(result.Read<uint>(c, "CharacterFlags"));
+                enumCharacters.WriteUInt32(result.Read<uint>(c, "Zone"));
+
+                BitPack.WriteGuidBytes(0);
+                BitPack.WriteGuildGuidBytes(5);
+                BitPack.WriteGuidBytes(1);
+                BitPack.WriteGuildGuidBytes(1);
+                BitPack.WriteGuidBytes(3);
+
+                enumCharacters.WriteUInt32(result.Read<uint>(c, "PetFamily"));
+
+                BitPack.WriteGuildGuidBytes(2);
+
+                enumCharacters.WriteUInt8(result.Read<byte>(c, "HairStyle"));
+
+                BitPack.WriteGuildGuidBytes(0, 7);
+
+                enumCharacters.WriteFloat(result.Read<float>(c, "Y"));
+
+                BitPack.WriteGuidBytes(6);
+
+                enumCharacters.WriteUInt32(result.Read<uint>(c, "PetLevel"));
+
+                BitPack.WriteGuidBytes(7);
+
+                enumCharacters.WriteString(name);
+                enumCharacters.WriteUInt8(result.Read<byte>(c, "Level"));
+                enumCharacters.WriteFloat(result.Read<float>(c, "X"));
+                enumCharacters.WriteUInt8(result.Read<byte>(c, "Class"));
+                enumCharacters.WriteUInt32(result.Read<uint>(c, "PetDisplayId"));
+                enumCharacters.WriteUInt8(0);
+                enumCharacters.WriteUInt8(result.Read<byte>(c, "FacialHair"));
+                enumCharacters.WriteFloat(result.Read<float>(c, "Z"));
+
+                BitPack.WriteGuildGuidBytes(3);
+
+                enumCharacters.WriteUInt8(result.Read<byte>(c, "Race"));
+
+                BitPack.WriteGuidBytes(4);
+
+                //TODO: implement items
+                for (int j = 0; j < 23; j++)
+                {
+                    enumCharacters.WriteUInt8(0);
+                    enumCharacters.WriteUInt32(0);
+                    enumCharacters.WriteUInt32(0);
+                }
+
+                BitPack.WriteGuildGuidBytes(6);
+                BitPack.WriteGuidBytes(2, 5);
+
+                enumCharacters.WriteUInt8(result.Read<byte>(c, "Skin"));
+                enumCharacters.WriteUInt8(result.Read<byte>(c, "HairColor"));
+                enumCharacters.WriteUInt8(result.Read<byte>(c, "Face"));
+
+                BitPack.WriteGuildGuidBytes(4);
+
+                enumCharacters.WriteUInt32(result.Read<uint>(c, "CustomizeFlags"));
+                enumCharacters.WriteUInt8(result.Read<byte>(c, "Gender"));
+                enumCharacters.WriteUInt32(result.Read<uint>(c, "Map"));
+            }
 
             session.Send(ref enumCharacters);
         }
 
-        [Opcode(ClientMessage.CreateCharacter, "17128")]
+        [Opcode(ClientMessage.CreateCharacter, "17359")]
         public static void HandleCreateCharacter(ref PacketReader packet, WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
 
-            var hairStyle  = packet.ReadByte();
             var face       = packet.ReadByte();
+            var gender     = packet.ReadByte();
+            var race       = packet.ReadByte();
             var facialHair = packet.ReadByte();
             var hairColor  = packet.ReadByte();
-            var race       = packet.ReadByte();
+
+            packet.ReadByte();                      // Always 0
+
             var pClass     = packet.ReadByte();
             var skin       = packet.ReadByte();
-            packet.ReadByte();                      // Always 0
-            var gender     = packet.ReadByte();
+            var hairStyle  = packet.ReadByte();
 
-            var nameLength = BitUnpack.GetBits<uint>(7) / 2;
+            var nameLength = BitUnpack.GetBits<uint>(7);
             var name = Character.NormalizeName(packet.ReadString(nameLength));
 
             var result = DB.Characters.Select("SELECT * from characters WHERE name = ?", name);
@@ -214,7 +205,7 @@ namespace WorldServer.Game.PacketHandler
             session.Send(ref createChar);
         }
 
-        [Opcode(ClientMessage.CharDelete, "17128")]
+        [Opcode(ClientMessage.CharDelete, "17359")]
         public static void HandleCharDelete(ref PacketReader packet, WorldClass session)
         {
             bool[] guidMask = new bool[8];
@@ -222,26 +213,26 @@ namespace WorldServer.Game.PacketHandler
 
             BitUnpack BitUnpack = new BitUnpack(packet);
 
-            guidMask[2] = BitUnpack.GetBit();
-            guidMask[1] = BitUnpack.GetBit();
+            guidMask[3] = BitUnpack.GetBit();
             guidMask[5] = BitUnpack.GetBit();
-            guidMask[7] = BitUnpack.GetBit();
-            guidMask[6] = BitUnpack.GetBit();
 
             var unknown = BitUnpack.GetBit();
 
-            guidMask[3] = BitUnpack.GetBit();
-            guidMask[0] = BitUnpack.GetBit();
+            guidMask[6] = BitUnpack.GetBit();
             guidMask[4] = BitUnpack.GetBit();
+            guidMask[2] = BitUnpack.GetBit();
+            guidMask[7] = BitUnpack.GetBit();
+            guidMask[1] = BitUnpack.GetBit();
+            guidMask[0] = BitUnpack.GetBit();
 
-            if (guidMask[1]) guidBytes[1] = (byte)(packet.Read<byte>() ^ 1);
-            if (guidMask[3]) guidBytes[3] = (byte)(packet.Read<byte>() ^ 1);
-            if (guidMask[4]) guidBytes[4] = (byte)(packet.Read<byte>() ^ 1);
-            if (guidMask[0]) guidBytes[0] = (byte)(packet.Read<byte>() ^ 1);
             if (guidMask[7]) guidBytes[7] = (byte)(packet.Read<byte>() ^ 1);
-            if (guidMask[2]) guidBytes[2] = (byte)(packet.Read<byte>() ^ 1);
             if (guidMask[5]) guidBytes[5] = (byte)(packet.Read<byte>() ^ 1);
+            if (guidMask[0]) guidBytes[0] = (byte)(packet.Read<byte>() ^ 1);
+            if (guidMask[1]) guidBytes[1] = (byte)(packet.Read<byte>() ^ 1);
+            if (guidMask[2]) guidBytes[2] = (byte)(packet.Read<byte>() ^ 1);
+            if (guidMask[4]) guidBytes[4] = (byte)(packet.Read<byte>() ^ 1);
             if (guidMask[6]) guidBytes[6] = (byte)(packet.Read<byte>() ^ 1);
+            if (guidMask[3]) guidBytes[3] = (byte)(packet.Read<byte>() ^ 1);
 
             var guid = BitConverter.ToUInt64(guidBytes, 0);
 
@@ -256,11 +247,11 @@ namespace WorldServer.Game.PacketHandler
             DB.Characters.Execute("DELETE FROM character_skills WHERE guid = ?", guid);
         }
 
-        [Opcode(ClientMessage.GenerateRandomCharacterName, "17128")]
+        [Opcode(ClientMessage.GenerateRandomCharacterName, "17359")]
         public static void HandleGenerateRandomCharacterName(ref PacketReader packet, WorldClass session)
         {
-            byte gender = packet.ReadByte();
-            byte race = packet.ReadByte();
+            var race = packet.ReadByte();
+            var gender = packet.ReadByte();
 
             List<string> names = CliDB.NameGen.Where(n => n.Race == race && n.Gender == gender).Select(n => n.Name).ToList();
             Random rand = new Random(Environment.TickCount);
@@ -286,11 +277,11 @@ namespace WorldServer.Game.PacketHandler
             session.Send(ref generateRandomCharacterNameResult);
         }
 
-        [Opcode(ClientMessage.PlayerLogin, "17128")]
+        [Opcode(ClientMessage.PlayerLogin, "17359")]
         public static void HandlePlayerLogin(ref PacketReader packet, WorldClass session)
         {
-            byte[] guidMask = { 2, 0, 4, 3, 5, 6, 1, 7 };
-            byte[] guidBytes = { 0, 3, 7, 6, 1, 2, 4, 5 };
+            byte[] guidMask = { 4, 5, 1, 3, 2, 7, 0, 6 };
+            byte[] guidBytes = { 0, 1, 3, 4, 7, 6, 2, 5 };
 
             BitUnpack GuidUnpacker = new BitUnpack(packet);
 
