@@ -28,7 +28,7 @@ namespace WorldServer.Game.Packets.PacketHandler
 {
     public class AuthenticationHandler : Globals
     {
-        [Opcode(ClientMessage.TransferInitiate, "17128")]
+        [Opcode(ClientMessage.TransferInitiate, "17359")]
         public static void HandleAuthChallenge(ref PacketReader packet, WorldClass session)
         {
             PacketWriter authChallenge = new PacketWriter(ServerMessage.AuthChallenge, true);
@@ -36,13 +36,13 @@ namespace WorldServer.Game.Packets.PacketHandler
             for (int i = 0; i < 8; i++)
                 authChallenge.WriteUInt32(0);
 
-            authChallenge.WriteUInt32((uint)new Random(DateTime.Now.Second).Next(1, 0xFFFFFFF));
             authChallenge.WriteUInt8(1);
+            authChallenge.WriteUInt32((uint)new Random(DateTime.Now.Second).Next(1, 0xFFFFFFF));
 
             session.Send(ref authChallenge);
         }
 
-        [Opcode(ClientMessage.AuthSession, "17128")]
+        [Opcode(ClientMessage.AuthSession, "17359")]
         public static void HandleAuthResponse(ref PacketReader packet, WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
@@ -83,55 +83,48 @@ namespace WorldServer.Game.Packets.PacketHandler
             SQLResult realmClassResult = DB.Realms.Select("SELECT class, expansion FROM realm_classes WHERE realmId = ?", realmId);
             SQLResult realmRaceResult = DB.Realms.Select("SELECT race, expansion FROM realm_races WHERE realmId = ?", realmId);
 
-            bool HasAccountData = true;
-            bool IsInQueue = false;
+            var HasAccountData = true;
+            var IsInQueue = false;
 
             PacketWriter authResponse = new PacketWriter(ServerMessage.AuthResponse);
             BitPack BitPack = new BitPack(authResponse);
 
             BitPack.Write(IsInQueue);
-
-            if (IsInQueue)
-                BitPack.Write(1);                                  // Unknown
-
             BitPack.Write(HasAccountData);
 
             if (HasAccountData)
             {
-                BitPack.Write(0);                                  // Unknown
-                BitPack.Write(0);                                  // Unknown
-                BitPack.Write(realmRaceResult.Count, 23);          // Activation count for races
-                BitPack.Write(0);                                  // Unknown
                 BitPack.Write(0, 21);                              // Activate character template windows/button
-                
+                BitPack.Write(0);                                  // Unknown
+                BitPack.Write(realmClassResult.Count, 23);         // Activation count for races
+                BitPack.Write(0);                                  // Unknown
+                BitPack.Write(0);                                  // Unknown
+
                 //if (HasCharacterTemplate)
                 //Write bits for char templates...
 
-                BitPack.Write(realmClassResult.Count, 23);         // Activation count for classes
-                BitPack.Write(0, 22);                              // Unknown
-                BitPack.Write(0);                                  // Unknown2
+                BitPack.Write(0, 21);                              // Unknown
+                BitPack.Write(0);                                  // Unknown
+                BitPack.Write(realmRaceResult.Count, 23);          // Activation count for classes
             }
+
+            if (IsInQueue)
+                BitPack.Write(1);                                  // Unknown
 
             BitPack.Flush();
 
+            if (IsInQueue)
+                authResponse.WriteUInt32(0);
+
             if (HasAccountData)
             {
-                authResponse.WriteUInt8(0);
-
                 for (int c = 0; c < realmClassResult.Count; c++)
                 {
-                    authResponse.WriteUInt8(realmClassResult.Read<byte>(c, "expansion"));
                     authResponse.WriteUInt8(realmClassResult.Read<byte>(c, "class"));
+                    authResponse.WriteUInt8(realmClassResult.Read<byte>(c, "expansion"));
                 }
 
-                //if (Unknown2)
-                //    authResponse.WriteUInt16(0);
-    
-                //if (HasCharacterTemplate)
-                //Write data for char templates...
-
-                //if (Unknown)
-                //    authResponse.WriteUInt16(0);
+                authResponse.WriteUInt32(0);
 
                 for (int r = 0; r < realmRaceResult.Count; r++)
                 {
@@ -141,20 +134,13 @@ namespace WorldServer.Game.Packets.PacketHandler
 
                 authResponse.WriteUInt32(0);
                 authResponse.WriteUInt32(0);
+                authResponse.WriteUInt8(session.Account.Expansion);
+                authResponse.WriteUInt8(session.Account.Expansion);
                 authResponse.WriteUInt32(0);
-
-                authResponse.WriteUInt8(session.Account.Expansion);
-
-                // Unknown Counter
-                // Write uint...
-
-                authResponse.WriteUInt8(session.Account.Expansion);
+                authResponse.WriteUInt32(0);
             }
 
             authResponse.WriteUInt8((byte)AuthCodes.AUTH_OK);
-
-            if (IsInQueue)
-                authResponse.WriteUInt32(0); 
 
             session.Send(ref authResponse);
 
