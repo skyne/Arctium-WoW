@@ -26,8 +26,8 @@ namespace Framework.Constants.NetMessage
         #endregion
 
         #region UserRouterClient
-        AuthSession                                = 0x09F1,
-        Ping                                       = 0x08E3,
+        AuthSession                  = 0x0790,
+        Ping                         = 0x0784,
         LogDisconnect                              = 0x09A2,
         #endregion
 
