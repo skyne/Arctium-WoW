@@ -52,7 +52,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             int addonSize = packet.Read<int>();
             packet.Skip(addonSize);
 
-            uint nameLength = BitUnpack.GetBits<uint>(12);
+            uint nameLength = BitUnpack.GetBits<uint>(11);
             string accountName = packet.ReadString(nameLength);
 
             SQLResult result = DB.Realms.Select("SELECT * FROM accounts WHERE name = ?", accountName);
