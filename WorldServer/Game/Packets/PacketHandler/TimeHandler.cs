@@ -24,13 +24,13 @@ namespace WorldServer.Game.Packets.PacketHandler
 {
     public class TimeHandler : Globals
     {
-        [Opcode(ClientMessage.ReadyForAccountDataTimes, "17128")]
+        [Opcode(ClientMessage.ReadyForAccountDataTimes, "17359")]
         public static void HandleReadyForAccountDataTimes(ref PacketReader packet, WorldClass session)
         {
             WorldMgr.WriteAccountDataTimes(AccountDataMasks.GlobalCacheMask, ref session);
         }
 
-        [Opcode(ClientMessage.UITimeRequest, "17128")]
+        [Opcode(ClientMessage.UITimeRequest, "17359")]
         public static void HandleUITimeRequest(ref PacketReader packet, WorldClass session)
         {
             PacketWriter uiTime = new PacketWriter(ServerMessage.UITime);
@@ -40,7 +40,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             session.Send(ref uiTime);
         }
 
-        [Opcode(ClientMessage.RealmSplit, "17128")]
+        [Opcode(ClientMessage.RealmSplit, "17359")]
         public static void HandleRealmSplit(ref PacketReader packet, WorldClass session)
         {
             uint realmSplitState = 0;
@@ -50,10 +50,11 @@ namespace WorldServer.Game.Packets.PacketHandler
             BitPack BitPack = new BitPack(realmSplit);
 
             BitPack.Write(date.Length, 7);
-            realmSplit.WriteString(date);
+            BitPack.Flush();
 
             realmSplit.WriteUInt32(packet.Read<uint>());
             realmSplit.WriteUInt32(realmSplitState);
+            realmSplit.WriteString(date);
 
             session.Send(ref realmSplit);
 
@@ -62,6 +63,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             // AddonMgr.WriteAddonData(ref session);
         }
 
+        //TODO Update to 5.4.0
         public static void HandleLoginSetTimeSpeed(ref WorldClass session)
         {
             PacketWriter loginSetTimeSpeed = new PacketWriter(ServerMessage.LoginSetTimeSpeed);

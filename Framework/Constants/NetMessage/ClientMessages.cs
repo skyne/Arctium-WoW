@@ -37,7 +37,7 @@ namespace Framework.Constants.NetMessage
 
         // Value > 0x1FFF are not known.
         #region JAM
-        CliObjectUpdateFailed                      = 0x2001, // Not updated
+        ObjectUpdateFailed          = 0x1926,
         ViolenceLevel                              = 0x054B,
         RealmSplit                  = 0x129F,
         DBQueryBulk                                = 0x0149,
@@ -58,7 +58,7 @@ namespace Framework.Constants.NetMessage
         CliQueryGameObject                         = 0x058F,
         CliQueryNPCText                            = 0x009E,
         CliTalkToGossip                            = 0x1414,
-        CliLogoutRequest                           = 0x1150,
+        CliLogoutRequest            = 0x1323,
         CliSetSelection                            = 0x1759,
         #endregion
 
