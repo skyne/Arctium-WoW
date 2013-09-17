@@ -20,46 +20,46 @@ namespace Framework.Constants.NetMessage
     public enum ClientMessage : ushort
     {
         #region ChatMessages
-        ChatMessageSay                             = 0x016A,
-        ChatMessageYell                            = 0x1333,
-        ChatMessageWhisper                         = 0x143A,
+        ChatMessageSay               = 0x10BE,
+        ChatMessageYell              = 0x1015,
+        ChatMessageWhisper           = 0x19B6,
         #endregion
 
         #region UserRouterClient
         AuthSession                  = 0x0790,
         Ping                         = 0x0784,
-        LogDisconnect                              = 0x09A2,
+        LogDisconnect                = 0x0380,
         #endregion
 
         #region Legacy
-        ActivePlayer                               = 0x0704,
+        ActivePlayer                 = 0x171B,
         #endregion
 
         // Value > 0x1FFF are not known.
         #region JAM
         ObjectUpdateFailed          = 0x1926,
-        ViolenceLevel                              = 0x054B,
+        ViolenceLevel               = 0x1927,
         RealmSplit                  = 0x129F,
-        DBQueryBulk                                = 0x0149,
+        DBQueryBulk                 = 0x1A8B,
         GenerateRandomCharacterName = 0x164B,
         EnumCharacters              = 0x1B9E,
         PlayerLogin                 = 0x1BC7,
         LoadingScreenNotify         = 0x160B,
-        SetActionButton                            = 0x0C08,
+        SetActionButton             = 0x129E,
         CreateCharacter             = 0x17CF,
-        QueryPlayerName                            = 0x0018,
-        QueryRealmName                             = 0x0209,
+        QueryPlayerName             = 0x16DB,
+        QueryRealmName              = 0x13D7,
         ReadyForAccountDataTimes    = 0x1A0E,
-        UITimeRequest                              = 0x0405,
+        UITimeRequest               = 0x1646,
         CharDelete                  = 0x1783,
         CliSetSpecialization                       = 0x005B,
         CliLearnTalents                            = 0x044B,
-        CliQueryCreature                           = 0x050F,
-        CliQueryGameObject                         = 0x058F,
-        CliQueryNPCText                            = 0x009E,
-        CliTalkToGossip                            = 0x1414,
+        CliQueryCreature            = 0x1585,
+        CliQueryGameObject          = 0x15A4,
+        CliQueryNPCText             = 0x108B,
+        CliTalkToGossip             = 0x1414,
         CliLogoutRequest            = 0x1323,
-        CliSetSelection                            = 0x1759,
+        CliSetSelection             = 0x1B76,
         #endregion
 
         #region PlayerMove
@@ -67,7 +67,7 @@ namespace Framework.Constants.NetMessage
         MoveStartBackward           = 0x0216,
         MoveStop                    = 0x0A06,
         MoveStartStrafeLeft         = 0x0312,
-        MoveStartStrafeRight                       = 0x0843,
+        MoveStartStrafeRight        = 0x0722,
         MoveStopStrafe              = 0x0E0F,
         MoveJump                    = 0x0B17,
         MoveStartTurnLeft           = 0x0A22,
