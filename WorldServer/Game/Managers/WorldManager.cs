@@ -277,7 +277,7 @@ namespace WorldServer.Game.Managers
                 BitPack.Write(1);                   // !MovementFlags2
                 BitPack.WriteGuidMask(2);
                 BitPack.Write(1);                   // !MovementFlags
-                BitPack.Write(1);                   // !HasTime
+                BitPack.Write(0);                   // !HasTime
 
                 // if (HasMovementFlags)
 
