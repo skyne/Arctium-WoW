@@ -112,6 +112,8 @@ namespace WorldServer.Game.WorldEntities
             SetUpdateField<int>((int)UnitFields.Health, 123);
             SetUpdateField<int>((int)UnitFields.MaxHealth, 123);
 
+            SetUpdateField<int>((int)UnitFields.Sex, 16779274); //static data for now.
+
             SetUpdateField<int>((int)UnitFields.Level, Level);
             SetUpdateField<uint>((int)UnitFields.FactionTemplate, CliDB.ChrRaces.Single(r => r.Id == Race).Faction);
 
