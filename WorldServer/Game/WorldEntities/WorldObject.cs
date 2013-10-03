@@ -75,9 +75,9 @@ namespace WorldServer.Game.WorldEntities
                     Mask.Set(index, true);
 
                     if (UpdateData.ContainsKey(index))
-                        UpdateData[index] = (int)((int)UpdateData[index] | (int)((int)Convert.ChangeType(value, typeof(int)) << (offset * (typeName == "Byte" ? 8 : 16))));
+                        UpdateData[index] = (int)((int)UpdateData[index] | (int)((int)Convert.ChangeType(value, typeof(int)) << (offset * (typeName == "SByte" ? 8 : 16))));
                     else
-                        UpdateData[index] = (int)((int)Convert.ChangeType(value, typeof(int)) << (offset * (typeName == "Byte" ? 8 : 16)));
+                        UpdateData[index] = (int)((int)Convert.ChangeType(value, typeof(int)) << (offset * (typeName == "SByte" ? 8 : 16)));
 
                     break;
                 }
@@ -130,7 +130,7 @@ namespace WorldServer.Game.WorldEntities
         public void WriteUpdateFields(ref PacketWriter packet)
         {
             packet.WriteUInt8((byte)MaskSize);
-            packet.WriteBitArray(Mask, MaskSize * 4);    // int = 4 Bytes
+            packet.WriteBitArray(Mask, MaskSize * 4);
 
             for (int i = 0; i < Mask.Count; i++)
             {

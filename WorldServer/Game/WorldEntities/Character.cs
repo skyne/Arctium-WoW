@@ -102,7 +102,6 @@ namespace WorldServer.Game.WorldEntities
 
         public override void SetUpdateFields()
         {
-            // ObjectFields
             SetUpdateField<ulong>((int)ObjectFields.Guid, Guid);
             SetUpdateField<ulong>((int)ObjectFields.Data, 0);
             SetUpdateField<int>((int)ObjectFields.Type, 0x19);
@@ -112,15 +111,13 @@ namespace WorldServer.Game.WorldEntities
             SetUpdateField<int>((int)UnitFields.Health, 123);
             SetUpdateField<int>((int)UnitFields.MaxHealth, 123);
 
-            SetUpdateField<int>((int)UnitFields.Sex, 16779274); //static data for now.
-
             SetUpdateField<int>((int)UnitFields.Level, Level);
             SetUpdateField<uint>((int)UnitFields.FactionTemplate, CliDB.ChrRaces.Single(r => r.Id == Race).Faction);
 
-            SetUpdateField<byte>((int)UnitFields.DisplayPower, Race, 0);
-            SetUpdateField<byte>((int)UnitFields.DisplayPower, Class, 1);
-            SetUpdateField<byte>((int)UnitFields.DisplayPower, Gender, 2);
-            SetUpdateField<byte>((int)UnitFields.DisplayPower, 0, 3);
+            SetUpdateField<byte>((int)UnitFields.Sex, Race, 0);
+            SetUpdateField<byte>((int)UnitFields.Sex, Class, 1);
+            SetUpdateField<byte>((int)UnitFields.Sex, Gender, 2);
+            SetUpdateField<byte>((int)UnitFields.Sex, 0, 3);
 
             var race = CliDB.ChrRaces.Single(r => r.Id == Race);
             var displayId = Gender == 0 ? race.MaleDisplayId : race.FemaleDisplayId;
@@ -135,7 +132,6 @@ namespace WorldServer.Game.WorldEntities
             SetUpdateField<float>((int)UnitFields.ModCastingSpeed, 1);
             SetUpdateField<float>((int)UnitFields.MaxHealthModifier, 1);
             
-            // PlayerFields
             SetUpdateField<byte>((int)PlayerFields.HairColorID, Skin, 0);
             SetUpdateField<byte>((int)PlayerFields.HairColorID, Face, 1);
             SetUpdateField<byte>((int)PlayerFields.HairColorID, HairStyle, 2);

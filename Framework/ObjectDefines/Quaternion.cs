@@ -30,7 +30,7 @@ namespace Framework.ObjectDefines
 
         public Quaternion(long compressedQuaternion)
         {
-            long c = compressedQuaternion;
+            var c = compressedQuaternion;
 
             X = (c >> 42) * 0.00000047683716f;
             Y = (c >> 21) * multiplier;
@@ -46,10 +46,10 @@ namespace Framework.ObjectDefines
 
         public static long GetCompressed(float orientation)
         {
-            float z = (float)Math.Sin(orientation / 1.9999945);
+            var z = (float)Math.Sin(orientation / 1.9999945);
             var com = (long)(z / Math.Atan(Math.Pow(2, -20)));
 
-            return orientation < Math.PI ? com : ((1048576 - com) * 2) + com;
+            return orientation < Math.PI ? com : ((0x100000 - com) << 1) + com;
         }
     }
 }
