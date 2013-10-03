@@ -189,12 +189,16 @@ namespace Framework.Network.Packets
                 base.Write(data, 0, count);
         }
 
-        public void WriteBitArray(BitArray buffer, int Len)
+        public void WriteBitArray(BitArray buffer, int len)
         {
-            byte[] bufferarray = new byte[Convert.ToByte((buffer.Length + 8) / 8) + 1];
-            buffer.CopyTo(bufferarray, 0);
+            var bufferArray = new byte[Convert.ToByte((buffer.Length + 8) / 8) + 1];
 
-            WriteBytes(bufferarray.ToArray(), Len);
+            if (len > bufferArray.Length)
+                bufferArray = bufferArray.Concat(new byte[len - bufferArray.Length]).ToArray();
+
+            buffer.CopyTo(bufferArray, 0);
+
+            WriteBytes(bufferArray.ToArray(), len);
         }
 
         public void WriteUInt32Pos(uint data, int pos)
