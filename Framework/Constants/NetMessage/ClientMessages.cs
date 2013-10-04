@@ -78,7 +78,7 @@ namespace Framework.Constants.NetMessage
         MoveStopPitch               = 0x0A1B,
         MoveSetRunMode              = 0x0A37,
         MoveSetWalkMode             = 0x0A3E,
-        MoveFallLand                               = 0x0CCF,
+        MoveFallLand                = 0x031F,
         MoveStartSwim               = 0x0712,
         MoveStopSwim                = 0x0A1F,
         MoveToggleCollisionCheat    = 0x030A,
