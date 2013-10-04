@@ -26,7 +26,7 @@ namespace WorldServer.Game.Packets.PacketHandler
 {
     public class ChatHandler : Globals
     {
-        [Opcode(ClientMessage.ChatMessageSay, "17371")]
+        [Opcode(ClientMessage.ChatMessageSay, "17399")]
         public static void HandleChatMessageSay(ref PacketReader packet, WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
@@ -45,7 +45,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                 SendMessage(ref session, chatMessage);
         }
 
-        [Opcode(ClientMessage.ChatMessageYell, "17371")]
+        [Opcode(ClientMessage.ChatMessageYell, "17399")]
         public static void HandleChatMessageYell(ref PacketReader packet, WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
@@ -61,7 +61,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             SendMessage(ref session, chatMessage);
         }
 
-        [Opcode(ClientMessage.ChatMessageWhisper, "17371")]
+        [Opcode(ClientMessage.ChatMessageWhisper, "17399")]
         public static void HandleChatMessageWhisper(ref PacketReader packet, WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
@@ -104,35 +104,33 @@ namespace WorldServer.Game.Packets.PacketHandler
 
             BitPack.Write(0);
             BitPack.Write(0);
-
-            BitPack.Write(!chatMessage.HasRealmId);
-
             BitPack.Write(1);
             BitPack.Write(1);
+            BitPack.Write(0);
 
             BitPack.WriteGuidMask(GuidMask);
 
-            BitPack.Write(0);
+            BitPack.Write(1);
+
             BitPack.Write(0, 8);
+
             BitPack.Write(1);
             BitPack.Write(0);
+            BitPack.Write(!chatMessage.HasRealmId);
             BitPack.Write(1);
-            BitPack.Write(1);
-            BitPack.Write(1);
+            BitPack.Write(0);
 
             BitPack.WriteGuidMask(GuidMask3);
 
             BitPack.Write(1);
             BitPack.Write(0);
-
             BitPack.WriteStringLength(chatMessage.Message, 12);
-
             BitPack.Write(!chatMessage.HasLanguage);
-
             BitPack.Write(8, 9);
+            BitPack.Write(1);
 
-            BitPack.Write(0);
             BitPack.Write(0, 8);
+
             BitPack.Write(1);
 
             BitPack.Flush();
