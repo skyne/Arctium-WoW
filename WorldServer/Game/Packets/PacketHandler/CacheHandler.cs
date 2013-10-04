@@ -204,7 +204,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             }
         }
 
-        [Opcode(ClientMessage.QueryPlayerName, "17128")]
+        [Opcode(ClientMessage.QueryPlayerName, "17399")]
         public static void HandleQueryPlayerName(ref PacketReader packet, WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
@@ -212,13 +212,10 @@ namespace WorldServer.Game.Packets.PacketHandler
             var guidMask = new bool[8];
             var guidBytes = new byte[8];
 
-            guidMask[3] = BitUnpack.GetBit();
-            guidMask[1] = BitUnpack.GetBit();
-            guidMask[4] = BitUnpack.GetBit();
-            guidMask[2] = BitUnpack.GetBit();
+            guidMask[5] = BitUnpack.GetBit();
             guidMask[7] = BitUnpack.GetBit();
             guidMask[0] = BitUnpack.GetBit();
-            guidMask[5] = BitUnpack.GetBit();
+            guidMask[1] = BitUnpack.GetBit();
 
             var hasUnknown = BitUnpack.GetBit();
 
@@ -226,14 +223,18 @@ namespace WorldServer.Game.Packets.PacketHandler
 
             var hasUnknown2 = BitUnpack.GetBit();
 
-            if (guidMask[6]) guidBytes[6] = (byte)(packet.Read<byte>() ^ 1);
+            guidMask[3] = BitUnpack.GetBit();
+            guidMask[2] = BitUnpack.GetBit();
+            guidMask[4] = BitUnpack.GetBit();
+
             if (guidMask[0]) guidBytes[0] = (byte)(packet.Read<byte>() ^ 1);
-            if (guidMask[2]) guidBytes[2] = (byte)(packet.Read<byte>() ^ 1);
+            if (guidMask[1]) guidBytes[1] = (byte)(packet.Read<byte>() ^ 1);
             if (guidMask[3]) guidBytes[3] = (byte)(packet.Read<byte>() ^ 1);
             if (guidMask[4]) guidBytes[4] = (byte)(packet.Read<byte>() ^ 1);
+            if (guidMask[6]) guidBytes[6] = (byte)(packet.Read<byte>() ^ 1);
             if (guidMask[5]) guidBytes[5] = (byte)(packet.Read<byte>() ^ 1);
+            if (guidMask[2]) guidBytes[2] = (byte)(packet.Read<byte>() ^ 1);
             if (guidMask[7]) guidBytes[7] = (byte)(packet.Read<byte>() ^ 1);
-            if (guidMask[1]) guidBytes[1] = (byte)(packet.Read<byte>() ^ 1);
 
             if (hasUnknown2)
                 packet.Read<uint>();
@@ -253,38 +254,65 @@ namespace WorldServer.Game.Packets.PacketHandler
                     PacketWriter queryPlayerNameResponse = new PacketWriter(ServerMessage.QueryPlayerNameResponse);
                     BitPack BitPack = new BitPack(queryPlayerNameResponse, guid);
 
-                    BitPack.Write(0);
-                    BitPack.WriteGuidMask(1, 3, 2);
-                    BitPack.Write(pChar.Name.Length, 6);
-                    BitPack.WriteGuidMask(6, 4, 0);
-                    BitPack.Write(0);
-                    BitPack.WriteGuidMask(5, 7);
+                    BitPack.WriteGuidMask(5, 7, 3, 0, 4, 1, 6, 2);
 
                     BitPack.Flush();
 
-                    BitPack.WriteGuidBytes(1);
+                    BitPack.WriteGuidBytes(7, 4, 3);
+
+                    queryPlayerNameResponse.WriteUInt8(0);
+
+                    queryPlayerNameResponse.WriteUInt32(0);
+                    queryPlayerNameResponse.WriteUInt8(pChar.Race);
+                    queryPlayerNameResponse.WriteUInt8(pChar.Gender);
+                    queryPlayerNameResponse.WriteUInt8(pChar.Level);
+                    queryPlayerNameResponse.WriteUInt8(pChar.Class);
+                    queryPlayerNameResponse.WriteUInt32(1);
+
+                    BitPack.WriteGuidBytes(1, 5, 0, 6, 2);
+
+                    BitPack.WriteGuidMask(6);
+
+                    BitPack.Write(0);
+                    BitPack.Write(pChar.Name.Length, 6);
+
+                    BitPack.WriteGuidMask(1, 7, 2);
+
+                    BitPack.Write(0);
+
+                    BitPack.WriteGuidMask(4, 0);
+
+                    BitPack.Write(0);
+
+                    for (int i = 0; i < 5; i++)
+                        BitPack.Write(0, 7);
+
+                    BitPack.Write(0);
+
+                    BitPack.WriteGuidMask(3);
+
+                    BitPack.Write(0);
+                    BitPack.Write(0);
+
+                    BitPack.WriteGuidMask(5);
+
+                    BitPack.Write(0);
+
+                    BitPack.Write(0);
+                    BitPack.Write(0);
+
+                    BitPack.Flush();
 
                     queryPlayerNameResponse.WriteString(pChar.Name);
 
-                    BitPack.WriteGuidBytes(0, 7);
-
-                    queryPlayerNameResponse.WriteUInt8(pChar.Race);
-                    queryPlayerNameResponse.WriteUInt8(0);
-                    queryPlayerNameResponse.WriteUInt8(pChar.Gender);
-                    queryPlayerNameResponse.WriteUInt8(pChar.Class);
-
-                    BitPack.WriteGuidBytes(4, 6, 5);
-
-                    queryPlayerNameResponse.WriteUInt32(1);
-
-                    BitPack.WriteGuidBytes(3, 2);
+                    BitPack.WriteGuidBytes(4, 6, 5, 1, 7, 3, 0, 2);
 
                     session.Send(ref queryPlayerNameResponse);
                 }
             }
         }
 
-        [Opcode(ClientMessage.QueryRealmName, "17128")]
+        [Opcode(ClientMessage.QueryRealmName, "17399")]
         public static void HandleQueryRealmName(ref PacketReader packet, WorldClass session)
         {
             Character pChar = session.Character;
@@ -297,12 +325,12 @@ namespace WorldServer.Game.Packets.PacketHandler
             PacketWriter realmQueryResponse = new PacketWriter(ServerMessage.RealmQueryResponse);
             BitPack BitPack = new BitPack(realmQueryResponse);
 
-            realmQueryResponse.WriteUInt32(realmId);       // <= 0 => End of packet
             realmQueryResponse.WriteUInt8(0);
+            realmQueryResponse.WriteUInt32(realmId);       // <= 0 => End of packet
 
             BitPack.Write(realmName.Length, 8);
-            BitPack.Write(realmName.Length, 8);
             BitPack.Write(1);
+            BitPack.Write(realmName.Length, 8);
 
             BitPack.Flush();
 
@@ -312,7 +340,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             session.Send(ref realmQueryResponse);
         }
 
-        [Opcode(ClientMessage.DBQueryBulk, "17128")]
+        [Opcode(ClientMessage.DBQueryBulk, "17399")]
         public static void HandleDBQueryBulk(ref PacketReader packet, WorldClass session)
         {
             List<int> IdList = new List<int>();
