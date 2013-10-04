@@ -103,9 +103,7 @@ namespace WorldServer.Game.WorldEntities
         public override void SetUpdateFields()
         {
             SetUpdateField<ulong>((int)ObjectFields.Guid, Guid);
-            SetUpdateField<ulong>((int)ObjectFields.Data, 0);
             SetUpdateField<int>((int)ObjectFields.Type, 0x19);
-            SetUpdateField<int>((int)ObjectFields.DynamicFlags, 0);
             SetUpdateField<float>((int)ObjectFields.Scale, 1.0f);
 
             SetUpdateField<int>((int)UnitFields.Health, 123);
@@ -116,8 +114,10 @@ namespace WorldServer.Game.WorldEntities
 
             SetUpdateField<byte>((int)UnitFields.Sex, Race, 0);
             SetUpdateField<byte>((int)UnitFields.Sex, Class, 1);
-            SetUpdateField<byte>((int)UnitFields.Sex, Gender, 2);
-            SetUpdateField<byte>((int)UnitFields.Sex, 0, 3);
+            SetUpdateField<byte>((int)UnitFields.Sex, 0, 2);
+            SetUpdateField<byte>((int)UnitFields.Sex, Gender, 3);
+
+            SetUpdateField<int>((int)UnitFields.DisplayPower, 1);
 
             var race = CliDB.ChrRaces.Single(r => r.Id == Race);
             var displayId = Gender == 0 ? race.MaleDisplayId : race.FemaleDisplayId;
