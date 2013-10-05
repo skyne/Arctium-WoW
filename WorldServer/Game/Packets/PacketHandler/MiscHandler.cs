@@ -53,19 +53,20 @@ namespace WorldServer.Game.Packets.PacketHandler
             session.Send(ref motd);
         }
 
-        [Opcode(ClientMessage.Ping, "17128")]
+        [Opcode(ClientMessage.Ping, "17399")]
         public static void HandlePong(ref PacketReader packet, WorldClass session)
         {
-            uint latency = packet.Read<uint>();
             uint sequence = packet.Read<uint>();
+            uint latency = packet.Read<uint>();
 
             PacketWriter pong = new PacketWriter(ServerMessage.Pong);
+
             pong.WriteUInt32(sequence);
 
             session.Send(ref pong);
         }
 
-        [Opcode(ClientMessage.LogDisconnect, "17128")]
+        [Opcode(ClientMessage.LogDisconnect, "17399")]
         public static void HandleDisconnectReason(ref PacketReader packet, WorldClass session)
         {
             var pChar = session.Character;
@@ -115,11 +116,11 @@ namespace WorldServer.Game.Packets.PacketHandler
             Log.Message(LogType.Debug, "Player {0} (Guid: {1}) is active.", session.Character.Name, session.Character.Guid);
         }
 
-        [Opcode(ClientMessage.CliSetSelection, "17128")]
+        [Opcode(ClientMessage.CliSetSelection, "17399")]
         public static void HandleSetSelection(ref PacketReader packet, WorldClass session)
         {
-            byte[] guidMask = { 5, 2, 3, 6, 0, 7, 4, 1 };
-            byte[] guidBytes = { 7, 6, 4, 0, 3, 1, 2, 5 };
+            byte[] guidMask = { 6, 3, 4, 7, 1, 0, 2, 5 };
+            byte[] guidBytes = { 7, 6, 0, 2, 3, 1, 4, 5 };
 
             BitUnpack GuidUnpacker = new BitUnpack(packet);
 
@@ -140,18 +141,17 @@ namespace WorldServer.Game.Packets.PacketHandler
             }
         }
 
-        [Opcode(ClientMessage.SetActionButton, "17128")]
+        [Opcode(ClientMessage.SetActionButton, "17399")]
         public static void HandleSetActionButton(ref PacketReader packet, WorldClass session)
         {
             var pChar = session.Character;
 
-            byte[] actionMask = { 5, 0, 2, 3, 1, 6, 7, 4 };
-            byte[] actionBytes = { 2, 7, 5, 3, 1, 0, 4, 6 };
-
-            var slotId = packet.ReadByte();
+            byte[] actionMask = { 4, 1, 0, 5, 6, 3, 7, 2 };
+            byte[] actionBytes = { 2, 7, 1, 4, 0, 5, 3, 6 };
             
             BitUnpack actionUnpacker = new BitUnpack(packet);
-            
+
+            var slotId = packet.Read<byte>();
             var actionId = actionUnpacker.GetPackedValue(actionMask, actionBytes);
             
             if (actionId == 0)
@@ -186,7 +186,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             var buttons = new byte[buttonCount][];
 
             byte[] buttonMask = { 7, 2, 1, 6, 3, 4, 5, 0 };
-            byte[] buttonBytes = {3, 1, 4, 5, 6, 2, 7, 0 };
+            byte[] buttonBytes = { 3, 1, 4, 5, 6, 2, 7, 0 };
 
             var actions = ActionMgr.GetActionButtons(pChar, pChar.ActiveSpecGroup);
             

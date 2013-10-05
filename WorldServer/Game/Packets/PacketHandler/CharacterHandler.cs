@@ -34,7 +34,7 @@ namespace WorldServer.Game.PacketHandler
 {
     public class CharacterHandler : Globals
     {
-        [Opcode(ClientMessage.EnumCharacters, "17359")]
+        [Opcode(ClientMessage.EnumCharacters, "17399")]
         public static void HandleEnumCharactersResult(ref PacketReader packet, WorldClass session)
         {
             // Set existing character from last world session to null
@@ -147,7 +147,7 @@ namespace WorldServer.Game.PacketHandler
             session.Send(ref enumCharacters);
         }
 
-        [Opcode(ClientMessage.CreateCharacter, "17359")]
+        [Opcode(ClientMessage.CreateCharacter, "17399")]
         public static void HandleCreateCharacter(ref PacketReader packet, WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
@@ -205,7 +205,7 @@ namespace WorldServer.Game.PacketHandler
             session.Send(ref createChar);
         }
 
-        [Opcode(ClientMessage.CharDelete, "17359")]
+        [Opcode(ClientMessage.CharDelete, "17399")]
         public static void HandleCharDelete(ref PacketReader packet, WorldClass session)
         {
             bool[] guidMask = new bool[8];
@@ -247,7 +247,7 @@ namespace WorldServer.Game.PacketHandler
             DB.Characters.Execute("DELETE FROM character_skills WHERE guid = ?", guid);
         }
 
-        [Opcode(ClientMessage.GenerateRandomCharacterName, "17359")]
+        [Opcode(ClientMessage.GenerateRandomCharacterName, "17399")]
         public static void HandleGenerateRandomCharacterName(ref PacketReader packet, WorldClass session)
         {
             var race = packet.ReadByte();
@@ -277,7 +277,7 @@ namespace WorldServer.Game.PacketHandler
             session.Send(ref generateRandomCharacterNameResult);
         }
 
-        [Opcode(ClientMessage.PlayerLogin, "17359")]
+        [Opcode(ClientMessage.PlayerLogin, "17399")]
         public static void HandlePlayerLogin(ref PacketReader packet, WorldClass session)
         {
             byte[] guidMask = { 4, 5, 1, 3, 2, 7, 0, 6 };
