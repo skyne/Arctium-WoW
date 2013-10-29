@@ -273,10 +273,10 @@ namespace Framework.Constants
         DisplayID                         = ObjectFields.End + 0x2,
         Flags                             = ObjectFields.End + 0x3,
         ParentRotation                    = ObjectFields.End + 0x4,
-        AnimProgress                      = ObjectFields.End + 0x8,
-        FactionTemplate                   = ObjectFields.End + 0x9,
-        Level                             = ObjectFields.End + 0xA,
-        PercentHealth                     = ObjectFields.End + 0xB,
+        FactionTemplate                   = ObjectFields.End + 0x8,
+        Level                             = ObjectFields.End + 0x9,
+        PercentHealth                     = ObjectFields.End + 0xA,
+        StateSpellVisualID                = ObjectFields.End + 0xB,
         End                               = ObjectFields.End + 0xC
     };
 

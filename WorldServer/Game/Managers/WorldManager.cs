@@ -212,11 +212,10 @@ namespace WorldServer.Game.Managers
             BitPack BitPack = new BitPack(accountDataTimes);
 
             accountDataTimes.WriteUnixTime();
+            accountDataTimes.WriteUInt32((uint)mask);
 
             for (int i = 0; i < 8; i++)
                 accountDataTimes.WriteUInt32(0);
-
-            accountDataTimes.WriteUInt32((uint)mask);
 
             BitPack.Write(0);
             BitPack.Flush();
@@ -239,93 +238,87 @@ namespace WorldServer.Game.Managers
             ObjectMovementValues values = new ObjectMovementValues(updateFlags);
             BitPack BitPack = new BitPack(packet, wObject.Guid);
 
-            BitPack.Write(0);                                // Unknown 
-            BitPack.Write(0);                                // Unknown 2
-            BitPack.Write(0);                                // Unknown 3
-            BitPack.Write(0);                                // Unknown 4
-            BitPack.Write(0);                                // Unknown 5
-            BitPack.Write(values.HasAnimKits);
+            BitPack.Write(0);
+            BitPack.Write(0);
+            BitPack.Write(0);
+            BitPack.Write(0);
+            BitPack.Write(0);
             BitPack.Write(values.IsSelf);
-            BitPack.Write(0);                                // Unknown 6
-            BitPack.Write(0, 22);                            // BitCounter
-            BitPack.Write(0);                                // Bit 2
-            BitPack.Write(0);                                // Bit 1
-            BitPack.Write(values.IsAlive);
-            BitPack.Write(values.HasStationaryPosition);
-            BitPack.Write(values.HasGoTransportPosition);
-            BitPack.Write(wObject is GameObjectSpawn);
+            BitPack.Write(0);
             BitPack.Write(values.HasTarget);
-            BitPack.Write(0);                                // Unknown 7
-            BitPack.Write(0);                                // Bit 3
-            BitPack.Write(0);                                // Bit 0
-            BitPack.Write(0);                                // Unknown 8, No Data
+            BitPack.Write(0, 22);
+            BitPack.Write(0);
+            BitPack.Write(0);
+            BitPack.Write(0);
+            BitPack.Write(0);
+            BitPack.Write(values.HasStationaryPosition);
+            BitPack.Write(0);
+            BitPack.Write(values.IsAlive);
+            BitPack.Write(values.HasAnimKits);
             BitPack.Write(values.IsVehicle);
+            BitPack.Write(values.HasGoTransportPosition);
+            BitPack.Write(0);
+            BitPack.Write(wObject is GameObjectSpawn);
 
             if (values.IsAlive)
             {
+                BitPack.WriteGuidMask(4, 1);
+                BitPack.Write(0, 19);
                 BitPack.WriteGuidMask(5);
-                BitPack.Write(0);                   // HasBasicSplineData
-                BitPack.Write(0);                   // Unknown_Alive_1
-                BitPack.WriteGuidMask(1, 3);
                 BitPack.Write(!values.HasRotation);
-                BitPack.Write(0);                   // Unknown_Alive_2
-                BitPack.Write(0, 22);               // BitCounter_Alive_1
-                BitPack.WriteGuidMask(6, 7);
-                BitPack.Write(values.IsTransport);
-                BitPack.Write(1);                   // !Pitch or !SplineElevation
-                BitPack.Write(0, 19);               // BitCounter_Alive_2
-                BitPack.Write(1);                   // !MovementFlags2
+                BitPack.WriteGuidMask(7);
+                BitPack.Write(0, 22);
+                BitPack.Write(0);
+                BitPack.Write(1);
+                BitPack.Write(1);
+                BitPack.WriteGuidMask(3);
+                BitPack.Write(0);
+                BitPack.Write(1);
+                BitPack.Write(0);
+                BitPack.Write(0); 
                 BitPack.WriteGuidMask(2);
-                BitPack.Write(1);                   // !MovementFlags
-                BitPack.Write(0);                   // !HasTime
-
-                // if (HasMovementFlags)
-
-                BitPack.Write(0);                   // IsFallingOrJumping
-
-                // if (HasMovementFlags2)
-
-                BitPack.WriteGuidMask(4);
-
-                // if (IsFallingOrJumping)
-
+                BitPack.Write(0);
                 BitPack.WriteGuidMask(0);
-                BitPack.Write(0);                   // Unknown_Alive_3
-                BitPack.Write(1);                   // !Pitch or !SplineElevation
-                BitPack.Write(1);                   // !Unknown_Alive_4
+                BitPack.Write(values.IsTransport);
+                BitPack.WriteGuidMask(6);
+                BitPack.Write(0);
+                BitPack.Write(1);
+                BitPack.Write(1);
             }
 
             BitPack.Flush();
 
             if (values.IsAlive)
             {
-                BitPack.WriteGuidBytes(2, 6, 0);
                 packet.WriteFloat(wObject.Position.Y);
-                packet.WriteUInt32(0);
-                packet.WriteFloat((float)MovementSpeed.PitchSpeed);
-                BitPack.WriteGuidBytes(7);
-                packet.WriteFloat(wObject.Position.O);
-                packet.WriteFloat((float)MovementSpeed.FlyBackSpeed);
-                packet.WriteFloat((float)MovementSpeed.SwimSpeed);
-                BitPack.WriteGuidBytes(1);
-                packet.WriteFloat(wObject.Position.Z);
+                packet.WriteFloat(MovementSpeed.FlySpeed);
+                packet.WriteFloat(MovementSpeed.RunSpeed);
                 BitPack.WriteGuidBytes(4);
-                packet.WriteFloat((float)MovementSpeed.FlySpeed);
-                packet.WriteFloat((float)MovementSpeed.RunSpeed);
-                packet.WriteFloat((float)MovementSpeed.RunBackSpeed);
-                packet.WriteFloat((float)MovementSpeed.TurnSpeed);
-                packet.WriteFloat((float)MovementSpeed.SwimBackSpeed);
+                packet.WriteFloat(MovementSpeed.WalkSpeed);
+                BitPack.WriteGuidBytes(5);
+                packet.WriteUInt32(0);
+                BitPack.WriteGuidBytes(1);
+                packet.WriteFloat(MovementSpeed.SwimBackSpeed);
+                packet.WriteFloat(MovementSpeed.FlyBackSpeed);
+                BitPack.WriteGuidBytes(6);
+                packet.WriteFloat(MovementSpeed.TurnSpeed);
                 packet.WriteFloat(wObject.Position.X);
-                BitPack.WriteGuidBytes(5, 3);
-                packet.WriteFloat((float)MovementSpeed.WalkSpeed);
+                packet.WriteFloat(wObject.Position.O);
+                packet.WriteFloat(MovementSpeed.PitchSpeed);
+                packet.WriteFloat(MovementSpeed.SwimSpeed);
+                BitPack.WriteGuidBytes(3);
+                packet.WriteFloat(MovementSpeed.RunBackSpeed);
+                BitPack.WriteGuidBytes(7, 2);
+                packet.WriteFloat(wObject.Position.Z);
+                BitPack.WriteGuidBytes(0);
             }
 
             if (values.HasStationaryPosition)
             {
                 packet.WriteFloat(wObject.Position.X);
                 packet.WriteFloat(wObject.Position.Z);
-                packet.WriteFloat(wObject.Position.O);
                 packet.WriteFloat(wObject.Position.Y);
+                packet.WriteFloat(wObject.Position.O);
             }
 
             if (wObject is GameObjectSpawn)

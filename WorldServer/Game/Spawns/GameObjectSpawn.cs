@@ -111,10 +111,10 @@ namespace WorldServer.Game.Spawns
             SetUpdateField<float>((int)GameObjectFields.ParentRotation + 1, 0);
             SetUpdateField<float>((int)GameObjectFields.ParentRotation + 2, 0);
             SetUpdateField<float>((int)GameObjectFields.ParentRotation + 3, 1);
-            SetUpdateField<byte>((int)GameObjectFields.AnimProgress, AnimProgress);
-            SetUpdateField<byte>((int)GameObjectFields.AnimProgress, 0, 1);
-            SetUpdateField<byte>((int)GameObjectFields.AnimProgress, 255, 2);
-            SetUpdateField<byte>((int)GameObjectFields.AnimProgress, 255, 3);
+            SetUpdateField<byte>((int)GameObjectFields.StateSpellVisualID, AnimProgress);
+            SetUpdateField<byte>((int)GameObjectFields.StateSpellVisualID, 0, 1);
+            SetUpdateField<byte>((int)GameObjectFields.StateSpellVisualID, 255, 2);
+            SetUpdateField<byte>((int)GameObjectFields.StateSpellVisualID, 255, 3);
             SetUpdateField<uint>((int)GameObjectFields.FactionTemplate, FactionTemplate);
             SetUpdateField<int>((int)GameObjectFields.Level, 0);
             SetUpdateField<byte>((int)GameObjectFields.PercentHealth, State);

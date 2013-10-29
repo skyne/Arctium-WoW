@@ -50,53 +50,53 @@ namespace WorldServer.Game.Packets.PacketHandler
             {
                 var stats = creature.Stats;
 
+                BitPack.Write(0, 11);
+                BitPack.Write(stats.QuestItemId.Count, 22);
+                BitPack.Write(stats.IconName.Length + 1, 6);
+                BitPack.Write(stats.RacialLeader);
+
                 for (int i = 0; i < 8; i++)
                 {
-                    if (i == 1)
+                    if (i == 0)
                         BitPack.Write(stats.Name.Length + 1, 11);
                     else
                         BitPack.Write(0, 11);
                 }
 
-                BitPack.Write(stats.QuestItemId.Count, 22);
-                BitPack.Write(stats.IconName.Length + 1, 6);
                 BitPack.Write(stats.SubName.Length != 0 ? stats.SubName.Length + 1 : 0, 11);
-                BitPack.Write(0, 11);
-                BitPack.Write(stats.RacialLeader);
 
                 BitPack.Flush();
 
-                queryCreatureResponse.WriteInt32(stats.Type);
-                queryCreatureResponse.WriteInt32(stats.QuestKillNpcId[1]);
-                queryCreatureResponse.WriteInt32(stats.DisplayInfoId[3]);
-                queryCreatureResponse.WriteInt32(stats.DisplayInfoId[2]);
-
-                foreach (var v in stats.QuestItemId)
-                    queryCreatureResponse.WriteInt32(v);
-
+                queryCreatureResponse.WriteInt32(stats.Family);
                 queryCreatureResponse.WriteInt32(stats.ExpansionRequired);
-                queryCreatureResponse.WriteCString(stats.Name);
-                queryCreatureResponse.WriteFloat(stats.PowerModifier);
-                queryCreatureResponse.WriteInt32(stats.DisplayInfoId[0]);
 
-                if (stats.IconName != "")
-                    queryCreatureResponse.WriteCString(stats.IconName);
-
-                queryCreatureResponse.WriteInt32(stats.QuestKillNpcId[0]);
-                queryCreatureResponse.WriteInt32(stats.DisplayInfoId[1]);
+                queryCreatureResponse.WriteInt32(stats.Type);
 
                 if (stats.SubName != "")
                     queryCreatureResponse.WriteCString(stats.SubName);
 
+                queryCreatureResponse.WriteInt32(stats.DisplayInfoId[0]);
+                queryCreatureResponse.WriteInt32(stats.DisplayInfoId[3]);
+
+                foreach (var v in stats.QuestItemId)
+                    queryCreatureResponse.WriteInt32(v);
+
+                queryCreatureResponse.WriteCString(stats.Name);
+
+                if (stats.IconName != "")
+                    queryCreatureResponse.WriteCString(stats.IconName);
+
                 foreach (var v in stats.Flag)
                     queryCreatureResponse.WriteInt32(v);
 
-
                 queryCreatureResponse.WriteFloat(stats.HealthModifier);
-                queryCreatureResponse.WriteInt32(stats.Family);
                 queryCreatureResponse.WriteInt32(stats.Rank);
+                queryCreatureResponse.WriteInt32(stats.QuestKillNpcId[0]);
+                queryCreatureResponse.WriteInt32(stats.QuestKillNpcId[1]);
+                queryCreatureResponse.WriteFloat(stats.PowerModifier);
                 queryCreatureResponse.WriteInt32(stats.MovementInfoId);
-
+                queryCreatureResponse.WriteInt32(stats.DisplayInfoId[1]);
+                queryCreatureResponse.WriteInt32(stats.DisplayInfoId[2]);
             }
             else
                 Log.Message(LogType.Debug, "Creature (Id: {0}) not found.", id);
@@ -107,8 +107,8 @@ namespace WorldServer.Game.Packets.PacketHandler
         [Opcode(ClientMessage.CliQueryGameObject, "17399")]
         public static void HandleQueryGameObject(ref PacketReader packet, WorldClass session)
         {
-            byte[] guidMask = { 6, 3, 0, 2, 5, 7, 1, 4 };
-            byte[] guidBytes = { 1, 7, 2, 3, 6, 5, 4, 0 };
+            byte[] guidMask = { 6, 4, 0, 5, 1, 7, 3, 2 };
+            byte[] guidBytes = { 5, 0, 6, 7, 3, 4, 2, 1 };
 
             BitUnpack BitUnpack = new BitUnpack(packet);
 
@@ -120,9 +120,6 @@ namespace WorldServer.Game.Packets.PacketHandler
 
             var gObject = DataMgr.FindGameObject(id);
             var hasData = (gObject != null);
-
-            BitPack.Write(hasData);
-            BitPack.Flush();
 
             queryGameObjectResponse.WriteInt32(id);
             queryGameObjectResponse.WriteInt32(0);
@@ -160,6 +157,9 @@ namespace WorldServer.Game.Packets.PacketHandler
             else
                 Log.Message(LogType.Debug, "Gameobject (Id: {0}) not found.", id);
 
+            BitPack.Write(hasData);
+            BitPack.Flush();
+
             session.Send(ref queryGameObjectResponse);
         }
 
@@ -168,8 +168,8 @@ namespace WorldServer.Game.Packets.PacketHandler
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
 
-            byte[] guidMask = { 2, 3, 7, 0, 1, 4, 5, 6 };
-            byte[] guidBytes = { 1, 5, 2, 7, 3, 6, 4, 0 };
+            byte[] guidMask = { 7, 0, 6, 4, 2, 3, 1, 5 };
+            byte[] guidBytes = { 6, 4, 1, 3, 2, 5, 7, 0 };
 
             var gossipTextId = packet.Read<int>();
             var guid = BitUnpack.GetPackedValue(guidMask, guidBytes);
@@ -211,34 +211,34 @@ namespace WorldServer.Game.Packets.PacketHandler
             var guidMask = new bool[8];
             var guidBytes = new byte[8];
 
-            guidMask[5] = BitUnpack.GetBit();
-            guidMask[7] = BitUnpack.GetBit();
-            guidMask[0] = BitUnpack.GetBit();
             guidMask[1] = BitUnpack.GetBit();
+            guidMask[3] = BitUnpack.GetBit();
+            guidMask[6] = BitUnpack.GetBit();
+            guidMask[7] = BitUnpack.GetBit();
+            guidMask[2] = BitUnpack.GetBit();
+            guidMask[5] = BitUnpack.GetBit();
 
             var hasUnknown = BitUnpack.GetBit();
 
-            guidMask[6] = BitUnpack.GetBit();
+            guidMask[0] = BitUnpack.GetBit();
 
             var hasUnknown2 = BitUnpack.GetBit();
 
-            guidMask[3] = BitUnpack.GetBit();
-            guidMask[2] = BitUnpack.GetBit();
             guidMask[4] = BitUnpack.GetBit();
 
-            if (guidMask[0]) guidBytes[0] = (byte)(packet.Read<byte>() ^ 1);
-            if (guidMask[1]) guidBytes[1] = (byte)(packet.Read<byte>() ^ 1);
-            if (guidMask[3]) guidBytes[3] = (byte)(packet.Read<byte>() ^ 1);
             if (guidMask[4]) guidBytes[4] = (byte)(packet.Read<byte>() ^ 1);
             if (guidMask[6]) guidBytes[6] = (byte)(packet.Read<byte>() ^ 1);
-            if (guidMask[5]) guidBytes[5] = (byte)(packet.Read<byte>() ^ 1);
-            if (guidMask[2]) guidBytes[2] = (byte)(packet.Read<byte>() ^ 1);
             if (guidMask[7]) guidBytes[7] = (byte)(packet.Read<byte>() ^ 1);
-
-            if (hasUnknown2)
-                packet.Read<uint>();
+            if (guidMask[1]) guidBytes[1] = (byte)(packet.Read<byte>() ^ 1);
+            if (guidMask[2]) guidBytes[2] = (byte)(packet.Read<byte>() ^ 1);
+            if (guidMask[5]) guidBytes[5] = (byte)(packet.Read<byte>() ^ 1);
+            if (guidMask[0]) guidBytes[0] = (byte)(packet.Read<byte>() ^ 1);
+            if (guidMask[3]) guidBytes[3] = (byte)(packet.Read<byte>() ^ 1);
 
             if (hasUnknown)
+                packet.Read<uint>();
+
+            if (hasUnknown2)
                 packet.Read<uint>();
 
             var guid = BitConverter.ToUInt64(guidBytes, 0);
@@ -253,58 +253,49 @@ namespace WorldServer.Game.Packets.PacketHandler
                     PacketWriter queryPlayerNameResponse = new PacketWriter(ServerMessage.QueryPlayerNameResponse);
                     BitPack BitPack = new BitPack(queryPlayerNameResponse, guid);
 
-                    BitPack.WriteGuidMask(5, 7, 3, 0, 4, 1, 6, 2);
+                    BitPack.WriteGuidMask(3, 2, 6, 0, 4, 1, 5, 7);
 
                     BitPack.Flush();
 
-                    BitPack.WriteGuidBytes(7, 4, 3);
+                    BitPack.WriteGuidBytes(7, 1, 2, 6, 3, 5);
 
                     queryPlayerNameResponse.WriteUInt8(0);
-
-                    queryPlayerNameResponse.WriteUInt32(0);
-                    queryPlayerNameResponse.WriteUInt8(pChar.Race);
                     queryPlayerNameResponse.WriteUInt8(pChar.Gender);
-                    queryPlayerNameResponse.WriteUInt8(pChar.Level);
                     queryPlayerNameResponse.WriteUInt8(pChar.Class);
+                    queryPlayerNameResponse.WriteUInt8(pChar.Level);
                     queryPlayerNameResponse.WriteUInt32(1);
+                    queryPlayerNameResponse.WriteUInt8(pChar.Race);
+                    queryPlayerNameResponse.WriteUInt32(0);
 
-                    BitPack.WriteGuidBytes(1, 5, 0, 6, 2);
+                    BitPack.WriteGuidBytes(4, 0);
 
-                    BitPack.WriteGuidMask(6);
-
+                    BitPack.WriteGuidMask(5);
                     BitPack.Write(0);
-                    BitPack.Write(pChar.Name.Length, 6);
-
-                    BitPack.WriteGuidMask(1, 7, 2);
-
                     BitPack.Write(0);
-
-                    BitPack.WriteGuidMask(4, 0);
-
+                    BitPack.Write(0);
+                    BitPack.WriteGuidMask(3, 7, 0, 6);
+                    BitPack.Write(0);
+                    BitPack.Write(0);
+                    BitPack.WriteGuidMask(1);
                     BitPack.Write(0);
 
                     for (int i = 0; i < 5; i++)
                         BitPack.Write(0, 7);
 
+                    BitPack.WriteGuidMask(2);
                     BitPack.Write(0);
-
-                    BitPack.WriteGuidMask(3);
-
+                    BitPack.WriteGuidMask(4);
                     BitPack.Write(0);
-                    BitPack.Write(0);
-
-                    BitPack.WriteGuidMask(5);
-
-                    BitPack.Write(0);
-
-                    BitPack.Write(0);
+                    BitPack.Write(pChar.Name.Length, 6);
                     BitPack.Write(0);
 
                     BitPack.Flush();
 
+                    BitPack.WriteGuidBytes(0, 7, 5, 2);
+
                     queryPlayerNameResponse.WriteString(pChar.Name);
 
-                    BitPack.WriteGuidBytes(4, 6, 5, 1, 7, 3, 0, 2);
+                    BitPack.WriteGuidBytes(4, 1, 3, 6);
 
                     session.Send(ref queryPlayerNameResponse);
                 }
@@ -359,43 +350,43 @@ namespace WorldServer.Game.Packets.PacketHandler
 
             for (int i = 0; i < count; i++)
             {
-                Mask[i][3] = BitUnpack.GetBit();
-                Mask[i][4] = BitUnpack.GetBit();
+                Mask[i][1] = BitUnpack.GetBit();
                 Mask[i][7] = BitUnpack.GetBit();
                 Mask[i][2] = BitUnpack.GetBit();
                 Mask[i][5] = BitUnpack.GetBit();
-                Mask[i][2] = BitUnpack.GetBit();
-                Mask[i][6] = BitUnpack.GetBit();
                 Mask[i][0] = BitUnpack.GetBit();
+                Mask[i][6] = BitUnpack.GetBit();
+                Mask[i][3] = BitUnpack.GetBit();
+                Mask[i][4] = BitUnpack.GetBit();
             }
 
             for (int i = 0; i < count; i++)
             {
-                if (Mask[i][6])
-                    Bytes[i][6] = (byte)(packet.Read<byte>() ^ 1);
-
-                if (Mask[i][1])
-                    Bytes[i][1] = (byte)(packet.ReadByte() ^ 1);
-
-                if (Mask[i][2])
-                    Bytes[i][2] = (byte)(packet.ReadByte() ^ 1);
-
-                IdList.Add(packet.Read<int>());
-
                 if (Mask[i][4])
-                    Bytes[i][4] = (byte)(packet.ReadByte() ^ 1);
-
-                if (Mask[i][5])
-                    Bytes[i][5] = (byte)(packet.ReadByte() ^ 1);
+                    Bytes[i][4] = (byte)(packet.Read<byte>() ^ 1);
 
                 if (Mask[i][7])
                     Bytes[i][7] = (byte)(packet.ReadByte() ^ 1);
 
+                if (Mask[i][6])
+                    Bytes[i][6] = (byte)(packet.ReadByte() ^ 1);
+
                 if (Mask[i][0])
                     Bytes[i][0] = (byte)(packet.ReadByte() ^ 1);
 
+                if (Mask[i][2])
+                    Bytes[i][2] = (byte)(packet.ReadByte() ^ 1);
+
                 if (Mask[i][3])
                     Bytes[i][3] = (byte)(packet.ReadByte() ^ 1);
+
+                IdList.Add(packet.Read<int>());
+
+                if (Mask[i][5])
+                    Bytes[i][5] = (byte)(packet.ReadByte() ^ 1);
+
+                if (Mask[i][1])
+                    Bytes[i][1] = (byte)(packet.ReadByte() ^ 1);
             }
 
             switch (type)
@@ -428,6 +419,8 @@ namespace WorldServer.Game.Packets.PacketHandler
 
             size += textLength + alternativeTextLength;
 
+            dbReply.WriteUInt32(0);    // UnixTime, last change server side
+            dbReply.WriteUInt32((uint)DBTypes.BroadcastText);
             dbReply.WriteUInt32((uint)size);
 
             dbReply.WriteInt32(broadCastText.Id);
@@ -444,8 +437,6 @@ namespace WorldServer.Game.Packets.PacketHandler
             dbReply.WriteUInt32(1);
 
             dbReply.WriteInt32(broadCastText.Id);
-            dbReply.WriteUInt32(0);    // UnixTime, last change server side
-            dbReply.WriteUInt32((uint)DBTypes.BroadcastText);
 
             session.Send(ref dbReply);
         }

@@ -56,8 +56,8 @@ namespace WorldServer.Game.Packets.PacketHandler
         [Opcode(ClientMessage.Ping, "17399")]
         public static void HandlePong(ref PacketReader packet, WorldClass session)
         {
-            uint sequence = packet.Read<uint>();
             uint latency = packet.Read<uint>();
+            uint sequence = packet.Read<uint>();
 
             PacketWriter pong = new PacketWriter(ServerMessage.Pong);
 
@@ -119,8 +119,8 @@ namespace WorldServer.Game.Packets.PacketHandler
         [Opcode(ClientMessage.CliSetSelection, "17399")]
         public static void HandleSetSelection(ref PacketReader packet, WorldClass session)
         {
-            byte[] guidMask = { 6, 3, 4, 7, 1, 0, 2, 5 };
-            byte[] guidBytes = { 7, 6, 0, 2, 3, 1, 4, 5 };
+            byte[] guidMask = { 7, 2, 1, 3, 5, 4, 0, 6 };
+            byte[] guidBytes = { 1, 2, 3, 0, 7, 5, 4, 6 };
 
             BitUnpack GuidUnpacker = new BitUnpack(packet);
 
@@ -146,8 +146,8 @@ namespace WorldServer.Game.Packets.PacketHandler
         {
             var pChar = session.Character;
 
-            byte[] actionMask = { 4, 1, 0, 5, 6, 3, 7, 2 };
-            byte[] actionBytes = { 2, 7, 1, 4, 0, 5, 3, 6 };
+            byte[] actionMask = { 5, 0, 3, 1, 4, 7, 6, 2 };
+            byte[] actionBytes = { 3, 4, 6, 7, 1, 2, 0, 5 };
             
             BitUnpack actionUnpacker = new BitUnpack(packet);
 
@@ -185,8 +185,8 @@ namespace WorldServer.Game.Packets.PacketHandler
             const int buttonCount = 132;
             var buttons = new byte[buttonCount][];
 
-            byte[] buttonMask = { 7, 2, 1, 6, 3, 4, 5, 0 };
-            byte[] buttonBytes = { 3, 1, 4, 5, 6, 2, 7, 0 };
+            byte[] buttonMask = { 0, 1, 3, 4, 6, 7, 2, 5 };
+            byte[] buttonBytes = { 5, 2, 0, 1, 3, 6, 4, 7 };
 
             var actions = ActionMgr.GetActionButtons(pChar, pChar.ActiveSpecGroup);
             

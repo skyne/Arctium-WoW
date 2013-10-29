@@ -33,10 +33,11 @@ namespace WorldServer.Game.Packets.PacketHandler
         {
             PacketWriter authChallenge = new PacketWriter(ServerMessage.AuthChallenge, true);
 
+            authChallenge.WriteUInt8(1);
+
             for (int i = 0; i < 8; i++)
                 authChallenge.WriteUInt32(0);
 
-            authChallenge.WriteUInt8(1);
             authChallenge.WriteUInt32((uint)new Random(DateTime.Now.Second).Next(1, 0xFFFFFFF));
 
             session.Send(ref authChallenge);
@@ -89,35 +90,46 @@ namespace WorldServer.Game.Packets.PacketHandler
             PacketWriter authResponse = new PacketWriter(ServerMessage.AuthResponse);
             BitPack BitPack = new BitPack(authResponse);
 
+            authResponse.WriteUInt8((byte)AuthCodes.AUTH_OK);
+
             BitPack.Write(IsInQueue);
-            BitPack.Write(HasAccountData);
-
-            if (HasAccountData)
-            {
-                BitPack.Write(0, 21);                              // Activate character template windows/button
-                BitPack.Write(0);                                  // Unknown
-                BitPack.Write(realmClassResult.Count, 23);         // Activation count for races
-                BitPack.Write(0);                                  // Unknown
-                BitPack.Write(0);                                  // Unknown
-
-                //if (HasCharacterTemplate)
-                //Write bits for char templates...
-
-                BitPack.Write(0, 21);                              // Unknown
-                BitPack.Write(0);                                  // Unknown
-                BitPack.Write(realmRaceResult.Count, 23);          // Activation count for classes
-            }
 
             if (IsInQueue)
                 BitPack.Write(1);                                  // Unknown
 
-            BitPack.Flush();
-
-            if (IsInQueue)
-                authResponse.WriteUInt32(0);
+            BitPack.Write(HasAccountData);
 
             if (HasAccountData)
             {
+                BitPack.Write(0);
+                BitPack.Write(0, 21);
+                BitPack.Write(0, 21);
+                BitPack.Write(realmRaceResult.Count, 23);
+                BitPack.Write(0);
+                BitPack.Write(0);
+                BitPack.Write(0);
+                BitPack.Write(realmClassResult.Count, 23);
+            }
+
+            BitPack.Flush();
+
+            if (HasAccountData)
+            {
+                authResponse.WriteUInt32(0);
+                authResponse.WriteUInt32(0);
+                authResponse.WriteUInt8(session.Account.Expansion);
+
+                for (int r = 0; r < realmRaceResult.Count; r++)
+                {
+                    authResponse.WriteUInt8(realmRaceResult.Read<byte>(r, "expansion"));
+                    authResponse.WriteUInt8(realmRaceResult.Read<byte>(r, "race"));
+
+                }
+
+
+                authResponse.WriteUInt8(session.Account.Expansion);
+                authResponse.WriteUInt32(0);
+
                 for (int c = 0; c < realmClassResult.Count; c++)
                 {
                     authResponse.WriteUInt8(realmClassResult.Read<byte>(c, "class"));
@@ -125,22 +137,11 @@ namespace WorldServer.Game.Packets.PacketHandler
                 }
 
                 authResponse.WriteUInt32(0);
-
-                for (int r = 0; r < realmRaceResult.Count; r++)
-                {
-                    authResponse.WriteUInt8(realmRaceResult.Read<byte>(r, "expansion"));
-                    authResponse.WriteUInt8(realmRaceResult.Read<byte>(r, "race"));
-                }
-
-                authResponse.WriteUInt32(0);
-                authResponse.WriteUInt32(0);
-                authResponse.WriteUInt8(session.Account.Expansion);
-                authResponse.WriteUInt8(session.Account.Expansion);
-                authResponse.WriteUInt32(0);
                 authResponse.WriteUInt32(0);
             }
 
-            authResponse.WriteUInt8((byte)AuthCodes.AUTH_OK);
+            if (IsInQueue)
+                authResponse.WriteUInt32(0);
 
             session.Send(ref authResponse);
 

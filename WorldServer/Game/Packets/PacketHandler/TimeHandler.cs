@@ -49,11 +49,13 @@ namespace WorldServer.Game.Packets.PacketHandler
             PacketWriter realmSplit = new PacketWriter(ServerMessage.RealmSplit);
             BitPack BitPack = new BitPack(realmSplit);
 
-            BitPack.Write(date.Length, 7);
-            BitPack.Flush();
-
             realmSplit.WriteUInt32(packet.Read<uint>());
             realmSplit.WriteUInt32(realmSplitState);
+
+            BitPack.Write(date.Length, 7);
+
+            BitPack.Flush();
+
             realmSplit.WriteString(date);
 
             session.Send(ref realmSplit);
@@ -67,11 +69,11 @@ namespace WorldServer.Game.Packets.PacketHandler
         {
             PacketWriter loginSetTimeSpeed = new PacketWriter(ServerMessage.LoginSetTimeSpeed);
 
+            loginSetTimeSpeed.WriteInt32(1);
+            loginSetTimeSpeed.WriteInt32(1);
             loginSetTimeSpeed.WriteFloat(0.01666667f);
-            loginSetTimeSpeed.WriteInt32(1);
             loginSetTimeSpeed.WritePackedTime();
             loginSetTimeSpeed.WritePackedTime();
-            loginSetTimeSpeed.WriteInt32(1);
 
             session.Send(ref loginSetTimeSpeed);
         }

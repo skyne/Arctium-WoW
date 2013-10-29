@@ -20,63 +20,64 @@ namespace Framework.Constants.NetMessage
     public enum ServerMessage : ushort
     {
         #region Legacy
-        ObjectUpdate                      = 0x17D9,
-        TutorialFlags                     = 0x1F35,
-        StartCinematic                    = 0x16AD,
+        ObjectUpdate                      = 0x0C22,
+        TutorialFlags                     = 0x0D1B,
+        StartCinematic                    = 0x0198,
         #endregion
 
         #region JAMClientConnection
-        AuthChallenge                     = 0x016A,
-        Pong                              = 0x0163,
+        AuthChallenge                     = 0x0C5D,
+        Pong                              = 0x005D,
         #endregion
 
         #region JAMClientMove
-        MoveUpdate                        = 0x139F,
-        MoveSetCanFly                     = 0x1353,
-        MoveUnsetCanFly                   = 0x16CE,
-        MoveSetWalkSpeed                  = 0x0258,
-        MoveSetRunSpeed                   = 0x12D6,
-        MoveSetSwimSpeed                  = 0x1356,
-        MoveSetFlightSpeed                = 0x179F,
-        MoveTeleport                      = 0x00A0,
+        MoveUpdate                        = 0x0337,
+        MoveSetCanFly                     = 0x0209,
+        MoveUnsetCanFly                   = 0x031B,
+        MoveSetWalkSpeed                  = 0x0716,
+        MoveSetRunSpeed                   = 0x06A5,
+        MoveSetSwimSpeed                  = 0x0A0D,
+        MoveSetFlightSpeed                = 0x02B2,
+        MoveTeleport                      = 0x0A2E,
         #endregion
 
         #region JAMClientQuest
-        GossipMessage                     = 0x1508,
+        GossipMessage                     = 0x03FC,
         #endregion
 
         #region JAMClientSpell
-        SendKnownSpells                   = 0x1534,
+        SendKnownSpells                   = 0x1164,
         #endregion
 
+        // Updated
         #region JAMClientDispatch
-        QueryGameObjectResponse           = 0x0015,
-        DBReply                           = 0x0025,
-        UpdateActionButtons               = 0x0096,
-        RealmSplit                        = 0x0099,
-        LogoutComplete                    = 0x00A8,
-        QueryPlayerNameResponse           = 0x00B7,
-        AddonInfo                         = 0x0128,
-        EnumCharactersResult              = 0x0193,
-        NewWorld                          = 0x01AE,
-        LoginSetTimeSpeed                 = 0x01AF,
-        QueryCreatureResponse             = 0x01B4,
-        RealmQueryResponse                = 0x042B,
-        DestroyObject                     = 0x04BD,
-        UnlearnedSpells                   = 0x0523,
-        DeleteChar                        = 0x0806,
-        CacheVersion                      = 0x0825,
-        MOTD                              = 0x082A,
-        LearnedSpells                     = 0x0830,
-        QueryNPCTextResponse              = 0x0886,
-        AccountDataTimes                  = 0x0890,
-        TransferPending                   = 0x08B5,
-        GenerateRandomCharacterNameResult = 0x08B9,
-        AuthResponse                      = 0x090E,
-        UITime                            = 0x0911,
-        CreateChar                        = 0x0914,
-        UpdateTalentData                  = 0x0924,
-        Chat                              = 0x092F,
+        DeleteChar                        = 0x0017,
+        NewWorld                          = 0x010F,
+        QueryCreatureResponse             = 0x011C,
+        UpdateActionButtons               = 0x0406,
+        EnumCharactersResult              = 0x040E,
+        UpdateTalentData                  = 0x0494,
+        UnlearnedSpells                   = 0x049E,
+        MOTD                              = 0x04AC,
+        DestroyObject                     = 0x04B4,
+        RealmQueryResponse                = 0x052D,
+        UITime                            = 0x05AC,
+        GenerateRandomCharacterNameResult = 0x081E,
+        RealmSplit                        = 0x0884,
+        QueryGameObjectResponse           = 0x0916,
+        TransferPending                   = 0x0917,
+        AuthResponse                      = 0x0D05,
+        LoginSetTimeSpeed                 = 0x0D17,
+        LogoutComplete                    = 0x0D95,
+        CreateChar                        = 0x1007,
+        QueryNPCTextResponse              = 0x101F,
+        CacheVersion                      = 0x1037,
+        AddonInfo                         = 0x1136,
+        LearnedSpells                     = 0x118E,
+        DBReply                           = 0x1406,
+        QueryPlayerNameResponse           = 0x1407,
+        AccountDataTimes                  = 0x1486,
+        Chat                              = 0x14AC,
         #endregion
 
         TransferInitiate                  = 0x4F57,
