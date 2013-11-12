@@ -262,6 +262,7 @@ INSERT INTO `character_creation_skills` VALUES ('1', '98', 'Common');
 INSERT INTO `character_creation_skills` VALUES ('2', '109', 'Orcish');
 INSERT INTO `character_creation_skills` VALUES ('3', '98', 'Common');
 INSERT INTO `character_creation_skills` VALUES ('3', '111', 'Dwarven');
+INSERT INTO `character_creation_skills` VALUES ('4', '98', 'Common');
 INSERT INTO `character_creation_skills` VALUES ('4', '113', 'Darnassian');
 INSERT INTO `character_creation_skills` VALUES ('5', '109', 'Orcish');
 INSERT INTO `character_creation_skills` VALUES ('5', '673', 'Forsaken');
