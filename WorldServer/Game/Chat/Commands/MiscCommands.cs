@@ -15,9 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Text;
 using Framework.Configuration;
+using Framework.Console.Commands;
+using Framework.Constants;
 using Framework.ObjectDefines;
 using WorldServer.Game.Packets.PacketHandler;
 using WorldServer.Network;
@@ -56,6 +57,26 @@ namespace WorldServer.Game.Chat.Commands
             ChatMessageValues chatMessage = new ChatMessageValues(0, "Your character is successfully saved to the database!");
 
             ChatHandler.SendMessage(ref session, chatMessage);
+        }
+
+        [ChatCommand("morph", "Usage: !morph #displayId (Change the current displayId for your own character)")]
+        public static void Morph(string[] args, WorldClass session)
+        {
+            var displayId = CommandParser.Read<uint>(args, 1);
+            var pChar = session.Character;
+
+            if (pChar != null)
+            {
+                pChar.SetUpdateField<uint>((int)UnitFields.DisplayID, displayId);
+                pChar.SetUpdateField<uint>((int)UnitFields.NativeDisplayID, displayId);
+
+                ObjectHandler.HandleUpdateObjectValues(ref session);
+
+                var chatMessage = new ChatMessageValues(0, "Successfully morphed");
+
+                ChatHandler.SendMessage(ref session, chatMessage);
+            }
+
         }
     }
 }
