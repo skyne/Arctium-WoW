@@ -16,10 +16,10 @@
  */
 
 using System;
-using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
+using Framework.Helper;
 
 namespace Framework.Cryptography
 {
@@ -66,7 +66,7 @@ namespace Framework.Cryptography
         public void CalculateX(string userName, string password)
         {
             var p = Encoding.UTF8.GetBytes(userName + ":" + password);
-            var x = MakeBigInteger(Sha1.ComputeHash(CombineData(Salt, Sha1.ComputeHash(p))));
+            var x = MakeBigInteger(Sha1.ComputeHash(Salt.Combine(Sha1.ComputeHash(p))));
 
             CalculateV(x);
         }
@@ -93,7 +93,7 @@ namespace Framework.Cryptography
         {
             A = MakeBigInteger(a);
 
-            CalculateS(MakeBigInteger(Sha1.ComputeHash(CombineData(a, B))));
+            CalculateS(MakeBigInteger(Sha1.ComputeHash(a.Combine(B))));
         }
 
         void CalculateS(BigInteger u)
@@ -130,7 +130,7 @@ namespace Framework.Cryptography
 
         public void CalculateM2(byte[] m1)
         {
-            M2 = Sha1.ComputeHash(CombineData(CombineData(GetBytes(A.ToByteArray()), m1), K));
+            M2 = Sha1.ComputeHash(GetBytes(A.ToByteArray()).Combine(m1).Combine(K));
         }
 
         public byte[] GetBytes(byte[] data, int count = 32)
@@ -147,12 +147,7 @@ namespace Framework.Cryptography
 
         public BigInteger MakeBigInteger(byte[] data)
         {
-            return new BigInteger(CombineData(data, new byte[] { 0 }));
-        }
-
-        public byte[] CombineData(byte[] data, byte[] data2)
-        {
-            return new byte[0].Concat(data).Concat(data2).ToArray();
+            return new BigInteger(data.Combine(new byte[] { 0 }));
         }
 
         public void Dispose()

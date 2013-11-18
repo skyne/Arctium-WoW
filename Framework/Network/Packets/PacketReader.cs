@@ -49,7 +49,7 @@ namespace Framework.Network.Packets
 
         public T Read<T>()
         {
-            return BinaryReaderExtensions.Read<T>(this);
+            return Extensions.Read<T>(this);
         }
 
         public string ReadCString()

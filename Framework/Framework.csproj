@@ -109,7 +109,7 @@
     <Compile Include="ClientDB\Reader\DBReader.cs" />
     <Compile Include="ClientDB\Reader\DBReaderExtensions.cs" />
     <Compile Include="ClientDB\Structures\Dbc\ChrRaces.cs" />
-    <Compile Include="Helper\BinaryReaderExtensions.cs" />
+    <Compile Include="Helper\Extensions.cs" />
     <Compile Include="Logging\PacketLogging\PacketLog.cs" />
     <Compile Include="Network\Packets\BitPack.cs" />
     <Compile Include="Network\Packets\BitUnpack.cs" />
