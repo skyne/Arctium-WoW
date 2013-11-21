@@ -26,20 +26,6 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <PlatformTarget>x86</PlatformTarget>
-    <OutputPath>..\Build\Debug_x86\</OutputPath>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <DefineConstants>DEBUG</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <PlatformTarget>x86</PlatformTarget>
-    <OutputPath>..\Build\Release_x86\</OutputPath>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-  </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>arctium_world.ico</ApplicationIcon>
   </PropertyGroup>
