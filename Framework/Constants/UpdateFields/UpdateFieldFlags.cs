@@ -22,6 +22,7 @@ namespace Framework.Constants
     [Flags]
     public enum UpdateFieldFlags
     {
+        None           = 0x0,
         All            = 0x1,
         Self           = 0x2,
         Owner          = 0x4,
