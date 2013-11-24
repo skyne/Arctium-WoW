@@ -84,12 +84,6 @@
     <Compile Include="Network\RealmNetwork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework\Framework.csproj">
-      <Project>{fd906c82-de88-4b08-8e94-f3632bccc64b}</Project>
-      <Name>Framework</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
@@ -111,6 +105,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="RealmServer.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\Framework.csproj">
+      <Project>{fd906c82-de88-4b08-8e94-f3632bccc64b}</Project>
+      <Name>Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

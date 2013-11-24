@@ -99,14 +99,14 @@
     <Compile Include="Network\WorldNetwork.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="arctium_world.ico" />
+    <None Include="WorldServer.snk" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Framework\Framework.csproj">
       <Project>{fd906c82-de88-4b08-8e94-f3632bccc64b}</Project>
       <Name>Framework</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="arctium_world.ico" />
-    <None Include="WorldServer.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
