@@ -74,7 +74,7 @@ namespace WorldServer.Game.PacketHandler
             }
 
             BitPack.Write(1);
-// here
+
             BitPack.Flush();
 
             for (int c = 0; c < result.Count; c++)

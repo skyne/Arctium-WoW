@@ -27,7 +27,7 @@ namespace Framework.Constants.NetMessage
 
         #region JAMClientConnection
         AuthChallenge                     = 0x0C42,
-        Pong = 0x005D,
+        Pong                              = 0x0C46,
         #endregion
 
         #region JAMClientMove

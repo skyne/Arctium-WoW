@@ -26,8 +26,8 @@ namespace Framework.Constants.NetMessage
         #endregion
 
         #region UserRouterClient
-        AuthSession = 0x14DA,
-        Ping = 0x11E6,
+        AuthSession              = 0x196E, // done
+        Ping                     = 0x18E2, // done
         LogDisconnect = 0x14FA,
         #endregion
 
@@ -41,7 +41,7 @@ namespace Framework.Constants.NetMessage
         ViolenceLevel            = 0x0448, // done
         RealmSplit = 0x0449,
         DBQueryBulk = 0x01E4,
-        GenerateRandomCharacterName = 0x184C,
+        GenerateRandomCharacterName = 0x0DD1, // done
         EnumCharacters           = 0x047C, // done
         PlayerLogin = 0x01E1,
         LoadingScreenNotify      = 0x0650, // done

@@ -53,7 +53,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             session.Send(ref motd);
         }
 
-        [Opcode(ClientMessage.Ping, "17538")]
+        [Opcode(ClientMessage.Ping, "17658")]
         public static void HandlePong(ref PacketReader packet, WorldClass session)
         {
             uint latency = packet.Read<uint>();
