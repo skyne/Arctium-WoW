@@ -24,13 +24,13 @@ namespace WorldServer.Game.Packets.PacketHandler
 {
     public class TimeHandler : Globals
     {
-        [Opcode(ClientMessage.ReadyForAccountDataTimes, "17538")]
+        [Opcode(ClientMessage.ReadyForAccountDataTimes, "17658")]
         public static void HandleReadyForAccountDataTimes(ref PacketReader packet, WorldClass session)
         {
             WorldMgr.WriteAccountDataTimes(AccountDataMasks.GlobalCacheMask, ref session);
         }
 
-        [Opcode(ClientMessage.UITimeRequest, "17538")]
+        [Opcode(ClientMessage.UITimeRequest, "17658")]
         public static void HandleUITimeRequest(ref PacketReader packet, WorldClass session)
         {
             PacketWriter uiTime = new PacketWriter(ServerMessage.UITime);

@@ -212,10 +212,11 @@ namespace WorldServer.Game.Managers
             BitPack BitPack = new BitPack(accountDataTimes);
 
             accountDataTimes.WriteUnixTime();
-            accountDataTimes.WriteUInt32((uint)mask);
 
             for (int i = 0; i < 8; i++)
                 accountDataTimes.WriteUInt32(0);
+
+            accountDataTimes.WriteUInt32((uint)mask);
 
             BitPack.Write(0);
             BitPack.Flush();

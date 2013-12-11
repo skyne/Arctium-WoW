@@ -89,7 +89,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             session.Send(ref cacheVersion);
         }
 
-        [Opcode(ClientMessage.LoadingScreenNotify, "17538")]
+        [Opcode(ClientMessage.LoadingScreenNotify, "17658")]
         public static void HandleLoadingScreenNotify(ref PacketReader packet, WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
@@ -100,7 +100,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             Log.Message(LogType.Debug, "Loading screen for map '{0}' is {1}.", mapId, loadingScreenState ? "enabled" : "disabled");
         }
 
-        [Opcode(ClientMessage.ViolenceLevel, "17538")]
+        [Opcode(ClientMessage.ViolenceLevel, "17658")]
         public static void HandleViolenceLevel(ref PacketReader packet, WorldClass session)
         {
             byte violenceLevel = packet.Read<byte>();

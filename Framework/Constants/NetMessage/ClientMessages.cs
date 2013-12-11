@@ -38,19 +38,19 @@ namespace Framework.Constants.NetMessage
         // Value > 0x1FFF are not known.
         #region JAM
         ObjectUpdateFailed = 0x1A44,
-        ViolenceLevel = 0x13CD,
+        ViolenceLevel            = 0x0448, // done
         RealmSplit = 0x0449,
         DBQueryBulk = 0x01E4,
         GenerateRandomCharacterName = 0x184C,
-        EnumCharacters = 0x0848,
+        EnumCharacters           = 0x047C, // done
         PlayerLogin = 0x01E1,
-        LoadingScreenNotify = 0x1148,
+        LoadingScreenNotify      = 0x0650, // done
         SetActionButton = 0x014C,
         CreateCharacter = 0x08CD,
         QueryPlayerName = 0x11E9,
         QueryRealmName = 0x09E1,
-        ReadyForAccountDataTimes = 0x144C,
-        UITimeRequest = 0x04EC,
+        ReadyForAccountDataTimes = 0x047F, // done
+        UITimeRequest            = 0x0574, // done
         CharDelete = 0x09C0,
         CliSetSpecialization = 0x17DF,
         CliLearnTalents = 0x1776,
