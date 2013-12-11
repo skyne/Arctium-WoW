@@ -43,7 +43,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             session.Send(ref authChallenge);
         }
 
-        [Opcode(ClientMessage.AuthSession, "17538")]
+        [Opcode(ClientMessage.AuthSession, "17658")]
         public static void HandleAuthResponse(ref PacketReader packet, WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);

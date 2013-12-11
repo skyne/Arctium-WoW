@@ -149,26 +149,30 @@ namespace WorldServer.Game.PacketHandler
             session.Send(ref enumCharacters);
         }
 
-        [Opcode(ClientMessage.CreateCharacter, "17538")]
+        [Opcode(ClientMessage.CreateCharacter, "17658")]
         public static void HandleCreateCharacter(ref PacketReader packet, WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
 
-            var hairStyle = packet.ReadByte();
-            var gender = packet.ReadByte();
-            var race = packet.ReadByte();
-            var hairColor = packet.ReadByte();
-            var pClass = packet.ReadByte();
-            var facialHair = packet.ReadByte();
+            var hairStyle   = packet.ReadByte();
+            var gender      = packet.ReadByte();
+            var skin        = packet.ReadByte();
+            var hairColor   = packet.ReadByte();
+            var facialHair  = packet.ReadByte();
+            var pClass      = packet.ReadByte();
+            var race        = packet.ReadByte();
+            var face        = packet.ReadByte();
             packet.ReadByte();                      // Always 0
-            var skin = packet.ReadByte();
-            var face       = packet.ReadByte();
 
-            var nameLength = BitUnpack.GetBits<uint>(7);
-            var name = Character.NormalizeName(packet.ReadString(nameLength));
+            var HasUnknown  = BitUnpack.GetBit();
+            var nameLength  = BitUnpack.GetBits<uint>(6);
+            var name        = Character.NormalizeName(packet.ReadString(nameLength));
 
-            var result = DB.Characters.Select("SELECT * from characters WHERE name = ?", name);
-            var createChar = new PacketWriter(ServerMessage.CreateChar);
+            if (HasUnknown)
+                packet.ReadUInt32();
+
+            var result      = DB.Characters.Select("SELECT * from characters WHERE name = ?", name);
+            var createChar  = new PacketWriter(ServerMessage.CreateChar);
 
             if (result.Count != 0)
             {
@@ -205,18 +209,18 @@ namespace WorldServer.Game.PacketHandler
             session.Send(ref createChar);
         }
 
-        [Opcode(ClientMessage.CharDelete, "17538")]
+        [Opcode(ClientMessage.CharDelete, "17658")]
         public static void HandleCharDelete(ref PacketReader packet, WorldClass session)
         {
-            byte[] guidMask = { 5, 6, 1, 0, 3, 4, 2, 7 };
-            byte[] guidBytes = { 2, 0, 4, 1, 5, 3, 7, 6 };
-
-            var GuidUnpacker = new BitUnpack(packet);
-            var guid = GuidUnpacker.GetPackedValue(guidMask, guidBytes);
+            byte[] guidMask     = { 7, 0, 4, 1, 6, 5, 3, 2 };
+            byte[] guidBytes    = { 6, 7, 5, 0, 4, 2, 3, 1 };
+            
+            var GuidUnpacker    = new BitUnpack(packet);
+            var guid            = GuidUnpacker.GetPackedValue(guidMask, guidBytes);
 
             PacketWriter deleteChar = new PacketWriter(ServerMessage.DeleteChar);
 
-            deleteChar.WriteUInt8(0x47);
+            deleteChar.WriteUInt8(0x48);
 
             session.Send(ref deleteChar);
 
@@ -225,7 +229,7 @@ namespace WorldServer.Game.PacketHandler
             DB.Characters.Execute("DELETE FROM character_skills WHERE guid = ?", guid);
         }
 
-        [Opcode(ClientMessage.GenerateRandomCharacterName, "17538")]
+        [Opcode(ClientMessage.GenerateRandomCharacterName, "17658")]
         public static void HandleGenerateRandomCharacterName(ref PacketReader packet, WorldClass session)
         {
             var race = packet.ReadByte();
