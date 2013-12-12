@@ -37,7 +37,7 @@ namespace Framework.Constants.NetMessage
 
         // Value > 0x1FFF are not known.
         #region JAM
-        ObjectUpdateFailed = 0x1A44,
+        ObjectUpdateFailed          = 0x0A95,
         ViolenceLevel               = 0x0448, // done
         DBQueryBulk                 = 0x0676, // done
         GenerateRandomCharacterName = 0x0DD1, // done
@@ -51,8 +51,8 @@ namespace Framework.Constants.NetMessage
         ReadyForAccountDataTimes    = 0x047F, // done
         UITimeRequest               = 0x0574, // done
         CharDelete                  = 0x067A, // done
-        CliSetSpecialization = 0x17DF,
-        CliLearnTalents = 0x1776,
+        CliSetSpecialization        = 0x085F,
+        CliLearnTalents             = 0x026C,
         CliQueryCreature = 0x1647,
         CliQueryGameObject = 0x1677,
         CliQueryNPCText = 0x17CF,

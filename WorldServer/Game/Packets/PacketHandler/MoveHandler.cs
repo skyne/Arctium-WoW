@@ -3904,27 +3904,27 @@ namespace WorldServer.Game.Packets.PacketHandler
 
         public static void HandleTransferPending(ref WorldClass session, uint mapId)
         {
-            bool Unknown = false;
-            bool IsTransport = false;
+            var unknown = false;
+            var isTransport = false;
 
             PacketWriter transferPending = new PacketWriter(ServerMessage.TransferPending);
             BitPack BitPack = new BitPack(transferPending);
 
-            BitPack.Write(Unknown);
-            BitPack.Write(IsTransport);
+            BitPack.Write(unknown);
+            BitPack.Write(isTransport);
 
             BitPack.Flush();
 
-            if (Unknown)
-                transferPending.WriteUInt32(0);
-
             transferPending.WriteUInt32(mapId);
 
-            if (IsTransport)
+            if (isTransport)
             {
                 transferPending.WriteUInt32(0);
                 transferPending.WriteUInt32(0);
             }
+
+            if (unknown)
+                transferPending.WriteUInt32(0);
 
             session.Send(ref transferPending);
         }
@@ -3934,10 +3934,10 @@ namespace WorldServer.Game.Packets.PacketHandler
             PacketWriter newWorld = new PacketWriter(ServerMessage.NewWorld);
 
             newWorld.WriteFloat(vector.Z);
-            newWorld.WriteFloat(vector.X);
             newWorld.WriteUInt32(mapId);
             newWorld.WriteFloat(vector.Y);
             newWorld.WriteFloat(vector.O);
+            newWorld.WriteFloat(vector.X);
 
             session.Send(ref newWorld);
         }
