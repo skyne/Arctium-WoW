@@ -40,31 +40,6 @@ namespace WorldServer.Game.Packets.PacketHandler
             session.Send(ref uiTime);
         }
 
-        [Opcode(ClientMessage.RealmSplit, "17538")]
-        public static void HandleRealmSplit(ref PacketReader packet, WorldClass session)
-        {
-            uint realmSplitState = 0;
-            var date = "01/01/01";
-
-            PacketWriter realmSplit = new PacketWriter(ServerMessage.RealmSplit);
-            BitPack BitPack = new BitPack(realmSplit);
-
-            realmSplit.WriteUInt32(packet.Read<uint>());
-            realmSplit.WriteUInt32(realmSplitState);
-
-            BitPack.Write(date.Length, 7);
-
-            BitPack.Flush();
-
-            realmSplit.WriteString(date);
-
-            session.Send(ref realmSplit);
-
-            // Crash!!!
-            // Wrong data sent...
-            // AddonMgr.WriteAddonData(ref session);
-        }
-
         public static void HandleLoginSetTimeSpeed(ref WorldClass session)
         {
             PacketWriter loginSetTimeSpeed = new PacketWriter(ServerMessage.LoginSetTimeSpeed);

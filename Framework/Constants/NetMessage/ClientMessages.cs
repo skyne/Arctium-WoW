@@ -39,7 +39,6 @@ namespace Framework.Constants.NetMessage
         #region JAM
         ObjectUpdateFailed = 0x1A44,
         ViolenceLevel               = 0x0448, // done
-        RealmSplit = 0x0449,
         DBQueryBulk                 = 0x0676, // done
         GenerateRandomCharacterName = 0x0DD1, // done
         EnumCharacters              = 0x047C, // done

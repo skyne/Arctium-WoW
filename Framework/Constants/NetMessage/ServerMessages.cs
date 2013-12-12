@@ -63,7 +63,6 @@ namespace Framework.Constants.NetMessage
         MOTD                              = 0x08BB,
         QueryGameObjectResponse           = 0x08F3,
         DeleteChar                        = 0x0A1E,
-        RealmSplit                        = 0x0A42,
         CacheVersion                      = 0x0A4C,
         Chat                              = 0x0A5B,
         DestroyObject                     = 0x0A75,
