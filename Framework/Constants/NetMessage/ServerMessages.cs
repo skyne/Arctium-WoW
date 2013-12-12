@@ -32,13 +32,13 @@ namespace Framework.Constants.NetMessage
 
         #region JAMClientMove
         MoveUpdate                        = 0x0EC4,
-        MoveSetCanFly = 0x0209,
-        MoveUnsetCanFly = 0x031B,
-        MoveSetWalkSpeed = 0x0716,
-        MoveSetRunSpeed = 0x06A5,
-        MoveSetSwimSpeed = 0x0A0D,
-        MoveSetFlightSpeed = 0x02B2,
-        MoveTeleport = 0x0A2E,
+        MoveSetCanFly                     = 0x06EB,
+        MoveUnsetCanFly                   = 0x06C4,
+        MoveSetWalkSpeed                  = 0x08C9,
+        MoveSetRunSpeed                   = 0x0183,
+        MoveSetSwimSpeed                  = 0x0579,
+        MoveSetFlightSpeed                = 0x0207,
+        MoveTeleport                      = 0x0EC5,
         #endregion
 
         #region JAMClientGossip

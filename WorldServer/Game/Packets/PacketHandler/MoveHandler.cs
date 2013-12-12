@@ -3738,14 +3738,17 @@ namespace WorldServer.Game.Packets.PacketHandler
             PacketWriter setWalkSpeed = new PacketWriter(ServerMessage.MoveSetWalkSpeed);
             BitPack BitPack = new BitPack(setWalkSpeed, session.Character.Guid);
 
-            setWalkSpeed.WriteFloat(speed);
-            setWalkSpeed.WriteUInt32(0);
-
-            BitPack.WriteGuidMask(5, 4, 3, 1, 0, 7, 2, 6);
+            BitPack.WriteGuidMask(2, 6, 1, 0, 3, 5, 4, 7);
 
             BitPack.Flush();
 
-            BitPack.WriteGuidBytes(7, 5, 3, 2, 4, 1, 6, 0);
+            BitPack.WriteGuidBytes(7, 5);
+
+            setWalkSpeed.WriteFloat(speed);
+
+            BitPack.WriteGuidBytes(2, 3, 1, 0, 6);
+
+            setWalkSpeed.WriteUInt32(0);
 
             session.Send(ref setWalkSpeed);
         }
@@ -3755,17 +3758,19 @@ namespace WorldServer.Game.Packets.PacketHandler
             PacketWriter setRunSpeed = new PacketWriter(ServerMessage.MoveSetRunSpeed);
             BitPack BitPack = new BitPack(setRunSpeed, session.Character.Guid);
 
-            BitPack.WriteGuidMask(3, 6, 7, 1, 4, 0, 2, 5);
+            BitPack.WriteGuidMask(3, 4, 5, 7, 1, 2, 6, 0);
 
             BitPack.Flush();
 
-            BitPack.WriteGuidBytes(7, 5);
+            BitPack.WriteGuidBytes(5, 3);
 
             setRunSpeed.WriteFloat(speed);
 
-            BitPack.WriteGuidBytes(2, 0, 3, 1, 4);
+            BitPack.WriteGuidBytes(2, 7);
 
             setRunSpeed.WriteUInt32(0);
+
+            BitPack.WriteGuidBytes(1, 6, 0, 4);
 
             session.Send(ref setRunSpeed);
         }
@@ -3775,19 +3780,19 @@ namespace WorldServer.Game.Packets.PacketHandler
             PacketWriter setSwimSpeed = new PacketWriter(ServerMessage.MoveSetSwimSpeed);
             BitPack BitPack = new BitPack(setSwimSpeed, session.Character.Guid);
 
-            BitPack.WriteGuidMask(6, 3, 1, 2, 0, 4, 7, 5);
+            BitPack.WriteGuidMask(5, 1, 4, 3, 0, 7, 2, 6);
 
             BitPack.Flush();
 
-            BitPack.WriteGuidBytes(2);
+            BitPack.WriteGuidBytes(7);
 
             setSwimSpeed.WriteFloat(speed);
 
-            BitPack.WriteGuidBytes(1, 6);
+            BitPack.WriteGuidBytes(5, 2, 6, 1, 4);
 
             setSwimSpeed.WriteUInt32(0);
 
-            BitPack.WriteGuidBytes(3, 4, 0, 7, 5);
+            BitPack.WriteGuidBytes(3, 0);
 
             session.Send(ref setSwimSpeed);
         }
@@ -3797,19 +3802,19 @@ namespace WorldServer.Game.Packets.PacketHandler
             PacketWriter setFlightSpeed = new PacketWriter(ServerMessage.MoveSetFlightSpeed);
             BitPack BitPack = new BitPack(setFlightSpeed, session.Character.Guid);
 
-            BitPack.WriteGuidMask(3, 0, 2, 4, 6, 1, 5, 7);
+            BitPack.WriteGuidMask(1, 5, 3, 0, 6, 7, 4, 2);
 
             BitPack.Flush();
 
-            BitPack.WriteGuidBytes(2, 7, 1);
-
-            setFlightSpeed.WriteFloat(speed);
-
-            BitPack.WriteGuidBytes(0, 4, 5);
+            BitPack.WriteGuidBytes(4, 5, 1, 3, 2);
 
             setFlightSpeed.WriteUInt32(0);
 
-            BitPack.WriteGuidBytes(6, 3);
+            BitPack.WriteGuidBytes(6, 0);
+
+            setFlightSpeed.WriteFloat(speed);
+
+            BitPack.WriteGuidBytes(7);
 
             session.Send(ref setFlightSpeed);
         }
@@ -3819,15 +3824,15 @@ namespace WorldServer.Game.Packets.PacketHandler
             PacketWriter moveSetCanFly = new PacketWriter(ServerMessage.MoveSetCanFly);
             BitPack BitPack = new BitPack(moveSetCanFly, session.Character.Guid);
 
-            BitPack.WriteGuidMask(6, 2, 4, 1, 0, 5, 7, 3);
+            BitPack.WriteGuidMask(2, 4, 7, 0, 6, 3, 5, 1);
 
             BitPack.Flush();
 
-            BitPack.WriteGuidBytes(7, 6, 4);
+            BitPack.WriteGuidBytes(1, 6, 0, 3, 5, 7);
 
             moveSetCanFly.WriteUInt32(0);
 
-            BitPack.WriteGuidBytes(2, 3, 1, 0, 5);
+            BitPack.WriteGuidBytes(4);
 
             session.Send(ref moveSetCanFly);
         }
@@ -3837,67 +3842,63 @@ namespace WorldServer.Game.Packets.PacketHandler
             PacketWriter unsetCanFly = new PacketWriter(ServerMessage.MoveUnsetCanFly);
             BitPack BitPack = new BitPack(unsetCanFly, session.Character.Guid);
 
-            BitPack.WriteGuidMask(7, 6, 5, 1, 2, 4, 3, 0);
+            BitPack.WriteGuidMask(2, 6, 1, 7, 4, 5, 3, 0);
 
             BitPack.Flush();
 
-            BitPack.WriteGuidBytes(0, 6, 3, 7, 2, 1, 5);
+            BitPack.WriteGuidBytes(2, 4, 5, 1, 7, 6, 3, 0);
 
             unsetCanFly.WriteUInt32(0);
-
-            BitPack.WriteGuidBytes(4);
 
             session.Send(ref unsetCanFly);
         }
 
         public static void HandleMoveTeleport(ref WorldClass session, Vector4 vector)
         {
-            bool IsTransport = false;
-            bool Unknown = false;
+            bool isTransport = false;
+            bool unknown = false;
 
             PacketWriter moveTeleport = new PacketWriter(ServerMessage.MoveTeleport);
             BitPack BitPack = new BitPack(moveTeleport, session.Character.Guid);
 
-            BitPack.WriteGuidMask(7);
-            BitPack.Write(Unknown);
-            BitPack.WriteGuidMask(2, 0);
+            BitPack.Write(isTransport);
+            BitPack.WriteGuidMask(3);
 
-            if (Unknown)
+            if (isTransport)
+                BitPack.WriteTransportGuidMask(1, 3, 6, 4, 5, 7, 0, 2);
+
+            BitPack.WriteGuidMask(4, 5, 0);
+
+            BitPack.Write(unknown);
+
+            if (unknown)
             {
                 BitPack.Write(0);
                 BitPack.Write(0);
             }
 
-            BitPack.Write(IsTransport);
-
-            if (IsTransport)
-                BitPack.WriteTransportGuidMask(4, 3, 5, 7, 0, 2, 6, 1);
-
-            BitPack.WriteGuidMask(5, 1, 3, 6, 4);
+            BitPack.WriteGuidMask(7, 6, 2, 1);
 
             BitPack.Flush();
 
-            BitPack.WriteGuidBytes(0);
+            if (isTransport)
+                BitPack.WriteTransportGuidBytes(2, 3, 5, 0, 4, 6, 1, 7);
 
-            if (IsTransport)
-                BitPack.WriteTransportGuidBytes(7, 6, 0, 2, 3, 1, 5, 4);
+            if (unknown)
+                moveTeleport.WriteUInt8(0);
 
             BitPack.WriteGuidBytes(6, 1);
 
-            moveTeleport.WriteUInt32(0);
-
-            BitPack.WriteGuidBytes(7, 5);
-
             moveTeleport.WriteFloat(vector.X);
-
-            BitPack.WriteGuidBytes(4, 3, 2);
-
-            moveTeleport.WriteFloat(vector.Y);
             moveTeleport.WriteFloat(vector.O);
-            moveTeleport.WriteFloat(vector.Z);
 
-            if (Unknown)
-                moveTeleport.WriteUInt8(0);
+            BitPack.WriteGuidBytes(3);
+
+            moveTeleport.WriteFloat(vector.Z);
+            moveTeleport.WriteUInt32(0);
+            moveTeleport.WriteFloat(vector.Y);
+
+            BitPack.WriteGuidBytes(7, 4, 5, 0, 2);
 
             session.Send(ref moveTeleport);
         }
