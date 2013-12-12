@@ -21,8 +21,8 @@ namespace Framework.Constants.NetMessage
     {
         #region Legacy
         ObjectUpdate                      = 0x1C89,
-        TutorialFlags = 0x0D1B,
-        StartCinematic = 0x0198,
+        TutorialFlags                     = 0x138D,
+        StartCinematic                    = 0x1320,
         #endregion
 
         #region JAMClientConnection
