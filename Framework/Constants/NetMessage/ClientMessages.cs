@@ -44,7 +44,7 @@ namespace Framework.Constants.NetMessage
         EnumCharacters              = 0x047C, // done
         PlayerLogin                 = 0x0754, // done
         LoadingScreenNotify         = 0x0650, // done
-        SetActionButton = 0x014C,
+        SetActionButton             = 0x0D5E,
         CreateCharacter             = 0x077B, // done
         QueryPlayerName = 0x11E9,
         QueryRealmName = 0x09E1,
@@ -58,7 +58,7 @@ namespace Framework.Constants.NetMessage
         CliQueryNPCText = 0x17CF,
         CliTalkToGossip = 0x025C,
         CliLogoutRequest = 0x03EC,
-        CliSetSelection = 0x07CD,
+        CliSetSelection             = 0x0AC5,
         #endregion
 
         #region PlayerMove

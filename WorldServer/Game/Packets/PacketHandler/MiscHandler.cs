@@ -116,11 +116,11 @@ namespace WorldServer.Game.Packets.PacketHandler
             Log.Message(LogType.Debug, "Player {0} (Guid: {1}) is active.", session.Character.Name, session.Character.Guid);
         }
 
-        [Opcode(ClientMessage.CliSetSelection, "17538")]
+        [Opcode(ClientMessage.CliSetSelection, "17658")]
         public static void HandleSetSelection(ref PacketReader packet, WorldClass session)
         {
-            byte[] guidMask = { 7, 2, 1, 3, 5, 4, 0, 6 };
-            byte[] guidBytes = { 1, 2, 3, 0, 7, 5, 4, 6 };
+            byte[] guidMask = { 1, 0, 2, 7, 5, 3, 4, 6 };
+            byte[] guidBytes = { 2, 0, 3, 7, 4, 5, 6, 1 };
 
             BitUnpack GuidUnpacker = new BitUnpack(packet);
 
@@ -141,13 +141,13 @@ namespace WorldServer.Game.Packets.PacketHandler
             }
         }
 
-        [Opcode(ClientMessage.SetActionButton, "17538")]
+        [Opcode(ClientMessage.SetActionButton, "17658")]
         public static void HandleSetActionButton(ref PacketReader packet, WorldClass session)
         {
             var pChar = session.Character;
 
-            byte[] actionMask = { 5, 0, 3, 1, 4, 7, 6, 2 };
-            byte[] actionBytes = { 3, 4, 6, 7, 1, 2, 0, 5 };
+            byte[] actionMask = { 6, 4, 7, 2, 3, 0, 5, 1 };
+            byte[] actionBytes = { 4, 0, 7, 2, 1, 3, 6, 5 };
             
             BitUnpack actionUnpacker = new BitUnpack(packet);
 
@@ -185,8 +185,8 @@ namespace WorldServer.Game.Packets.PacketHandler
             const int buttonCount = 132;
             var buttons = new byte[buttonCount][];
 
-            byte[] buttonMask = { 0, 1, 3, 4, 6, 7, 2, 5 };
-            byte[] buttonBytes = { 5, 2, 0, 1, 3, 6, 4, 7 };
+            byte[] buttonMask = { 2, 7, 3, 0, 6, 1, 4, 5 };
+            byte[] buttonBytes = { 7, 0, 6, 5, 1, 2, 4, 3 };
 
             var actions = ActionMgr.GetActionButtons(pChar, pChar.ActiveSpecGroup);
             
