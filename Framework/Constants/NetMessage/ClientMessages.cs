@@ -40,10 +40,10 @@ namespace Framework.Constants.NetMessage
         ObjectUpdateFailed = 0x1A44,
         ViolenceLevel               = 0x0448, // done
         RealmSplit = 0x0449,
-        DBQueryBulk = 0x01E4,
+        DBQueryBulk                 = 0x0676, // done
         GenerateRandomCharacterName = 0x0DD1, // done
         EnumCharacters              = 0x047C, // done
-        PlayerLogin = 0x01E1,
+        PlayerLogin                 = 0x0754, // done
         LoadingScreenNotify         = 0x0650, // done
         SetActionButton = 0x014C,
         CreateCharacter             = 0x077B, // done

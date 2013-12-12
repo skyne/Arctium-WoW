@@ -259,12 +259,12 @@ namespace WorldServer.Game.PacketHandler
             session.Send(ref generateRandomCharacterNameResult);
         }
 
-        [Opcode(ClientMessage.PlayerLogin, "17538")]
+        [Opcode(ClientMessage.PlayerLogin, "17658")]
         public static void HandlePlayerLogin(ref PacketReader packet, WorldClass session)
         {
-            byte[] guidMask = { 1, 0, 7, 2, 5, 6, 4, 3 };
-            byte[] guidBytes = { 7, 6, 0, 1, 4, 3, 2, 5 };
-
+            byte[] guidMask = { 0, 7, 2, 5, 4, 6, 1, 3 };
+            byte[] guidBytes = { 7, 1, 5, 0, 3, 6, 2, 4 };            
+            
             BitUnpack GuidUnpacker = new BitUnpack(packet);
 
             var unknown = packet.Read<float>();
