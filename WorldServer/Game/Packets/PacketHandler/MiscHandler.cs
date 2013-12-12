@@ -66,7 +66,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             session.Send(ref pong);
         }
 
-        [Opcode(ClientMessage.LogDisconnect, "17538")]
+        [Opcode(ClientMessage.LogDisconnect, "17658")]
         public static void HandleDisconnectReason(ref PacketReader packet, WorldClass session)
         {
             var pChar = session.Character;
@@ -108,7 +108,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             Log.Message(LogType.Debug, "Violence level from account '{0} (Id: {1})' is {2}.", session.Account.Name, session.Account.Id, (ViolenceLevel)violenceLevel);
         }
 
-        [Opcode(ClientMessage.ActivePlayer, "17538")]
+        [Opcode(ClientMessage.ActivePlayer, "17658")]
         public static void HandleActivePlayer(ref PacketReader packet, WorldClass session)
         {
             byte active = packet.Read<byte>();    // Always 0

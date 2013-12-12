@@ -28,11 +28,11 @@ namespace Framework.Constants.NetMessage
         #region UserRouterClient
         AuthSession                 = 0x196E, // done
         Ping                        = 0x18E2, // done
-        LogDisconnect = 0x14FA,
+        LogDisconnect               = 0x19EA,
         #endregion
 
         #region Legacy
-        ActivePlayer = 0x1A4D,
+        ActivePlayer                = 0x0A12,
         #endregion
 
         // Value > 0x1FFF are not known.
