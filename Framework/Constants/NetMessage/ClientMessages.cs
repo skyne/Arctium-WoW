@@ -57,7 +57,7 @@ namespace Framework.Constants.NetMessage
         CliQueryGameObject = 0x1677,
         CliQueryNPCText = 0x17CF,
         CliTalkToGossip = 0x025C,
-        CliLogoutRequest = 0x03EC,
+        CliLogoutRequest            = 0x0183,
         CliSetSelection             = 0x0AC5,
         #endregion
 
