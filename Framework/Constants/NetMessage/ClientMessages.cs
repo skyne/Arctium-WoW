@@ -23,12 +23,11 @@ namespace Framework.Constants.NetMessage
         ChatMessageSay              = 0x0866,
         ChatMessageYell             = 0x03AB,
         ChatMessageWhisper          = 0x0D8C,
-
         #endregion
 
         #region UserRouterClient
-        AuthSession                 = 0x196E, // done
-        Ping                        = 0x18E2, // done
+        AuthSession                 = 0x196E,
+        Ping                        = 0x18E2,
         LogDisconnect               = 0x19EA,
         #endregion
 
@@ -39,24 +38,24 @@ namespace Framework.Constants.NetMessage
         // Value > 0x1FFF are not known.
         #region JAM
         ObjectUpdateFailed          = 0x0A95,
-        ViolenceLevel               = 0x0448, // done
-        DBQueryBulk                 = 0x0676, // done
-        GenerateRandomCharacterName = 0x0DD1, // done
-        EnumCharacters              = 0x047C, // done
-        PlayerLogin                 = 0x0754, // done
-        LoadingScreenNotify         = 0x0650, // done
+        ViolenceLevel               = 0x0448,
+        DBQueryBulk                 = 0x0676,
+        GenerateRandomCharacterName = 0x0DD1,
+        EnumCharacters              = 0x047C,
+        PlayerLogin                 = 0x0754,
+        LoadingScreenNotify         = 0x0650,
         SetActionButton             = 0x0D5E,
-        CreateCharacter             = 0x077B, // done
-        QueryPlayerName = 0x11E9,
-        QueryRealmName = 0x09E1,
-        ReadyForAccountDataTimes    = 0x047F, // done
-        UITimeRequest               = 0x0574, // done
-        CharDelete                  = 0x067A, // done
+        CreateCharacter             = 0x077B,
+        QueryPlayerName             = 0x05F4,
+        QueryRealmName              = 0x0472,
+        ReadyForAccountDataTimes    = 0x047F,
+        UITimeRequest               = 0x0574,
+        CharDelete                  = 0x067A,
         CliSetSpecialization        = 0x085F,
         CliLearnTalents             = 0x026C,
-        CliQueryCreature = 0x1647,
-        CliQueryGameObject = 0x1677,
-        CliQueryNPCText = 0x17CF,
+        CliQueryCreature            = 0x0C4A,
+        CliQueryGameObject          = 0x08BC, // to do
+        CliQueryNPCText             = 0x006C,
         CliTalkToGossip = 0x025C,
         CliLogoutRequest            = 0x0183,
         CliSetSelection             = 0x0AC5,

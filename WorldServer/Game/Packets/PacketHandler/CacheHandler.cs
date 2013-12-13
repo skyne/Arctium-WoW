@@ -31,15 +31,13 @@ namespace WorldServer.Game.Packets.PacketHandler
 {
     public class CacheHandler : Globals
     {
-        [Opcode(ClientMessage.CliQueryCreature, "17538")]
+        [Opcode(ClientMessage.CliQueryCreature, "17658")]
         public static void HandleQueryCreature(ref PacketReader packet, WorldClass session)
         {
             var id = packet.Read<int>();
 
             PacketWriter queryCreatureResponse = new PacketWriter(ServerMessage.QueryCreatureResponse);
             BitPack BitPack = new BitPack(queryCreatureResponse);
-
-            queryCreatureResponse.WriteInt32(id);
 
             var creature = DataMgr.FindCreature(id);
             var hasData = (creature != null);
@@ -50,10 +48,10 @@ namespace WorldServer.Game.Packets.PacketHandler
             {
                 var stats = creature.Stats;
 
+                BitPack.Write(stats.RacialLeader);
+                BitPack.Write(stats.IconName.Length + 1, 6);
                 BitPack.Write(0, 11);
                 BitPack.Write(stats.QuestItemId.Count, 22);
-                BitPack.Write(stats.IconName.Length + 1, 6);
-                BitPack.Write(stats.RacialLeader);
 
                 for (int i = 0; i < 8; i++)
                 {
@@ -67,39 +65,44 @@ namespace WorldServer.Game.Packets.PacketHandler
 
                 BitPack.Flush();
 
-                queryCreatureResponse.WriteInt32(stats.Family);
-                queryCreatureResponse.WriteInt32(stats.ExpansionRequired);
+                queryCreatureResponse.WriteInt32(stats.DisplayInfoId[2]);
+                queryCreatureResponse.WriteInt32(stats.QuestKillNpcId[1]);
 
                 queryCreatureResponse.WriteInt32(stats.Type);
 
-                if (stats.SubName != "")
-                    queryCreatureResponse.WriteCString(stats.SubName);
+                queryCreatureResponse.WriteCString(stats.Name);
 
-                queryCreatureResponse.WriteInt32(stats.DisplayInfoId[0]);
+                queryCreatureResponse.WriteFloat(stats.PowerModifier);
+
+                foreach (var v in stats.Flag)
+                    queryCreatureResponse.WriteInt32(v);
+
+                queryCreatureResponse.WriteInt32(stats.Family);
+                queryCreatureResponse.WriteInt32(stats.QuestKillNpcId[0]);
                 queryCreatureResponse.WriteInt32(stats.DisplayInfoId[3]);
 
                 foreach (var v in stats.QuestItemId)
                     queryCreatureResponse.WriteInt32(v);
 
-                queryCreatureResponse.WriteCString(stats.Name);
+                queryCreatureResponse.WriteFloat(stats.HealthModifier);
+
+                queryCreatureResponse.WriteInt32(stats.MovementInfoId);
+                queryCreatureResponse.WriteInt32(stats.ExpansionRequired);
 
                 if (stats.IconName != "")
                     queryCreatureResponse.WriteCString(stats.IconName);
 
-                foreach (var v in stats.Flag)
-                    queryCreatureResponse.WriteInt32(v);
-
-                queryCreatureResponse.WriteFloat(stats.HealthModifier);
-                queryCreatureResponse.WriteInt32(stats.Rank);
-                queryCreatureResponse.WriteInt32(stats.QuestKillNpcId[0]);
-                queryCreatureResponse.WriteInt32(stats.QuestKillNpcId[1]);
-                queryCreatureResponse.WriteFloat(stats.PowerModifier);
-                queryCreatureResponse.WriteInt32(stats.MovementInfoId);
                 queryCreatureResponse.WriteInt32(stats.DisplayInfoId[1]);
-                queryCreatureResponse.WriteInt32(stats.DisplayInfoId[2]);
+                queryCreatureResponse.WriteInt32(stats.DisplayInfoId[0]);
+                queryCreatureResponse.WriteInt32(stats.Rank);
+
+                if (stats.SubName != "")
+                    queryCreatureResponse.WriteCString(stats.SubName);
             }
             else
                 Log.Message(LogType.Debug, "Creature (Id: {0}) not found.", id);
+            
+            queryCreatureResponse.WriteInt32(id);
 
             session.Send(ref queryCreatureResponse);
         }
@@ -163,26 +166,29 @@ namespace WorldServer.Game.Packets.PacketHandler
             session.Send(ref queryGameObjectResponse);
         }
 
-        [Opcode(ClientMessage.CliQueryNPCText, "17538")]
+        [Opcode(ClientMessage.CliQueryNPCText, "17658")]
         public static void HandleCliQueryNPCText(ref PacketReader packet, WorldClass session)
         {
             BitUnpack BitUnpack = new BitUnpack(packet);
 
-            byte[] guidMask = { 7, 0, 6, 4, 2, 3, 1, 5 };
-            byte[] guidBytes = { 6, 4, 1, 3, 2, 5, 7, 0 };
+            byte[] guidMask     = { 5, 2, 7, 3, 4, 0, 6, 1 };
+            byte[] guidBytes    = { 0, 7, 1, 4, 3, 5, 2, 6 };
+            
+            var gossipTextId    = packet.Read<int>();
+            var guid            = BitUnpack.GetPackedValue(guidMask, guidBytes);
 
-            var gossipTextId = packet.Read<int>();
-            var guid = BitUnpack.GetPackedValue(guidMask, guidBytes);
-
-            var gossipData = GossipMgr.GetGossip<Creature>(SmartGuid.GetGuid(guid));
+            var gossipData      = GossipMgr.GetGossip<Creature>(SmartGuid.GetGuid(guid));
 
             if (gossipData != null)
             {
                 PacketWriter queryNPCTextResponse = new PacketWriter(ServerMessage.QueryNPCTextResponse);
                 BitPack BitPack = new BitPack(queryNPCTextResponse);
 
-                queryNPCTextResponse.WriteInt32(gossipTextId);
+                BitPack.Write(1);
+                BitPack.Flush();
+
                 queryNPCTextResponse.WriteInt32(0);
+                queryNPCTextResponse.WriteInt32(gossipTextId);
                 queryNPCTextResponse.WriteFloat(1);
 
                 for (int i = 0; i < 7; i++)
@@ -193,13 +199,12 @@ namespace WorldServer.Game.Packets.PacketHandler
                 for (int i = 0; i < 7; i++)
                     queryNPCTextResponse.WriteUInt32(0);
 
-                BitPack.Write(1);
-                BitPack.Flush();
 
                 var size = (uint)queryNPCTextResponse.BaseStream.Length - 13;
                 queryNPCTextResponse.WriteUInt32Pos(size, 8);
 
-                session.Send(ref queryNPCTextResponse);
+                session.Send(ref queryNPCTextResponse);            
+            
             }
         }
 
@@ -305,7 +310,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             }
         }
 
-        [Opcode(ClientMessage.QueryRealmName, "17538")]
+        [Opcode(ClientMessage.QueryRealmName, "17658")]
         public static void HandleQueryRealmName(ref PacketReader packet, WorldClass session)
         {
             Character pChar = session.Character;
@@ -321,8 +326,8 @@ namespace WorldServer.Game.Packets.PacketHandler
             realmQueryResponse.WriteUInt8(0);
             realmQueryResponse.WriteUInt32(realmId);       // <= 0 => End of packet
 
-            BitPack.Write(realmName.Length, 8);
             BitPack.Write(1);
+            BitPack.Write(realmName.Length, 8);
             BitPack.Write(realmName.Length, 8);
 
             BitPack.Flush();
