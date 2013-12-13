@@ -55,7 +55,7 @@ namespace WorldServer.Game.Packets.PacketHandler
 
                 for (int i = 0; i < 8; i++)
                 {
-                    if (i == 0)
+                    if (i == 1)
                         BitPack.Write(stats.Name.Length + 1, 11);
                     else
                         BitPack.Write(0, 11);
@@ -107,11 +107,11 @@ namespace WorldServer.Game.Packets.PacketHandler
             session.Send(ref queryCreatureResponse);
         }
 
-        [Opcode(ClientMessage.CliQueryGameObject, "17538")]
+        [Opcode(ClientMessage.CliQueryGameObject, "17658")]
         public static void HandleQueryGameObject(ref PacketReader packet, WorldClass session)
         {
-            byte[] guidMask = { 6, 4, 0, 5, 1, 7, 3, 2 };
-            byte[] guidBytes = { 5, 0, 6, 7, 3, 4, 2, 1 };
+            byte[] guidMask = { 6, 3, 4, 7, 2, 0, 1, 5 };
+            byte[] guidBytes = { 7, 4, 6, 1, 5, 2, 3, 0 };
 
             BitUnpack BitUnpack = new BitUnpack(packet);
 
