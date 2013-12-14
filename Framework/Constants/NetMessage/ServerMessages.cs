@@ -42,7 +42,7 @@ namespace Framework.Constants.NetMessage
         #endregion
 
         #region JAMClientGossip
-        GossipMessage = 0x03FC,
+        GossipMessage                     = 0x1736,
         #endregion
 
         #region JAMClientSpell

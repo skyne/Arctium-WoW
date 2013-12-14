@@ -54,9 +54,9 @@ namespace Framework.Constants.NetMessage
         CliSetSpecialization        = 0x085F,
         CliLearnTalents             = 0x026C,
         CliQueryCreature            = 0x0C4A,
-        CliQueryGameObject          = 0x08BC, // to do
+        CliQueryGameObject          = 0x08BC,
         CliQueryNPCText             = 0x006C,
-        CliTalkToGossip = 0x025C,
+        CliTalkToGossip             = 0x02EF,
         CliLogoutRequest            = 0x0183,
         CliSetSelection             = 0x0AC5,
         #endregion
