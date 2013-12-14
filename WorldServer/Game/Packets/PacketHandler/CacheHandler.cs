@@ -323,8 +323,8 @@ namespace WorldServer.Game.Packets.PacketHandler
             PacketWriter realmQueryResponse = new PacketWriter(ServerMessage.RealmQueryResponse);
             BitPack BitPack = new BitPack(realmQueryResponse);
 
-            realmQueryResponse.WriteUInt8(0);
-            realmQueryResponse.WriteUInt32(realmId);       // <= 0 => End of packet
+            realmQueryResponse.WriteUInt8(0);        // <= 0 => End of packet
+            realmQueryResponse.WriteUInt32(realmId);
 
             BitPack.Write(1);
             BitPack.Write(realmName.Length, 8);

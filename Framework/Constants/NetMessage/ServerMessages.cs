@@ -49,7 +49,6 @@ namespace Framework.Constants.NetMessage
         SendKnownSpells                   = 0x0623,
         #endregion
 
-        // Updated
         #region JAMClientDispatch
         UnlearnedSpells                   = 0x0008,
         LoginSetTimeSpeed                 = 0x004A,

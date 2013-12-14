@@ -125,6 +125,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             {
                 movementValues.FallTime = packet.Read<uint>();
                 movementValues.JumpVelocity = packet.Read<float>();
+
                 if (movementValues.HasJumpData)
                 {
                     movementValues.CurrentSpeed = packet.Read<float>();
@@ -254,6 +255,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                     movementValues.Cos = packet.Read<float>();
                     movementValues.Sin = packet.Read<float>();
                 }
+
                 movementValues.FallTime = packet.Read<uint>();
                 movementValues.JumpVelocity = packet.Read<float>();
             }
@@ -382,6 +384,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                     movementValues.Cos = packet.Read<float>();
                     movementValues.Sin = packet.Read<float>();
                 }
+
                 movementValues.JumpVelocity = packet.Read<float>();
                 movementValues.FallTime = packet.Read<uint>();
             }
@@ -513,6 +516,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                     movementValues.Sin = packet.Read<float>();
                     movementValues.Cos = packet.Read<float>();
                 }
+
                 movementValues.FallTime = packet.Read<uint>();
                 movementValues.JumpVelocity = packet.Read<float>();
             }
@@ -627,12 +631,14 @@ namespace WorldServer.Game.Packets.PacketHandler
             if (movementValues.IsFallingOrJumping)
             {
                 movementValues.JumpVelocity = packet.Read<float>();
+
                 if (movementValues.HasJumpData)
                 {
                     movementValues.CurrentSpeed = packet.Read<float>();
                     movementValues.Cos = packet.Read<float>();
                     movementValues.Sin = packet.Read<float>();
                 }
+
                 movementValues.FallTime = packet.Read<uint>();
             }
 
@@ -757,6 +763,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                     movementValues.Sin = packet.Read<float>();
                     movementValues.CurrentSpeed = packet.Read<float>();
                 }
+
                 movementValues.FallTime = packet.Read<uint>();
                 movementValues.JumpVelocity = packet.Read<float>();
             }
@@ -879,6 +886,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                     movementValues.Cos = packet.Read<float>();
                     movementValues.Sin = packet.Read<float>();
                 }
+
                 movementValues.FallTime = packet.Read<uint>();
                 movementValues.JumpVelocity = packet.Read<float>();
             }
@@ -999,12 +1007,14 @@ namespace WorldServer.Game.Packets.PacketHandler
             if (movementValues.IsFallingOrJumping)
             {
                 movementValues.FallTime = packet.Read<uint>();
+
                 if (movementValues.HasJumpData)
                 {
                     movementValues.CurrentSpeed = packet.Read<float>();
                     movementValues.Sin = packet.Read<float>();
                     movementValues.Cos = packet.Read<float>();
                 }
+
                 movementValues.JumpVelocity = packet.Read<float>();
             }
 
@@ -1125,6 +1135,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             {
                 movementValues.JumpVelocity = packet.Read<float>();
                 movementValues.FallTime = packet.Read<uint>();
+
                 if (movementValues.HasJumpData)
                 {
                     movementValues.CurrentSpeed = packet.Read<float>();
@@ -1250,6 +1261,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             {
                 movementValues.FallTime = packet.Read<uint>();
                 movementValues.JumpVelocity = packet.Read<float>();
+
                 if (movementValues.HasJumpData)
                 {
                     movementValues.Cos = packet.Read<float>();
@@ -1377,12 +1389,14 @@ namespace WorldServer.Game.Packets.PacketHandler
             if (movementValues.IsFallingOrJumping)
             {
                 movementValues.FallTime = packet.Read<uint>();
+
                 if (movementValues.HasJumpData)
                 {
                     movementValues.CurrentSpeed = packet.Read<float>();
                     movementValues.Cos = packet.Read<float>();
                     movementValues.Sin = packet.Read<float>();
                 }
+
                 movementValues.JumpVelocity = packet.Read<float>();
             }
 
@@ -1511,12 +1525,14 @@ namespace WorldServer.Game.Packets.PacketHandler
             if (movementValues.IsFallingOrJumping)
             {
                 movementValues.JumpVelocity = packet.Read<float>();
+
                 if (movementValues.HasJumpData)
                 {
                     movementValues.Sin = packet.Read<float>();
                     movementValues.Cos = packet.Read<float>();
                     movementValues.CurrentSpeed = packet.Read<float>();
                 }
+
                 movementValues.FallTime = packet.Read<uint>();
             }
 
@@ -1629,6 +1645,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                     movementValues.CurrentSpeed = packet.Read<float>();
                     movementValues.Cos = packet.Read<float>();
                 }
+
                 movementValues.FallTime = packet.Read<uint>();
                 movementValues.JumpVelocity = packet.Read<float>();
             }
@@ -1753,6 +1770,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             {
                 movementValues.FallTime = packet.Read<uint>();
                 movementValues.JumpVelocity = packet.Read<float>();
+
                 if (movementValues.HasJumpData)
                 {
                     movementValues.Cos = packet.Read<float>();
@@ -1877,6 +1895,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                     movementValues.Cos = packet.Read<float>();
                     movementValues.CurrentSpeed = packet.Read<float>();
                 }
+
                 movementValues.JumpVelocity = packet.Read<float>();
                 movementValues.FallTime = packet.Read<uint>();
             }
@@ -2005,6 +2024,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                     movementValues.Sin = packet.Read<float>();
                     movementValues.Cos = packet.Read<float>();
                 }
+
                 movementValues.JumpVelocity = packet.Read<float>();
                 movementValues.FallTime = packet.Read<uint>();
             }
@@ -2127,6 +2147,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                     movementValues.Sin = packet.Read<float>();
                     movementValues.Cos = packet.Read<float>();
                 }
+
                 movementValues.JumpVelocity = packet.Read<float>();
                 movementValues.FallTime = packet.Read<uint>();
             }
@@ -2258,6 +2279,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                     movementValues.Sin = packet.Read<float>();
                     movementValues.Cos = packet.Read<float>();
                 }
+
                 movementValues.FallTime = packet.Read<uint>();
                 movementValues.JumpVelocity = packet.Read<float>();
             }
@@ -2377,6 +2399,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                     movementValues.Cos = packet.Read<float>();
                     movementValues.Sin = packet.Read<float>();
                 }
+
                 movementValues.JumpVelocity = packet.Read<float>();
                 movementValues.FallTime = packet.Read<uint>();
             }
@@ -2497,12 +2520,14 @@ namespace WorldServer.Game.Packets.PacketHandler
             if (movementValues.IsFallingOrJumping)
             {
                 movementValues.JumpVelocity = packet.Read<float>();
+
                 if (movementValues.HasJumpData)
                 {
                     movementValues.Cos = packet.Read<float>();
                     movementValues.Sin = packet.Read<float>();
                     movementValues.CurrentSpeed = packet.Read<float>();
                 }
+
                 movementValues.FallTime = packet.Read<uint>();
             }
 
@@ -2633,6 +2658,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                     movementValues.CurrentSpeed = packet.Read<float>();
                     movementValues.Cos = packet.Read<float>();
                 }
+
                 movementValues.FallTime = packet.Read<uint>();
                 movementValues.JumpVelocity = packet.Read<float>();
             }
@@ -2748,6 +2774,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             {
                 movementValues.FallTime = packet.Read<uint>();
                 movementValues.JumpVelocity = packet.Read<float>();
+
                 if (movementValues.HasJumpData)
                 {
                     movementValues.Sin = packet.Read<float>();
@@ -2872,12 +2899,14 @@ namespace WorldServer.Game.Packets.PacketHandler
             if (movementValues.IsFallingOrJumping)
             {
                 movementValues.JumpVelocity = packet.Read<float>();
+
                 if (movementValues.HasJumpData)
                 {
                     movementValues.Sin = packet.Read<float>();
                     movementValues.Cos = packet.Read<float>();
                     movementValues.CurrentSpeed = packet.Read<float>();
                 }
+
                 movementValues.FallTime = packet.Read<uint>();
             }
 
@@ -3002,6 +3031,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                     movementValues.Cos = packet.Read<float>();
                     movementValues.CurrentSpeed = packet.Read<float>();
                 }
+
                 movementValues.JumpVelocity = packet.Read<float>();
                 movementValues.FallTime = packet.Read<uint>();
             }
@@ -3127,6 +3157,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                     movementValues.Cos = packet.Read<float>();
                     movementValues.CurrentSpeed = packet.Read<float>();
                 }
+
                 movementValues.JumpVelocity = packet.Read<float>();
                 movementValues.FallTime = packet.Read<uint>();
             }
@@ -3248,6 +3279,7 @@ namespace WorldServer.Game.Packets.PacketHandler
             {
                 movementValues.JumpVelocity = packet.Read<float>();
                 movementValues.FallTime = packet.Read<uint>();
+
                 if (movementValues.HasJumpData)
                 {
                     movementValues.Sin = packet.Read<float>();
@@ -3377,6 +3409,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                     movementValues.Sin = packet.Read<float>();
                     movementValues.Cos = packet.Read<float>();
                 }
+
                 movementValues.JumpVelocity = packet.Read<float>();
                 movementValues.FallTime = packet.Read<uint>();
             }
@@ -3497,12 +3530,14 @@ namespace WorldServer.Game.Packets.PacketHandler
             if (movementValues.IsFallingOrJumping)
             {
                 movementValues.FallTime = packet.Read<uint>();
+
                 if (movementValues.HasJumpData)
                 {
                     movementValues.Cos = packet.Read<float>();
                     movementValues.Sin = packet.Read<float>();
                     movementValues.CurrentSpeed = packet.Read<float>();
                 }
+
                 movementValues.JumpVelocity = packet.Read<float>();
             }
 
@@ -3636,6 +3671,7 @@ namespace WorldServer.Game.Packets.PacketHandler
                     movementValues.Sin = packet.Read<float>();
                     movementValues.Cos = packet.Read<float>();
                 }
+
                 movementValues.FallTime = packet.Read<uint>();
                 movementValues.JumpVelocity = packet.Read<float>();
             }
