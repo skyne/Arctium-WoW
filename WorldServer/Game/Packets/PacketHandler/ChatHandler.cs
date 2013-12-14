@@ -103,24 +103,16 @@ namespace WorldServer.Game.Packets.PacketHandler
             BitPack BitPack = new BitPack(chat, guid);
 
             BitPack.Write(1);
-
             BitPack.Write(0);
-
             BitPack.Write(1);
 
             BitPack.Write(0, 8);
-
             BitPack.Write(1);
-
             BitPack.Write(!chatMessage.HasRealmId);
-
             BitPack.Write(1);
             BitPack.Write(0);
-
             BitPack.Write(!chatMessage.HasLanguage);
-
             BitPack.Write(1);
-
             BitPack.Write(0, 8);
 
             BitPack.WriteStringLength(chatMessage.Message, 12);
@@ -132,9 +124,9 @@ namespace WorldServer.Game.Packets.PacketHandler
 
             BitPack.Write(1);
             BitPack.Write(1);
+            BitPack.Write(0);
             BitPack.Write(1);
-            BitPack.Write(1);
-            BitPack.Write(1);
+            BitPack.Write(0);
 
             BitPack.WriteGuidMask(GuidMask3);
 
