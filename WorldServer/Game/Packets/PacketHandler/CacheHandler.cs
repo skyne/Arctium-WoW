@@ -427,8 +427,8 @@ namespace WorldServer.Game.Packets.PacketHandler
 
             size += textLength + alternativeTextLength;
 
+            dbReply.WriteInt32(broadCastText.Id);
             dbReply.WriteUInt32(0);    // UnixTime, last change server side
-            dbReply.WriteUInt32((uint)DBTypes.BroadcastText);
             dbReply.WriteUInt32((uint)size);
 
             dbReply.WriteInt32(broadCastText.Id);
@@ -444,7 +444,7 @@ namespace WorldServer.Game.Packets.PacketHandler
 
             dbReply.WriteUInt32(1);
 
-            dbReply.WriteInt32(broadCastText.Id);
+            dbReply.WriteUInt32((uint)DBTypes.BroadcastText);
 
             session.Send(ref dbReply);
         }
