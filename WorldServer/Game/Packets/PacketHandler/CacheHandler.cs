@@ -184,11 +184,10 @@ namespace WorldServer.Game.Packets.PacketHandler
                 PacketWriter queryNPCTextResponse = new PacketWriter(ServerMessage.QueryNPCTextResponse);
                 BitPack BitPack = new BitPack(queryNPCTextResponse);
 
-                BitPack.Write(1);
-                BitPack.Flush();
-
-                queryNPCTextResponse.WriteInt32(0);
+                queryNPCTextResponse.WriteUInt8(0x80);         // This is our enabled bit & flush.
                 queryNPCTextResponse.WriteInt32(gossipTextId);
+                queryNPCTextResponse.WriteInt32(0);
+
                 queryNPCTextResponse.WriteFloat(1);
 
                 for (int i = 0; i < 7; i++)
@@ -201,10 +200,12 @@ namespace WorldServer.Game.Packets.PacketHandler
 
 
                 var size = (uint)queryNPCTextResponse.BaseStream.Length - 13;
-                queryNPCTextResponse.WriteUInt32Pos(size, 8);
+                queryNPCTextResponse.WriteUInt32Pos(size, 9);
 
-                session.Send(ref queryNPCTextResponse);            
-            
+                session.Send(ref queryNPCTextResponse);
+
+                // Enabled bit & flush is written above.
+                // Normally the bit goes here and the flush is written at pos 0.
             }
         }
 
