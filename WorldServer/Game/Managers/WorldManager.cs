@@ -242,14 +242,14 @@ namespace WorldServer.Game.Managers
             BitPack.Write(values.IsVehicle);
             BitPack.Write(values.IsSelf);
             BitPack.Write(0);
-            BitPack.Write(0);
+            BitPack.Write(values.IsTransport);
             BitPack.Write(0);
             BitPack.Write(0);
             BitPack.Write(values.HasTarget);
             BitPack.Write(values.HasStationaryPosition);
+            BitPack.Write(values.IsAreaTrigger);
             BitPack.Write(0);
-            BitPack.Write(0);
-            BitPack.Write(0);
+            BitPack.Write(values.IsSceneObject);
             BitPack.Write(0);
             BitPack.Write(0);
             BitPack.Write(0, 22);
@@ -265,25 +265,35 @@ namespace WorldServer.Game.Managers
             {
                 BitPack.WriteGuidMask(5);
                 BitPack.Write(0);
-                BitPack.Write(1);
+                BitPack.Write(1);           // !Spline elevation
                 BitPack.WriteGuidMask(6);
                 BitPack.Write(0);
                 BitPack.Write(0, 19);
                 BitPack.WriteGuidMask(4);
                 BitPack.Write(!values.HasRotation);
-                BitPack.Write(1);
+                BitPack.Write(!(values.MovementFlags2 != 0));
                 BitPack.Write(1);
                 BitPack.WriteGuidMask(2, 3, 7);
                 BitPack.Write(0, 22);
-                BitPack.Write(1);
-                BitPack.Write(0);
-                BitPack.Write(1);
+                BitPack.Write(!(values.MovementFlags != 0));
+                BitPack.Write(0);           // !Time
+                BitPack.Write(1);           // !Pitch
                 BitPack.WriteGuidMask(1);
+                BitPack.Write(values.IsFallingOrJumping);
                 BitPack.Write(0);
-                BitPack.Write(0);
+
+                if (values.MovementFlags2 != 0)
+                    BitPack.Write(values.MovementFlags2, 13);
+
                 BitPack.WriteGuidMask(0);
-                BitPack.Write(0);
+                BitPack.Write(0);           // Spline
                 BitPack.Write(values.IsTransport);
+
+                if (values.MovementFlags != 0)
+                    BitPack.Write(values.MovementFlags, 30);
+
+                if (values.IsFallingOrJumping)
+                    BitPack.Write(values.HasJumpData);
             }
 
             BitPack.Flush();
@@ -292,6 +302,21 @@ namespace WorldServer.Game.Managers
             {
                 packet.WriteFloat(wObject.Position.Y);
                 BitPack.WriteGuidBytes(7, 1);
+
+                if (values.IsFallingOrJumping)
+                {
+                    packet.WriteUInt32(values.FallTime);
+
+                    if (values.HasJumpData)
+                    {
+                        packet.WriteFloat(values.Sin);
+                        packet.WriteFloat(values.Cos);
+                        packet.WriteFloat(values.CurrentSpeed);
+                    }
+
+                    packet.WriteFloat(values.JumpVelocity);
+                }
+
                 packet.WriteFloat(MovementSpeed.TurnSpeed);
                 packet.WriteFloat(MovementSpeed.FlyBackSpeed);
                 packet.WriteFloat(MovementSpeed.RunBackSpeed);
