@@ -271,25 +271,25 @@ namespace WorldServer.Game.Managers
                 BitPack.Write(0, 19);
                 BitPack.WriteGuidMask(4);
                 BitPack.Write(!values.HasRotation);
-                BitPack.Write(!(values.MovementFlags2 != 0));
+                BitPack.Write(!values.HasMovementFlags2);
                 BitPack.Write(1);
                 BitPack.WriteGuidMask(2, 3, 7);
                 BitPack.Write(0, 22);
-                BitPack.Write(!(values.MovementFlags != 0));
+                BitPack.Write(!values.HasMovementFlags);
                 BitPack.Write(0);           // !Time
                 BitPack.Write(1);           // !Pitch
                 BitPack.WriteGuidMask(1);
                 BitPack.Write(values.IsFallingOrJumping);
                 BitPack.Write(0);
 
-                if (values.MovementFlags2 != 0)
+                if (values.HasMovementFlags2)
                     BitPack.Write(values.MovementFlags2, 13);
 
                 BitPack.WriteGuidMask(0);
                 BitPack.Write(0);           // Spline
                 BitPack.Write(values.IsTransport);
 
-                if (values.MovementFlags != 0)
+                if (values.HasMovementFlags)
                     BitPack.Write(values.MovementFlags, 30);
 
                 if (values.IsFallingOrJumping)
