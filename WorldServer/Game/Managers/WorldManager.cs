@@ -325,7 +325,10 @@ namespace WorldServer.Game.Managers
                 BitPack.WriteGuidBytes(2);
                 packet.WriteFloat(MovementSpeed.SwimSpeed);
                 packet.WriteFloat(MovementSpeed.SwimBackSpeed);
-                packet.WriteFloat(wObject.Position.O);
+                
+                if (values.HasRotation)
+                    packet.WriteFloat(wObject.Position.O);
+                    
                 packet.WriteFloat(MovementSpeed.FlySpeed);
                 BitPack.WriteGuidBytes(6);
                 packet.WriteFloat(MovementSpeed.RunSpeed);
