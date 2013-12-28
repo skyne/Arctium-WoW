@@ -51,14 +51,25 @@ namespace WorldServer.Game.Managers
                 DB.Characters.Execute("INSERT INTO character_spells (guid, spellId) VALUES (?, ?)", pChar.Guid, spell.SpellId));
         }
 
-        public void AddSpell(Character pChar, uint spellId)
+        public PlayerSpell LookupSpellByID(uint spellId)
         {
-            PlayerSpell newspell = new PlayerSpell()
+            PlayerSpell spell = new PlayerSpell()
             {
                 SpellId = spellId,
                 State = PlayerSpellState.Unchanged,
                 Dependent = false,
             };
+
+            return spell;
+        }
+
+        public void AddSpell(Character pChar, PlayerSpell newspell)
+        {
+            pChar.SpellList.Add(newspell);
+        }   
+        public void AddSpell(Character pChar, uint spellId)
+        {
+            var newspell = LookupSpellByID(spellId);
 
             pChar.SpellList.Add(newspell);
         }        

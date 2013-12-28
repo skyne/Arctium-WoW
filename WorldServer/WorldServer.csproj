@@ -52,6 +52,7 @@
     <Compile Include="Game\Chat\Commands\GameObjectCommands.cs" />
     <Compile Include="Game\Chat\Commands\MiscCommands.cs" />
     <Compile Include="Game\Chat\Commands\MovementCommands.cs" />
+    <Compile Include="Game\Chat\Commands\PlayerCommands.cs" />
     <Compile Include="Game\Globals.cs" />
     <Compile Include="Game\Managers\ActionManager.cs" />
     <Compile Include="Game\Managers\AddonManager.cs" />
